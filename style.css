@@ -1,0 +1,167 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background: #f3f3f3;
+    color: #333;
+  }
+  
+  /* Navbar */
+  .navbar {
+    background: #4caf50; /* green theme */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+  }
+  
+  .nav-brand {
+    font-weight: bold;
+    color: #fff;
+    font-size: 1.2rem;
+  }
+  
+  .nav-links {
+    list-style-type: none;
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .nav-links li {
+    display: inline-block;
+  }
+  
+  .nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .nav-links a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Main / Hero */
+  .hero {
+    background: linear-gradient(120deg, #effffe, #dfffd9);
+    text-align: center;
+    padding: 2rem 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .hero h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .hero p {
+    font-size: 1.1rem;
+    color: #555;
+    max-width: 600px;
+    margin: 0.5rem auto 0;
+  }
+  
+  /* Calculator Card */
+  .calculator-card {
+    background: #fff;
+    margin: 0 auto;
+    max-width: 600px;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .calculator-card label {
+    display: block;
+    margin-top: 1rem;
+    font-weight: bold;
+  }
+  
+  .calculator-card input {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  #calculateBtn {
+    margin-top: 1.5rem;
+    background: #4caf50;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  #calculateBtn:hover {
+    background: #45a049;
+  }
+  
+  /* Results Section */
+  .result-section {
+    text-align: center;
+    margin: 2rem auto;
+    max-width: 600px;
+  }
+  
+  .result-section h2 {
+    margin-bottom: 0.5rem;
+  }
+  
+  #result {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    color: #2e7d32;
+  }
+  
+  #suggestions {
+    font-style: italic;
+    color: #555;
+  }
+  
+  /* About Page */
+  .about-container {
+    background: #fff;
+    margin: 1rem auto;
+    max-width: 700px;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .about-container h1 {
+    margin-bottom: 1rem;
+  }
+  
+  .about-container p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+  
+  .about-container ul {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+  }
+  
+  .about-container li {
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Footer */
+  footer {
+    background: #4caf50;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+  }
+  
