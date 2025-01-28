@@ -1,73 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Diego's Green Initiative - Enhanced</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>Carbon Footprint Estimator</title>
+  <!-- Include your style.css -->
+  <link rel="stylesheet" href="style.css" />
   <!-- TensorFlow.js library -->
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
   <!-- Chart.js library -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
 </head>
 <body>
-  <!-- Navigation Bar -->
+
+  <!-- Navbar / Header (Optional) -->
   <nav class="navbar">
-    <div class="nav-brand">Diego's Green Initiative</div>
+    <div class="nav-brand">Carbon Calculator</div>
     <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html" class="active">Home</a></li>
       <li><a href="about.html">About Me</a></li>
-      <li><a href="https://www.linkedin.com/in/diego-crisafulli-212bb0256" target="_blank">LinkedIn</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="blog.html">Blog</a></li>
     </ul>
   </nav>
 
-  <!-- Main Content -->
-  <main>
-    <!-- Hero Section -->
-    <section class="hero">
-      <h1>Carbon Footprint Estimator - Enhanced</h1>
-      <p>
-        Enter your daily habits below to estimate your carbon footprint. 
-        This project uses a <strong>TensorFlow.js</strong> model 
-        and now includes <strong>real-world benchmarks</strong> 
-        plus <strong>Chart.js</strong> data visualization for deeper insight!
-      </p>
-    </section>
+  <!-- Main Content Container -->
+  <main class="main-container">
+    <h1>Carbon Footprint Estimator</h1>
+    <p>Test your daily impact on the environment with a basic TensorFlow.js model.</p>
 
-    <!-- Calculator Card -->
-    <section class="calculator-card">
-      <label for="miles">Miles Driven (per day):</label>
-      <input type="number" id="miles" min="0" step="1" placeholder="e.g., 30" />
+    <div class="calculator-container">
+      <!-- Inputs Section -->
+      <div class="input-section">
+        <label for="miles">Miles Driven (per day):</label>
+        <input type="number" id="miles" min="0" placeholder="e.g., 30" />
 
-      <label for="diet">Meat-Based Meals per Day:</label>
-      <input type="number" id="diet" min="0" step="1" placeholder="e.g., 2" />
+        <label for="diet">Meat-Based Meals per Day:</label>
+        <input type="number" id="diet" min="0" placeholder="e.g., 2" />
 
-      <label for="flights">Short Flights per Month:</label>
-      <input type="number" id="flights" min="0" step="1" placeholder="e.g., 1" />
+        <label for="flights">Short Flights per Month:</label>
+        <input type="number" id="flights" min="0" placeholder="e.g., 1" />
+      </div>
 
-      <button id="calculateBtn">Calculate Footprint</button>
-    </section>
+      <!-- Buttons -->
+      <div class="button-section">
+        <button id="calculateBtn" class="btn">Calculate Footprint</button>
+        <button id="randomBtn" class="btn secondary">Random Example</button>
+        <button id="clearBtn" class="btn danger">Clear Form</button>
+        <button id="darkToggleBtn" class="btn toggle-dark">Dark Mode</button>
+      </div>
+    </div>
 
-    <!-- Results & Benchmark Comparison -->
-    <section class="result-section">
-      <h2>Your Estimated Carbon Footprint:</h2>
-      <div id="result">--</div>
-      <div id="benchmarkComparison"></div>
-      <div id="suggestions"></div>
-    </section>
+    <!-- Results Section -->
+    <div class="results-container">
+      <h2>Your Estimated Carbon Footprint</h2>
+      <div id="result" class="result-output">--</div>
+      <div id="benchmarkComparison" class="benchmark-output"></div>
+      <div id="suggestions" class="suggestions-output"></div>
+    </div>
 
-    <!-- Chart Visualization -->
-    <section class="chart-container">
-      <h3>Comparison Chart</h3>
+    <!-- Chart Section -->
+    <div class="chart-container">
       <canvas id="footprintChart"></canvas>
-    </section>
+    </div>
   </main>
 
-  <!-- Footer -->
+  <!-- Footer (Optional) -->
   <footer>
-    <p>&copy; 2025 Diego Crisafulli — Enhanced ML & Data Visualization</p>
+    <p>&copy; 2025 Diego Crisafulli. All Rights Reserved.</p>
   </footer>
 
-  <!-- Main Script -->
+  <!-- Your Custom Script -->
   <script src="script.js"></script>
 </body>
 </html>
