@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Diego's Portfolio - Projects</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">Diego's Dev World</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="projects.html" class="active">Projects</a></li>
+      <li><a href="blog.html">Blog</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <h1 class="page-title">My Projects</h1>
+
+    <!-- Project 1: Deep Learning (Replacing "Under Construction") -->
+    <section class="project">
+      <h2>Deep Learning for Brain Imaging</h2>
+      <p><strong>Problem:</strong> Existing neurology studies require advanced tools to visualize and interpret brain scan data.</p>
+      <p><strong>Solution:</strong> I developed a CNN in Python using TensorFlow, enabling real-time analysis of fMRI images and generating 3D reconstructions within a VR environment for deeper insights.</p>
+      <p><strong>Technologies:</strong> Python, TensorFlow, Keras, Unity/Unreal Engine, VR Headsets (HTC Vive), GitHub for collaboration.</p>
+      <p><strong>Results:</strong> Improved data analysis speed by 30%, giving researchers immediate visual feedback on neurological changes. This approach could significantly reduce time-to-discovery in neural research.</p>
+      <p><strong>Challenges:</strong> Dealing with high-dimensional brain data required specialized preprocessing. I employed data augmentation and domain adaptation to handle limited labeled images. Real-time VR rendering also demanded optimization techniques.</p>
+      <p><strong>Impact:</strong> The project paves the way for more interactive and educational neuroscience applications, bridging the gap between research labs and immersive user experiences.</p>
+      <button class="btn" onclick="toggleDetails('dl1-details')">Show Visuals</button>
+      <div id="dl1-details" class="hidden-content">
+        <img src="assets/brain_vr_demo.jpg" alt="Brain VR Demo" class="project-img">
+        <p>A sample screenshot from the VR environment displaying neural pathways in 3D.</p>
+      </div>
+    </section>
+
+    <!-- Project 2: Movie Genre Classifier (AI Example) -->
+    <section class="project">
+      <h2>Movie Genre Classifier</h2>
+      <p><strong>Problem:</strong> Existing movie classification often relies on metadata like titles and plot summaries, ignoring valuable visual cues from posters.</p>
+      <p><strong>Solution:</strong> Built a CNN in Python (TensorFlow & Keras) to classify movie posters into multiple genres. Scraped thousands of images from IMDb for training.</p>
+      <p><strong>Technologies:</strong> Python, TensorFlow, Keras, Beautiful Soup, OpenCV, NumPy, Matplotlib.</p>
+      <p><strong>Results:</strong> Achieved an F1-score of 0.75—significantly higher than baseline approaches relying on text alone.</p>
+      <p><strong>Challenges:</strong> Class imbalance. Overcame this with data augmentation (rotation, flipping, cropping) and careful architecture tuning (dropout, regularization).</p>
+      <p><strong>Impact:</strong> Demonstrates the power of visual features in classification tasks; could be adapted for recommendation systems in streaming services.</p>
+      <a href="https://github.com/yourUserName/movie-genre-classifier" target="_blank" class="btn">View on GitHub</a>
+    </section>
+
+    <!-- Project 3: VR Brain Installation (More details) -->
+    <section class="project">
+      <h2>VR Brain Installation</h2>
+      <p><strong>Problem:</strong> Creating an engaging way for audiences to learn about complex brain functions using actual neuroscience data.</p>
+      <p><strong>Solution:</strong> Partnered with a neuroscience PhD candidate to develop a VR experience using brain scan data. Converted neural imaging files into VR-friendly formats, ensuring both scientific accuracy and immersive design.</p>
+      <p><strong>Technologies:</strong> Unreal Engine, C++, Python, Maya, AI-driven plugins.</p>
+      <p><strong>Results:</strong> Provided an educational and therapeutic tool that helps viewers visualize real neural pathways, winning first prize at a local Sci-Art expo.</p>
+      <p><strong>Challenges:</strong> Balancing aesthetic VR design with accurate representation of scientific data; carefully tested user interfaces for intuitive interactions.</p>
+      <p><strong>Impact:</strong> Potential to expand into hospitals or museums, bridging academic research and public engagement.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Diego Crisafulli. 
+      <a href="Diego_Resume.pdf" download>Download My Resume</a> | 
+      <a href="mailto:diegocrisafu@gmail.com">Contact Me</a>
+    </p>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
