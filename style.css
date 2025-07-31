@@ -1,196 +1,176 @@
-/* Global Reset & Basic Defaults */
-* {
+/*
+ * Global styles for the portfolio website. Defines typography, colours
+ * and layout for each section as well as responsive behaviour. Feel free
+ * to customise the variables below to fit your personal branding.
+ */
+
+/* Colour palette */
+:root {
+    --background: #f5f7fa;
+    --primary: #2a4d69;
+    --secondary: #4b86b4;
+    --accent: #adcbe3;
+    --text: #333;
+    --light-text: #555;
+    --white: #ffffff;
+}
+
+html, body {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: Arial, sans-serif;
-    background: #f3f3f3;
-    color: #333;
-  }
-  
-  h1, h2 {
-    margin-bottom: 0.5rem;
-  }
-  
-  /* Navbar */
-  .navbar {
-    background: #4caf50;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background);
+    color: var(--text);
+    scroll-behavior: smooth;
+}
+
+/* Navigation bar styling */
+.navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem;
-  }
-  
-  .nav-brand {
-    font-size: 1.3rem;
-    font-weight: bold;
-    color: #fff;
-  }
-  
-  .nav-links {
-    list-style-type: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 0.5rem 1.5rem;
+    background-color: var(--primary);
+    color: var(--white);
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav‑logo {
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.nav‑links {
+    list-style: none;
     display: flex;
-    gap: 1rem;
-  }
-  
-  .nav-links li a {
-    color: #fff;
+    margin: 0;
+    padding: 0;
+}
+
+.nav‑links li {
+    margin-left: 1rem;
+}
+
+.nav‑links a {
     text-decoration: none;
-    font-weight: 500;
-  }
-  
-  .nav-links li a:hover,
-  .nav-links li a.active {
-    text-decoration: underline;
-  }
-  
-  /* Main Container */
-  .main-container {
-    max-width: 800px;
-    margin: 2rem auto;
-    padding: 0 1rem;
-    text-align: center;
-  }
-  
-  /* Calculator Container */
-  .calculator-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 2rem;
-  }
-  
-  .input-section {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    color: var(--white);
+    font-size: 0.95rem;
+    transition: color 0.3s ease;
+}
+
+.nav‑links a:hover {
+    color: var(--accent);
+}
+
+/* Generic section styling */
+.section {
+    padding: 4rem 1.5rem;
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.section h2 {
+    margin-top: 0;
     margin-bottom: 1rem;
-  }
-  
-  .input-section label {
-    font-weight: bold;
-    margin-bottom: 0.3rem;
-  }
-  
-  .input-section input {
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    text-align: center;
-  }
-  
-  /* Button Section */
-  .button-section {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    justify-content: center;
-  }
-  
-  .btn {
-    background: #4caf50;
-    color: #fff;
-    border: none;
-    padding: 0.6rem 1.2rem;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background 0.3s;
-  }
-  
-  .btn:hover {
-    background: #45a049;
-  }
-  
-  /* Additional Button Styles */
-  .btn.secondary {
-    background: #2196f3;
-  }
-  
-  .btn.secondary:hover {
-    background: #1976d2;
-  }
-  
-  .btn.danger {
-    background: #f44336;
-  }
-  
-  .btn.danger:hover {
-    background: #d32f2f;
-  }
-  
-  .btn.toggle-dark {
-    background: #757575;
-  }
-  
-  .btn.toggle-dark:hover {
-    background: #616161;
-  }
-  
-  /* Results Section */
-  .results-container {
-    margin-bottom: 2rem;
-  }
-  
-  .result-output {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #2e7d32;
+    font-size: 2rem;
+    color: var(--primary);
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 0.5rem;
+}
+
+.section‑content p,
+.section‑content ul {
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.section‑content ul {
+    padding-left: 1.2rem;
+}
+
+.skills‑list li {
     margin-bottom: 0.5rem;
-  }
-  
-  .benchmark-output {
-    color: #555;
-    margin-bottom: 0.5rem;
-  }
-  
-  .suggestions-output {
-    font-style: italic;
-    color: #555;
-  }
-  
-  /* Chart Container */
-  .chart-container {
-    background: #fff;
-    padding: 1rem;
-    border-radius: 8px;
-    margin-bottom: 2rem;
-    box-shadow: 0 0 8px rgba(0,0,0,0.1);
-  }
-  
-  /* Footer */
-  footer {
-    background: #4caf50;
-    color: #fff;
+}
+
+/* Hero section styling */
+.hero {
+    padding-top: 5rem; /* offset for fixed navbar */
     text-align: center;
-    padding: 1rem;
-    margin-top: 2rem;
-  }
-  
-  /* DARK MODE */
-  .dark-mode {
-    background-color: #1e1e1e;
-    color: #f3f3f3;
-  }
-  
-  .dark-mode .navbar {
-    background: #333;
-  }
-  
-  .dark-mode .btn {
-    background: #666;
-  }
-  
-  .dark-mode input {
-    background: #333;
-    color: #fff;
-    border-color: #555;
-  }
-  
-  .dark-mode .chart-container {
-    background: #333;
-  }
-  
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.hero .subtitle {
+    font-size: 1.3rem;
+    color: var(--secondary);
+    margin-bottom: 1rem;
+}
+
+/* Experience and Projects layout */
+.experience .job,
+.projects .project,
+.education .school {
+    margin-bottom: 1.5rem;
+}
+
+.job h3,
+.project h3,
+.school h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: var(--primary);
+}
+
+.job‑date,
+.school‑date {
+    font-size: 0.85rem;
+    color: var(--light-text);
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.project p {
+    margin-top: 0.4rem;
+}
+
+/* Footer styling */
+.footer {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    background-color: var(--primary);
+    color: var(--white);
+    font-size: 0.85rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .nav‑links {
+        flex-direction: column;
+        background-color: var(--primary);
+        position: absolute;
+        top: 100%;
+        right: 0;
+        left: 0;
+        display: none;
+    }
+    .nav‑links li {
+        margin: 0.5rem 0;
+    }
+    .navbar.active .nav‑links {
+        display: block;
+    }
+    .section {
+        padding: 4rem 1rem;
+    }
+    .hero h1 {
+        font-size: 2rem;
+    }
+}
