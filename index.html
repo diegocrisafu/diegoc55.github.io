@@ -23,7 +23,7 @@
          * within the page. The component sticks to the top of the viewport
          * so it remains visible when scrolling.
          */
-        function NavBar() {
+        function NavBar(props) {
             return (
                 <nav className="navbar">
                     <div className="nav‑logo">Diego Crisafulli</div>
@@ -36,6 +36,10 @@
                         <li><a href="#education">Education</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
+                    {/* Dark mode toggle button */}
+                    <button className="dark‑mode‑toggle" onClick={props.toggleDarkMode}>
+                        {props.darkMode ? 'Light Mode' : 'Dark Mode'}
+                    </button>
                 </nav>
             );
         }
@@ -55,15 +59,20 @@
 
         // The main App component. Assembles all sections and the navigation bar.
         function App() {
+            const [darkMode, setDarkMode] = React.useState(false);
+            const toggleDarkMode = () => setDarkMode(!darkMode);
+
             return (
-                <div>
-                    <NavBar />
+                <div className={darkMode ? 'dark-mode' : ''}>
+                    <NavBar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
                     {/* Home section with a hero message */}
                     <Section id="home" title="">
                         <div className="hero">
                             <h1>Hello, I'm Diego Crisafulli</h1>
                             <p className="subtitle">DevOps & Full‑Stack Software Engineer</p>
                             <p>Crafting cloud‑native solutions, web experiences, and immersive simulations.</p>
+                            {/* Resume download button */}
+                            <a href="Diego_Resume.pdf" className="button download‑btn" download>Download Resume</a>
                         </div>
                     </Section>
                     {/* About section describing Diego’s professional summary */}
