@@ -1,75 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Carbon Footprint Estimator</title>
-  <!-- Include your style.css -->
-  <link rel="stylesheet" href="style.css" />
-  <!-- TensorFlow.js library -->
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
-  <!-- Chart.js library -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diego Crisafulli – Portfolio</title>
+    <!-- Link to the stylesheet for styling -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Include React and React‑DOM from a CDN -->
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <!-- Include Babel to allow writing JSX in the browser -->
+    <script crossorigin src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 </head>
 <body>
+    <!-- Root element where our React app will mount -->
+    <div id="root"></div>
 
-  <!-- Navbar / Header (Optional) -->
-  <nav class="navbar">
-    <div class="nav-brand">Carbon Calculator</div>
-    <ul class="nav-links">
-      <li><a href="index.html" class="active">Home</a></li>
-      <li><a href="about.html">About Me</a></li>
-      <li><a href="projects.html">Projects</a></li>
-      <li><a href="blog.html">Blog</a></li>
-    </ul>
-  </nav>
+    <!-- React application code -->
+    <script type="text/babel">
+        /*
+         * Top navigation bar component. Renders links that scroll to sections
+         * within the page. The component sticks to the top of the viewport
+         * so it remains visible when scrolling.
+         */
+        function NavBar() {
+            return (
+                <nav className="navbar">
+                    <div className="nav‑logo">Diego Crisafulli</div>
+                    <ul className="nav‑links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#skills">Skills</a></li>
+                        <li><a href="#experience">Experience</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#education">Education</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            );
+        }
 
-  <!-- Main Content Container -->
-  <main class="main-container">
-    <h1>Carbon Footprint Estimator</h1>
-    <p>Test your daily impact on the environment with a basic TensorFlow.js model.</p>
+        /*
+         * Section component used for layout. Accepts an id, title and children.
+         * Helps to keep the markup for each section clean and consistent.
+         */
+        function Section({ id, title, children }) {
+            return (
+                <section id={id} className="section">
+                    <h2>{title}</h2>
+                    <div className="section‑content">{children}</div>
+                </section>
+            );
+        }
 
-    <div class="calculator-container">
-      <!-- Inputs Section -->
-      <div class="input-section">
-        <label for="miles">Miles Driven (per day):</label>
-        <input type="number" id="miles" min="0" placeholder="e.g., 30" />
+        // The main App component. Assembles all sections and the navigation bar.
+        function App() {
+            return (
+                <div>
+                    <NavBar />
+                    {/* Home section with a hero message */}
+                    <Section id="home" title="">
+                        <div className="hero">
+                            <h1>Hello, I'm Diego Crisafulli</h1>
+                            <p className="subtitle">DevOps & Full‑Stack Software Engineer</p>
+                            <p>Crafting cloud‑native solutions, web experiences, and immersive simulations.</p>
+                        </div>
+                    </Section>
+                    {/* About section describing Diego’s professional summary */}
+                    <Section id="about" title="About">
+                        <p>
+                            I'm a multidisciplinary software engineer specializing in DevOps, full‑stack web development and
+                            cloud automation. Over the past few years I've streamlined deployments, enhanced system
+                            reliability and delivered AI‑driven solutions. I'm passionate about leveraging cutting‑edge
+                            technologies to solve complex problems and love tackling new challenges.
+                        </p>
+                    </Section>
+                    {/* Skills section listing grouped skills */}
+                    <Section id="skills" title="Skills">
+                        <ul className="skills‑list">
+                            <li><strong>Cloud & DevOps:</strong> Azure, AWS (EC2, S3, Lambda), GitHub Actions, CI/CD, Infrastructure as Code</li>
+                            <li><strong>Programming & Web:</strong> JavaScript, TypeScript, PowerShell, Python, C++, HTML5, CSS3</li>
+                            <li><strong>Databases:</strong> MongoDB, SQL</li>
+                            <li><strong>AI & Automation:</strong> OpenAI API, Generative AI, Prompt Engineering, Test Automation</li>
+                            <li><strong>3D & Simulation:</strong> Unreal Engine, NVIDIA Omniverse, VR/AR Development</li>
+                            <li><strong>Tools:</strong> Git, GitHub Copilot, Docker, SCTP, TLS, DPDK/VPP</li>
+                        </ul>
+                    </Section>
+                    {/* Experience section summarizing career roles */}
+                    <Section id="experience" title="Experience">
+                        <div className="experience">
+                            <div className="job">
+                                <h3>Software Engineer (DevOps) – CAE</h3>
+                                <span className="job‑date">May 2025 – Present</span>
+                                <ul>
+                                    <li>Developed and maintained automation pipelines with Azure and GitHub Actions, boosting deployment efficiency by 30%.</li>
+                                    <li>Partnered with cross‑functional teams to optimize asset flow, reducing system downtime by 25%.</li>
+                                    <li>Engineered cloud computing solutions using JavaScript and PowerShell, improving overall system reliability and scalability.</li>
+                                </ul>
+                            </div>
+                            <div className="job">
+                                <h3>IVR System Developer – CAE</h3>
+                                <span className="job‑date">Sep 2024 – May 2025</span>
+                                <ul>
+                                    <li>Proposed continual improvements to IVR functionality and user experience, driving measurable gains in customer satisfaction.</li>
+                                    <li>Developed and optimized automated test scripts (JavaScript, XML, JSON), boosting testing coverage and reducing defects.</li>
+                                    <li>Analyzed test outcomes, identified root causes and collaborated with cross‑functional teams to enhance system reliability.</li>
+                                </ul>
+                            </div>
+                            <div className="job">
+                                <h3>Software Engineer Intern – CAE</h3>
+                                <span className="job‑date">Oct 2023 – Sep 2024</span>
+                                <ul>
+                                    <li>Contributed to the Ondulus IR team, developing and testing advanced simulation technologies including night vision, LiDAR and infrared systems.</li>
+                                    <li>Led C++ sensor testing processes and optimized algorithms to automate testing workflows.</li>
+                                    <li>Created comprehensive test cases to validate physics‑based simulation modules under diverse conditions.</li>
+                                </ul>
+                            </div>
+                            <div className="job">
+                                <h3>Simulation Developer – Presagis</h3>
+                                <span className="job‑date">Jun 2022 – Jun 2023</span>
+                                <ul>
+                                    <li>Coded simulations using NVIDIA Omniverse Isaac Sim, implementing machine‑learning, point‑cloud and lidar technology for AI solutions.</li>
+                                    <li>Integrated USD workflows into Velocity5D and created digital twins with 3D modelling, texturing and mapping.</li>
+                                    <li>Collaborated with developers and 3D artists; utilized Python for automation and tool development.</li>
+                                </ul>
+                            </div>
+                            <div className="job">
+                                <h3>3D Artist/Developer – Presagis</h3>
+                                <span className="job‑date">Sep 2021 – Jun 2022</span>
+                                <ul>
+                                    <li>Built a library of custom 3D models, textures and animations using Unreal Engine, Omniverse and Blender.</li>
+                                    <li>Employed Python scripting to streamline asset creation and optimize 3D workflows.</li>
+                                    <li>Collaborated with cross‑functional teams to deliver visually engaging simulation assets.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </Section>
+                    {/* Projects section highlighting major projects */}
+                    <Section id="projects" title="Projects">
+                        <div className="projects">
+                            <div className="project">
+                                <h3>VR Brain Installation</h3>
+                                <p>
+                                    Lead VR/AI Developer working with McGill University’s neuroscience team to translate authentic neural imaging data into an immersive VR experience. Built AI‑powered pipelines and optimized 3D environments in Unreal Engine for high‑fidelity visualization.
+                                </p>
+                            </div>
+                            <div className="project">
+                                <h3>The Actual Informer</h3>
+                                <p>
+                                    Full‑stack news summarization web app built with TypeScript, Node.js and Express, deployed on AWS. Integrated OpenAI’s API to rewrite and shorten articles, improving readability and engagement. Designed a responsive user interface with HTML5 and CSS3.
+                                </p>
+                            </div>
+                        </div>
+                    </Section>
+                    {/* Education section listing academic background */}
+                    <Section id="education" title="Education">
+                        <div className="education">
+                            <div className="school">
+                                <h3>Concordia University</h3>
+                                <span className="school‑date">2022 – Present</span>
+                                <p>Double Major in Computational Design & Computer Science. Engaged in projects spanning 3D graphics, high‑performance computing and AI development.</p>
+                            </div>
+                            <div className="school">
+                                <h3>Marianopolis College</h3>
+                                <span className="school‑date">2020 – 2022</span>
+                                <p>DEC in Commerce. Strengthened critical thinking and methodology skills with a focus on business and information systems.</p>
+                            </div>
+                        </div>
+                    </Section>
+                    {/* Contact section with simple contact info and call‑to‑action */}
+                    <Section id="contact" title="Contact">
+                        <p>
+                            Feel free to reach out via email at <a href="mailto:diego.crisafu@gmail.com">diego.crisafu@gmail.com</a> or connect with me on <a href="https://www.linkedin.com/in/diegocrisafulli212bb0256" target="_blank" rel="noopener noreferrer">LinkedIn</a>.
+                        </p>
+                    </Section>
+                    <footer className="footer">© {new Date().getFullYear()} Diego Crisafulli</footer>
+                </div>
+            );
+        }
 
-        <label for="diet">Meat-Based Meals per Day:</label>
-        <input type="number" id="diet" min="0" placeholder="e.g., 2" />
-
-        <label for="flights">Short Flights per Month:</label>
-        <input type="number" id="flights" min="0" placeholder="e.g., 1" />
-      </div>
-
-      <!-- Buttons -->
-      <div class="button-section">
-        <button id="calculateBtn" class="btn">Calculate Footprint</button>
-        <button id="randomBtn" class="btn secondary">Random Example</button>
-        <button id="clearBtn" class="btn danger">Clear Form</button>
-        <button id="darkToggleBtn" class="btn toggle-dark">Dark Mode</button>
-      </div>
-    </div>
-
-    <!-- Results Section -->
-    <div class="results-container">
-      <h2>Your Estimated Carbon Footprint</h2>
-      <div id="result" class="result-output">--</div>
-      <div id="benchmarkComparison" class="benchmark-output"></div>
-      <div id="suggestions" class="suggestions-output"></div>
-    </div>
-
-    <!-- Chart Section -->
-    <div class="chart-container">
-      <canvas id="footprintChart"></canvas>
-    </div>
-  </main>
-
-  <!-- Footer (Optional) -->
-  <footer>
-    <p>&copy; 2025 Diego Crisafulli. All Rights Reserved.</p>
-  </footer>
-
-  <!-- Your Custom Script -->
-  <script src="script.js"></script>
+        // Render the App component into the root div
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
 </body>
 </html>
