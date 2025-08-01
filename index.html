@@ -70,16 +70,47 @@
             ]);
 
             // Handle sending a message when the user presses Enter
-            const handleChatKeyPress = (e) => {
+            // Helper: call OpenAI ChatGPT API if an API key has been defined on the global window.
+            async function getChatGPTReply(message) {
+                // Ensure an API key is defined on the window object (set window.OPENAI_API_KEY to your key).
+                const apiKey = window.OPENAI_API_KEY;
+                if (!apiKey) {
+                    // Fallback: simple canned reply if no key available.
+                    return 'Thanks for your message! To enable AI replies, set OPENAI_API_KEY in the global scope.';
+                }
+                try {
+                    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + apiKey
+                        },
+                        body: JSON.stringify({
+                            model: 'gpt-3.5-turbo',
+                            messages: [
+                                { role: 'system', content: 'You are a helpful portfolio assistant. Answer questions about Diego Crisafulli and his work.' },
+                                { role: 'user', content: message }
+                            ]
+                        })
+                    });
+                    const data = await response.json();
+                    return data.choices && data.choices[0] && data.choices[0].message ? data.choices[0].message.content.trim() : 'Sorry, no response available.';
+                } catch (error) {
+                    console.error('ChatGPT API error:', error);
+                    return 'Oops, something went wrong while contacting the AI service.';
+                }
+            }
+
+            const handleChatKeyPress = async (e) => {
                 if (e.key === 'Enter' && chatInput.trim() !== '') {
-                    const userMessage = { from: 'user', text: chatInput.trim() };
-                    // Append user message
+                    const input = chatInput.trim();
+                    const userMessage = { from: 'user', text: input };
+                    // Append user message and clear input
                     setMessages(prev => [...prev, userMessage]);
                     setChatInput('');
-                    // Simulate a simple assistant reply
-                    setTimeout(() => {
-                        setMessages(prev => [...prev, { from: 'bot', text: 'Thank you for reaching out! I\'ll respond shortly.' }]);
-                    }, 600);
+                    // Get reply from ChatGPT or fallback
+                    const reply = await getChatGPTReply(input);
+                    setMessages(prev => [...prev, { from: 'bot', text: reply }]);
                 }
             };
 
@@ -179,6 +210,27 @@
                                 <h3>The Actual Informer</h3>
                                 <p>
                                     Full‑stack news summarization web app built with TypeScript, Node.js and Express, deployed on AWS. Integrated OpenAI’s API to rewrite and shorten articles, improving readability and engagement. Designed a responsive user interface with HTML5 and CSS3.
+                                </p>
+                            </div>
+                        </div>
+                        {/* Featured projects: highlight portfolio additions */}
+                        <div className="featured-projects">
+                            <div className="project-card">
+                                <h3>Real-Time Dashboard</h3>
+                                <p>
+                                    A Python Dash application that streams and visualizes data in real time. Includes a data source selector
+                                    and update-interval slider. View the code on
+                                    {' '}
+                                    <a href="https://github.com/diegocrisafu/realtime-dashboard" target="_blank" rel="noopener noreferrer">GitHub</a>.
+                                </p>
+                            </div>
+                            <div className="project-card">
+                                <h3>Expense Tracker</h3>
+                                <p>
+                                    A React-based expense tracker app with local persistence, deletion and a category pie chart. Open it directly
+                                    via its <a href="https://diegocrisafu.github.io/expense/" target="_blank" rel="noopener noreferrer">live page</a> once
+                                    GitHub Pages is enabled, or see the code on{' '}
+                                    <a href="https://github.com/diegocrisafu/expense" target="_blank" rel="noopener noreferrer">GitHub</a>.
                                 </p>
                             </div>
                         </div>
