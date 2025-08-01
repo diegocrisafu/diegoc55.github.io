@@ -62,6 +62,27 @@
             const [darkMode, setDarkMode] = React.useState(false);
             const toggleDarkMode = () => setDarkMode(!darkMode);
 
+            // State for the chatbot open/closed status and chat messages
+            const [chatOpen, setChatOpen] = React.useState(false);
+            const [chatInput, setChatInput] = React.useState('');
+            const [messages, setMessages] = React.useState([
+                { from: 'bot', text: 'Hello! I\'m your personal assistant. How can I help you?' }
+            ]);
+
+            // Handle sending a message when the user presses Enter
+            const handleChatKeyPress = (e) => {
+                if (e.key === 'Enter' && chatInput.trim() !== '') {
+                    const userMessage = { from: 'user', text: chatInput.trim() };
+                    // Append user message
+                    setMessages(prev => [...prev, userMessage]);
+                    setChatInput('');
+                    // Simulate a simple assistant reply
+                    setTimeout(() => {
+                        setMessages(prev => [...prev, { from: 'bot', text: 'Thank you for reaching out! I\'ll respond shortly.' }]);
+                    }, 600);
+                }
+            };
+
             return (
                 <div className={darkMode ? 'dark-mode' : ''}>
                     <NavBar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
@@ -184,6 +205,31 @@
                         </p>
                     </Section>
                     <footer className="footer">© {new Date().getFullYear()} Diego Crisafulli</footer>
+                    {/* Floating chatbot component */}
+                    <div
+                        className={`chatbot-container${chatOpen ? ' open' : ''}`}
+                        onMouseEnter={() => setChatOpen(true)}
+                        onMouseLeave={() => setChatOpen(false)}
+                    >
+                        <div className="chat-icon">💬</div>
+                        {chatOpen && (
+                            <div className="chat-window">
+                                <div className="chat-messages">
+                                    {messages.map((msg, idx) => (
+                                        <div key={idx} className={`chat-message ${msg.from}`}>{msg.text}</div>
+                                    ))}
+                                </div>
+                                <input
+                                    type="text"
+                                    className="chat-input"
+                                    placeholder="Type a message..."
+                                    value={chatInput}
+                                    onChange={(e) => setChatInput(e.target.value)}
+                                    onKeyPress={handleChatKeyPress}
+                                />
+                            </div>
+                        )}
+                    </div>
                 </div>
             );
         }
