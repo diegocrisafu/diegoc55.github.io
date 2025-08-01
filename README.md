@@ -13,12 +13,24 @@ To view the portfolio locally:
 
 5. Hover over the floating **chat** icon in the bottom‑right corner to reveal a personal assistant chatbot.  The assistant can answer basic questions about the site and guide you to different sections.
 
+6. Explore the **Featured Projects** section to learn about additional applications such as the real‑time data dashboard and expense tracker.  Links to their GitHub repositories and deployed pages are provided.
+
+7. Enable AI‑powered responses for the chatbot by defining an OpenAI API key.  Before loading `index.html`, set a global `OPENAI_API_KEY` property on the `window` object in the browser console:
+
+   ```js
+   window.OPENAI_API_KEY = 'your‑openai‑api‑key';
+   ```
+
+   Without a key the chatbot will fall back to canned responses.
+
 ## Customisation
 
 - **Styling:** Edit `style.css` to adjust colours, fonts, spacing or layout.  Variables at the top of the file define the basic colour palette.
 - **Content:** Modify the JSX within the `<script type="text/babel">` tag in `index.html` to update the text, add or remove experience entries or projects, or change contact details.
 
   Additionally, you can customise the behaviour of the chatbot by modifying the `ChatBot` component in `index.html`—for example, changing the initial greeting or how it responds to user input.
+
+  To integrate ChatGPT, see the `getChatGPTReply` helper function in `index.html`.  It uses the `OPENAI_API_KEY` variable to call the OpenAI API.  You can adjust the prompt, model or message structure as needed.
 
 ## Deployment
 
