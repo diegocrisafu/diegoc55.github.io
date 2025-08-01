@@ -11,10 +11,14 @@ To view the portfolio locally:
 3. Use the **Dark Mode** toggle in the navigation bar to switch between light and dark themes.
 4. Click the **Download Résumé** button in the hero section to obtain a PDF copy of the résumé (update the link in `index.html` to point to your actual CV).
 
+5. Hover over the floating **chat** icon in the bottom‑right corner to reveal a personal assistant chatbot.  The assistant can answer basic questions about the site and guide you to different sections.
+
 ## Customisation
 
 - **Styling:** Edit `style.css` to adjust colours, fonts, spacing or layout.  Variables at the top of the file define the basic colour palette.
 - **Content:** Modify the JSX within the `<script type="text/babel">` tag in `index.html` to update the text, add or remove experience entries or projects, or change contact details.
+
+  Additionally, you can customise the behaviour of the chatbot by modifying the `ChatBot` component in `index.html`—for example, changing the initial greeting or how it responds to user input.
 
 ## Deployment
 
