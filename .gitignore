@@ -1,0 +1,10 @@
+# Backend secrets and dependencies
+server/.env
+server/node_modules/
+server/.env.local
+server/.env.production
+server/.vercel/
+server/.output/
+
+# macOS
+.DS_Store
