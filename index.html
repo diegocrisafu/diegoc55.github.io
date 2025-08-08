@@ -87,37 +87,22 @@
             // Gemini REST specification. If the call fails, a fallback message is
             // returned. See Google’s documentation for additional details【744721557993995†L420-L448】.
             async function getAIReply(message) {
-                // Use the provided Gemini API key. Note: embedding keys directly
-                // in client‑side code is not recommended for production apps, but
-                // this implementation follows the user’s instructions to include
-                // the key here.
-                const apiKey = 'AIzaSyAqGLQd0VAQ2gRh_xEimFX7cTriiRGdX_Y';
-                const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`;
+                // Call backend proxy instead of exposing API key
                 try {
-                    const response = await fetch(endpoint, {
+                    const response = await fetch('http://localhost:8787/api/chat', {
                         method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            contents: [
-                                {
-                                    parts: [ { text: message } ]
-                                }
-                            ]
-                        })
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ message })
                     });
-                    const data = await response.json();
-                    // Extract the first candidate’s response text if available
-                    if (data.candidates && data.candidates.length > 0) {
-                        const parts = data.candidates[0].content?.parts;
-                        if (parts && parts.length > 0 && parts[0].text) {
-                            return parts[0].text.trim();
-                        }
+                    if (!response.ok) {
+                        const text = await response.text();
+                        console.error('Proxy error:', text);
+                        return 'Sorry, no response available.';
                     }
-                    return 'Sorry, no response available.';
+                    const data = await response.json();
+                    return (data.reply || 'Sorry, no response available.');
                 } catch (error) {
-                    console.error('Gemini API error:', error);
+                    console.error('Proxy call failed:', error);
                     return 'Oops, something went wrong while contacting the AI service.';
                 }
             }
