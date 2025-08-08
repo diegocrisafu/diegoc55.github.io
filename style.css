@@ -59,6 +59,21 @@ html, body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Mobile menu toggle button */
+.menu‑toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.3rem;
+}
+
+.navbar.active .nav‑links {
+    display: block;
+}
+
 .nav‑logo {
     font-weight: 600;
     font-size: 1.2rem;
@@ -268,8 +283,8 @@ html, body {
 }
 
 .chat-window {
-    width: 280px;
-    height: 320px;
+    width: 320px;
+    height: 380px;
     background-color: var(--background);
     color: var(--text);
     border: 1px solid var(--secondary);
@@ -278,25 +293,39 @@ html, body {
     display: flex;
     flex-direction: column;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
 }
 
 .chat-messages {
     flex: 1;
     padding: 0.5rem;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
 }
 
 .chat-message {
-    margin-bottom: 0.4rem;
     font-size: 0.85rem;
     line-height: 1.3;
+    max-width: 80%;
+    padding: 0.4rem 0.6rem;
+    border-radius: 12px;
 }
 
+/* User messages align to the right with a secondary background */
 .chat-message.user {
+    align-self: flex-end;
+    background-color: var(--secondary);
+    color: var(--white);
     text-align: right;
 }
 
+/* Bot messages align to the left with an accent background */
 .chat-message.bot {
+    align-self: flex-start;
+    background-color: var(--accent);
+    color: var(--primary);
     text-align: left;
 }
 
@@ -306,12 +335,68 @@ html, body {
     padding: 0.4rem;
     font-size: 0.85rem;
     outline: none;
-    width: 100%;
+    flex: 1;
     box-sizing: border-box;
+    background-color: var(--background);
+    color: var(--text);
 }
 
 .chat-input::placeholder {
     color: var(--light-text);
+}
+
+/* Chat window header styles */
+.chat-window-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.4rem 0.6rem;
+    background-color: var(--primary);
+    color: var(--white);
+    border-bottom: 1px solid var(--secondary);
+}
+.chat-window-header h4 {
+    margin: 0;
+    font-size: 0.9rem;
+}
+.chat-window-controls {
+    display: flex;
+    gap: 0.4rem;
+}
+.chat-close-btn,
+.chat-clear-btn {
+    background-color: transparent;
+    border: none;
+    color: var(--white);
+    cursor: pointer;
+    font-size: 0.85rem;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.chat-close-btn:hover,
+.chat-clear-btn:hover {
+    background-color: var(--accent);
+    color: var(--primary);
+}
+
+/* Input container ensures the send button sits next to the input */
+.chat-input-container {
+    display: flex;
+    border-top: 1px solid var(--secondary);
+}
+.chat-send-btn {
+    background-color: var(--secondary);
+    color: var(--white);
+    border: none;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.chat-send-btn:hover {
+    background-color: var(--accent);
+    color: var(--primary);
 }
 
 /* Responsive adjustments */
@@ -328,8 +413,13 @@ html, body {
     .nav‑links li {
         margin: 0.5rem 0;
     }
-    .navbar.active .nav‑links {
+    /* Show hamburger on small screens */
+    .menu‑toggle {
         display: block;
+    }
+    /* Hide dark mode toggle inside nav bar when menu open to reduce clutter */
+    .navbar.active .dark‑mode‑toggle {
+        margin-top: 0.5rem;
     }
     .section {
         padding: 4rem 1rem;
