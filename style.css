@@ -59,6 +59,21 @@ html, body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Mobile menu toggle button */
+.menu‑toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.3rem;
+}
+
+.navbar.active .nav‑links {
+    display: block;
+}
+
 .nav‑logo {
     font-weight: 600;
     font-size: 1.2rem;
@@ -398,8 +413,13 @@ html, body {
     .nav‑links li {
         margin: 0.5rem 0;
     }
-    .navbar.active .nav‑links {
+    /* Show hamburger on small screens */
+    .menu‑toggle {
         display: block;
+    }
+    /* Hide dark mode toggle inside nav bar when menu open to reduce clutter */
+    .navbar.active .dark‑mode‑toggle {
+        margin-top: 0.5rem;
     }
     .section {
         padding: 4rem 1rem;
