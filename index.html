@@ -87,9 +87,11 @@
             // Gemini REST specification. If the call fails, a fallback message is
             // returned. See Google’s documentation for additional details【744721557993995†L420-L448】.
             async function getAIReply(message) {
-                // Call backend proxy instead of exposing API key
+                // Use configured base (Worker/Render/etc.)
+                const base = (window.CHAT_API_BASE || '').replace(/\/$/, '');
+                const url = `${base}/api/chat`;
                 try {
-                    const response = await fetch('http://localhost:8787/api/chat', {
+                    const response = await fetch(url, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ message })
@@ -341,5 +343,6 @@
         // Render the App component into the root div
         ReactDOM.render(<App />, document.getElementById('root'));
     </script>
+    <script src="./chat-config.js"></script>
 </body>
 </html>
