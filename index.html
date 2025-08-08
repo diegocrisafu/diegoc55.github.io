@@ -24,10 +24,22 @@
          * so it remains visible when scrolling.
          */
         function NavBar(props) {
+            // Local state for mobile menu toggling
+            const [menuOpen, setMenuOpen] = React.useState(false);
+            // Close the menu when a link is clicked
+            const handleLinkClick = () => setMenuOpen(false);
             return (
-                <nav className="navbar">
+                <nav className={`navbar ${menuOpen ? 'active' : ''}`}>                    
                     <div className="nav‑logo">Diego Crisafulli</div>
-                    <ul className="nav‑links">
+                    {/* Hamburger menu button for small screens */}
+                    <button
+                        className="menu‑toggle"
+                        aria-label="Toggle navigation"
+                        onClick={() => setMenuOpen((prev) => !prev)}
+                    >
+                        {menuOpen ? '\u00d7' : '\u2630'}
+                    </button>
+                    <ul className="nav‑links" onClick={handleLinkClick}>
                         <li><a href="#home">Home</a></li>
                         <li><a href="#about">About</a></li>
                         <li><a href="#skills">Skills</a></li>
@@ -279,15 +291,42 @@
                     {/* Floating chatbot component */}
                     <div className="chatbot-container">
                         {/* Chat icon toggles the chat window on click */}
-                        <div className="chat-icon" onClick={() => setChatOpen(!chatOpen)}>💬</div>
+                        <div
+                            className="chat-icon"
+                            role="button"
+                            aria-label={chatOpen ? 'Close chat' : 'Open chat'}
+                            tabIndex="0"
+                            onClick={() => setChatOpen(!chatOpen)}
+                        >
+                            💬
+                        </div>
                         {chatOpen && (
                             <div className="chat-window">
                                 {/* Header with title, close and clear buttons */}
                                 <div className="chat-window-header">
                                     <h4>Assistant</h4>
                                     <div className="chat-window-controls">
-                                        <button className="chat-clear-btn" onClick={() => setMessages([{ from: 'bot', text: 'Hello! I\'m your personal assistant. How can I help you?' }])}>Clear</button>
-                                        <button className="chat-close-btn" onClick={() => setChatOpen(false)}>×</button>
+                                        <button
+                                            className="chat-clear-btn"
+                                            aria-label="Clear conversation"
+                                            onClick={() =>
+                                                setMessages([
+                                                    {
+                                                        from: 'bot',
+                                                        text: "Hello! I'm your personal assistant. How can I help you?",
+                                                    },
+                                                ])
+                                            }
+                                        >
+                                            Clear
+                                        </button>
+                                        <button
+                                            className="chat-close-btn"
+                                            aria-label="Close chat window"
+                                            onClick={() => setChatOpen(false)}
+                                        >
+                                            ×
+                                        </button>
                                     </div>
                                 </div>
                                 <div className="chat-messages">
