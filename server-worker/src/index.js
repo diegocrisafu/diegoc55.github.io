@@ -1,21 +1,34 @@
 export default {
   async fetch(request, env) {
-    const { GEMINI_API_KEY, ALLOWED_ORIGIN } = env;
+    const { GEMINI_API_KEY, ALLOWED_ORIGIN, DEBUG } = env;
 
     // CORS preflight
     if (request.method === 'OPTIONS') {
       return new Response(null, { headers: corsHeaders(request, ALLOWED_ORIGIN) });
     }
 
-    if (new URL(request.url).pathname === '/api/chat' && request.method === 'POST') {
+    const url = new URL(request.url);
+
+    // Simple health endpoint
+    if (url.pathname === '/api/health') {
+      return json({ ok: true, hasKey: !!GEMINI_API_KEY }, 200, request, ALLOWED_ORIGIN);
+    }
+
+    if (url.pathname === '/api/chat' && request.method === 'POST') {
       try {
+        if (!GEMINI_API_KEY) {
+          return json({ error: 'Server not configured: missing GEMINI_API_KEY' }, 500, request, ALLOWED_ORIGIN);
+        }
+
         const { message } = await request.json();
         const text = (message || '').toString().trim();
         if (!text) {
           return json({ error: 'Missing message' }, 400, request, ALLOWED_ORIGIN);
         }
 
-        const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`;
+        // Use a current public model (adjust if you have access to others)
+        const MODEL = 'gemini-1.5-flash';
+        const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${GEMINI_API_KEY}`;
         const payload = { contents: [ { parts: [ { text } ] } ] };
 
         const r = await fetch(endpoint, {
@@ -24,20 +37,36 @@ export default {
           body: JSON.stringify(payload)
         });
 
+        let rawBody; // keep for debugging
         if (!r.ok) {
-          const body = await r.text();
-          return json({ error: 'Upstream error', details: body }, r.status, request, ALLOWED_ORIGIN);
+          rawBody = await r.text();
+          return json({ error: 'Upstream error', status: r.status, details: rawBody.slice(0, 800) }, r.status, request, ALLOWED_ORIGIN);
         }
 
         const data = await r.json();
-        let reply = 'Sorry, no response available.';
-        if (data.candidates?.length) {
-          const parts = data.candidates[0].content?.parts;
-          if (parts?.[0]?.text) reply = parts[0].text.trim();
+
+        let reply = extractReply(data);
+        if (!reply) {
+          if (data?.promptFeedback?.blockReason) {
+            reply = `Blocked by safety filter: ${data.promptFeedback.blockReason}`;
+          } else if (data?.error?.message) {
+            reply = `Error: ${data.error.message}`;
+          } else {
+            reply = 'No content returned.';
+          }
         }
-        return json({ reply }, 200, request, ALLOWED_ORIGIN);
+
+        const responsePayload = { reply };
+        if (DEBUG === '1') {
+          responsePayload.meta = {
+            model: MODEL,
+            hasCandidates: Array.isArray(data?.candidates) && data.candidates.length > 0,
+            promptFeedback: data?.promptFeedback || null
+          };
+        }
+        return json(responsePayload, 200, request, ALLOWED_ORIGIN);
       } catch (e) {
-        return json({ error: 'Server error' }, 500, request, ALLOWED_ORIGIN);
+        return json({ error: 'Server error', message: e.message }, 500, request, ALLOWED_ORIGIN);
       }
     }
 
@@ -64,4 +93,25 @@ function json(obj, status, request, allowed) {
       ...Object.fromEntries(corsHeaders(request, allowed))
     }
   });
+}
+
+function extractReply(data) {
+  try {
+    if (!data) return '';
+    // Standard path
+    const candidate = data.candidates?.[0];
+    if (candidate?.content?.parts) {
+      const parts = candidate.content.parts
+        .map(p => p.text)
+        .filter(Boolean)
+        .join('\n')
+        .trim();
+      if (parts) return parts;
+    }
+    // Alternate shapes
+    if (candidate?.output) return String(candidate.output).trim();
+    return '';
+  } catch {
+    return '';
+  }
 }
