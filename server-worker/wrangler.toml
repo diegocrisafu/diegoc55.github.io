@@ -4,6 +4,7 @@ compatibility_date = "2024-10-01"
 
 [vars]
 # Optional: lock CORS to your site origin here; you can also set it in dashboard
-# ALLOWED_ORIGIN = "https://your-site.example"
+# Set to your GitHub Pages origin (no trailing slash, path segment not needed)
+ALLOWED_ORIGIN = "https://diegocrisafu.github.io"
 
 # Add your secret via: wrangler secret put GEMINI_API_KEY

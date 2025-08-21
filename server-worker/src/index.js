@@ -15,6 +15,7 @@ export default {
           return json({ error: 'Missing message' }, 400, request, ALLOWED_ORIGIN);
         }
 
+  // Using gemini-1.5-flash (fast, multimodal capable) — adjust here if upgrading models
   const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
         const payload = { contents: [ { parts: [ { text } ] } ] };
 
@@ -26,7 +27,7 @@ export default {
 
         if (!r.ok) {
           const body = await r.text();
-          return json({ error: 'Upstream error', details: body }, r.status, request, ALLOWED_ORIGIN);
+          return json({ error: 'Upstream error', status: r.status, details: body }, r.status, request, ALLOWED_ORIGIN);
         }
 
         const data = await r.json();
@@ -37,7 +38,7 @@ export default {
         }
         return json({ reply }, 200, request, ALLOWED_ORIGIN);
       } catch (e) {
-        return json({ error: 'Server error' }, 500, request, ALLOWED_ORIGIN);
+  return json({ error: 'Server error' }, 500, request, ALLOWED_ORIGIN);
       }
     }
 
