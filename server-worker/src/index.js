@@ -15,7 +15,7 @@ export default {
           return json({ error: 'Missing message' }, 400, request, ALLOWED_ORIGIN);
         }
 
-        const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`;
+  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
         const payload = { contents: [ { parts: [ { text } ] } ] };
 
         const r = await fetch(endpoint, {
