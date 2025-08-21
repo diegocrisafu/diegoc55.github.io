@@ -35,7 +35,7 @@ app.post('/api/chat', async (req, res) => {
       return res.status(400).json({ error: 'Missing message' });
     }
 
-    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`;
+    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
     const payload = {
       contents: [ { parts: [ { text: userText } ] } ]
     };
