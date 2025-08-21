@@ -18,19 +18,126 @@
 /* Dark mode overrides. When .dark-mode class is applied to the root wrapper, redefine
    the CSS variables to create a dark colour palette. */
 .dark-mode {
-    --background: #121212;
-    --primary: #90caf9;
-    --secondary: #64b5f6;
-    --accent: #03dac6;
-    --text: #e0e0e0;
-    --light-text: #b0b0b0;
+    --background: #0a0a0a;
+    --primary: #bb86fc;
+    --secondary: #03dac6;
+    --accent: #cf6679;
+    --text: #ffffff;
+    --light-text: #b3b3b3;
     --white: #ffffff;
+    transition: all 0.3s ease;
 }
 
-/* Dark mode can also invert the navbar background to stand out */
+/* Dark mode navbar with gradient background */
 .dark-mode .navbar {
-    background-color: var(--primary);
-    color: var(--background);
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    box-shadow: 0 2px 10px rgba(187, 134, 252, 0.3);
+    border-bottom: 1px solid var(--primary);
+}
+
+/* Dark mode project cards with glow effect */
+.dark-mode .project-card {
+    background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
+    border: 1px solid var(--primary);
+    box-shadow: 0 4px 15px rgba(187, 134, 252, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dark-mode .project-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(187, 134, 252, 0.4);
+}
+
+/* Dark mode section headers with glow */
+.dark-mode .section h2 {
+    color: var(--primary);
+    text-shadow: 0 0 10px rgba(187, 134, 252, 0.5);
+    border-bottom: 2px solid var(--secondary);
+}
+
+/* Dark mode hero section */
+.dark-mode .hero h1 {
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none;
+}
+
+.dark-mode .hero .subtitle {
+    color: var(--secondary);
+}
+
+/* Dark mode buttons with enhanced styling */
+.dark-mode .button.download‑btn {
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    border: none;
+    box-shadow: 0 4px 15px rgba(187, 134, 252, 0.3);
+    transition: all 0.3s ease;
+}
+
+.dark-mode .button.download‑btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(187, 134, 252, 0.5);
+}
+
+/* Dark mode chat components */
+.dark-mode .chat-window {
+    background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
+    border: 1px solid var(--primary);
+    box-shadow: 0 4px 20px rgba(187, 134, 252, 0.3);
+}
+
+.dark-mode .chat-window-header {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+}
+
+.dark-mode .chat-message.bot {
+    background: linear-gradient(145deg, var(--secondary), #00e5cc);
+    color: #000;
+}
+
+.dark-mode .chat-message.user {
+    background: linear-gradient(145deg, var(--primary), #9c4dcc);
+}
+
+.dark-mode .chat-icon {
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    box-shadow: 0 4px 15px rgba(187, 134, 252, 0.4);
+}
+
+/* Dark mode footer */
+.dark-mode .footer {
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    border-top: 1px solid var(--primary);
+}
+
+/* Dark mode link styling */
+.dark-mode a {
+    color: var(--secondary);
+    transition: color 0.3s ease;
+}
+
+.dark-mode a:hover {
+    color: var(--primary);
+    text-shadow: 0 0 5px rgba(187, 134, 252, 0.5);
+}
+
+/* Dark mode navigation links */
+.dark-mode .nav‑links a:hover {
+    color: var(--secondary);
+    text-shadow: 0 0 5px rgba(3, 218, 198, 0.5);
+}
+
+/* Dark mode job/school date styling */
+.dark-mode .job‑date,
+.dark-mode .school‑date {
+    color: var(--accent);
+}
+
+/* Dark mode smooth transitions for all elements */
+.dark-mode * {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 
@@ -41,6 +148,7 @@ html, body {
     background-color: var(--background);
     color: var(--text);
     scroll-behavior: smooth;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Navigation bar styling */
@@ -111,11 +219,26 @@ html, body {
     border-radius: 4px;
     cursor: pointer;
     font-size: 0.85rem;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
 }
 .dark‑mode‑toggle:hover {
     background-color: var(--accent);
     color: var(--background);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.2);
+}
+
+/* Enhanced dark mode toggle for dark mode */
+.dark-mode .dark‑mode‑toggle {
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    border: none;
+    color: #000;
+    font-weight: 600;
+}
+.dark-mode .dark‑mode‑toggle:hover {
+    background: linear-gradient(45deg, var(--secondary), var(--accent));
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(187, 134, 252, 0.4);
 }
 
 /* Resume download button styling */
