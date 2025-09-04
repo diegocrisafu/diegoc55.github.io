@@ -15,22 +15,19 @@ To view the portfolio locally:
 
 6. Explore the **Featured Projects** section to learn about additional applications such as the real‑time data dashboard and expense tracker.  Links to their GitHub repositories and deployed pages are provided.
 
-7. Enable AI‑powered responses for the chatbot by defining an OpenAI API key.  Before loading `index.html`, set a global `OPENAI_API_KEY` property on the `window` object in the browser console:
+7. Enable AI‑powered responses for the chatbot via a small backend proxy that calls Google Gemini:
 
-   ```js
-   window.OPENAI_API_KEY = 'your‑openai‑api‑key';
-   ```
+  - Production: Deploy the Cloudflare Worker in `server-worker/` and set its secret `GEMINI_API_KEY` in the Cloudflare Dashboard. Then set the site’s backend base in `chat-config.js` to your Worker URL (no trailing slash).
+  - Local dev: Run the Node proxy in `server/` (set `GEMINI_API_KEY` in `.env`, `npm install`, `npm start`) and set `window.CHAT_API_BASE = 'http://localhost:8787'` in `chat-config.js`.
 
-   Without a key the chatbot will fall back to canned responses.
+  If the backend isn’t configured or reachable, the assistant will show a short error message in the chat.
 
 ## Customisation
 
 - **Styling:** Edit `style.css` to adjust colours, fonts, spacing or layout.  Variables at the top of the file define the basic colour palette.
 - **Content:** Modify the JSX within the `<script type="text/babel">` tag in `index.html` to update the text, add or remove experience entries or projects, or change contact details.
 
-  Additionally, you can customise the behaviour of the chatbot by modifying the `ChatBot` component in `index.html`—for example, changing the initial greeting or how it responds to user input.
-
-  To integrate ChatGPT, see the `getChatGPTReply` helper function in `index.html`.  It uses the `OPENAI_API_KEY` variable to call the OpenAI API.  You can adjust the prompt, model or message structure as needed.
+  Additionally, you can customise the behaviour of the chatbot by editing the `getAIReply` helper and the chat UI in `index.html`. The current implementation calls your proxy at `${CHAT_API_BASE}/api/chat`, which forwards to Gemini 1.5 Flash.
 
 ## Deployment
 
