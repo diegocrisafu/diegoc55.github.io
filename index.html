@@ -6,6 +6,8 @@
     <title>Diego Crisafulli – Portfolio</title>
     <!-- Link to the stylesheet for styling -->
     <link rel="stylesheet" href="style.css">
+    <!-- Chat config: define window.CHAT_API_BASE before app code runs -->
+    <script src="./chat-config.js"></script>
     <!-- Include React and React‑DOM from a CDN -->
     <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
@@ -96,8 +98,12 @@
             // Gemini REST specification. If the call fails, a fallback message is
             // returned. See Google’s documentation for additional details【744721557993995†L420-L448】.
             async function getAIReply(message) {
-                // Use configured base (Worker/Render/etc.)
-                const base = (window.CHAT_API_BASE || '').replace(/\/$/, '');
+                // Resolve API base: prefer configured base; fallback to localhost in dev.
+                const configured = (window.CHAT_API_BASE || '').trim();
+                const base = (configured || (location.hostname === 'localhost' ? 'http://localhost:8787' : '')).replace(/\/$/, '');
+                if (!base) {
+                    return 'Assistant is not configured yet.';
+                }
                 const url = `${base}/api/chat`;
                 try {
                     const response = await fetch(url, {
@@ -106,15 +112,17 @@
                         body: JSON.stringify({ message })
                     });
                     if (!response.ok) {
-                        const text = await response.text();
-                        console.error('Proxy error:', text);
-                        return 'Sorry, no response available.';
+                        let detail = '';
+                        try { detail = await response.text(); } catch {}
+                        console.error('Proxy error:', detail || response.statusText);
+                        // Show a short, actionable message to the user
+                        return 'Assistant temporarily unavailable.';
                     }
                     const data = await response.json();
                     return (data.reply || 'Sorry, no response available.');
                 } catch (error) {
                     console.error('Proxy call failed:', error);
-                    return 'Oops, something went wrong while contacting the AI service.';
+                    return 'Network error contacting assistant.';
                 }
             }
 
@@ -352,6 +360,6 @@
         // Render the App component into the root div
         ReactDOM.render(<App />, document.getElementById('root'));
     </script>
-    <script src="./chat-config.js"></script>
+    
 </body>
 </html>
