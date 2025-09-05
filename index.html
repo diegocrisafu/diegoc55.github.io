@@ -372,16 +372,20 @@
                     <NavBar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
                     {/* Home section with a hero message */}
                     <Section id="home" title="">
-                        <div className="hero hero-flex">
-                            <div className="hero-left">
-                                <h1>Hello, I'm Diego Crisafulli</h1>
-                                <p className="subtitle">Software & ML Engineer</p>
+                        <div className="hero hero-intro">
+                            <h1 className="intro-name" aria-label="Diego Crisafulli">
+                                <span className="intro-first">Diego</span>
+                                <span className="intro-last">Crisafulli</span>
+                            </h1>
+                            <p className="intro-typing" aria-live="polite"><span id="typewriter"></span><span className="cursor">|</span></p>
+                            <div className="intro-sub">
                                 <p>Crafting cloud‑native solutions, web experiences, and immersive simulations.</p>
-                                {/* Resume download button */}
-                                <a href="Diego_Resume.pdf" className="button download‑btn" download>Download Resume</a>
                             </div>
-                            <div className="hero-right">
+                            <div className="intro-game">
                                 <GameHero />
+                            </div>
+                            <div className="intro-cta">
+                                <a href="Diego_Resume.pdf" className="button download‑btn" download>Download Resume</a>
                             </div>
                         </div>
                     </Section>
@@ -625,6 +629,26 @@
                 // Render the App component into the root div
         ReactDOM.render(<App />, document.getElementById('root'));
     </script>
+        <script>
+            // Lightweight typewriter for the intro subtitle
+            (function(){
+                const phrases = [
+                    'Software & ML Engineer',
+                    'Cloud‑native builder',
+                    'Full‑stack developer'
+                ];
+                let i = 0, j = 0, erasing = false;
+                const el = () => document.getElementById('typewriter');
+                function tick(){
+                    const target = el(); if(!target) return;
+                    const p = phrases[i % phrases.length];
+                    if(!erasing){ j++; target.textContent = p.slice(0, j); if(j >= p.length){ erasing = true; setTimeout(tick, 1200); return; } }
+                    else { j--; target.textContent = p.slice(0, j); if(j <= 0){ erasing = false; i++; } }
+                    setTimeout(tick, erasing ? 40 : 70);
+                }
+                window.addEventListener('DOMContentLoaded', () => setTimeout(tick, 400));
+            })();
+        </script>
     
 </body>
 </html>
