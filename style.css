@@ -541,6 +541,44 @@ html.dark-mode .g2048-cell.v2048{background:#a57928;color:#fff}
 .g2048-cell.spawn { animation: tileSpawn 120ms ease-out; }
 .g2048-cell.bump { animation: tileBump 140ms ease-in-out; }
 
+/* Minesweeper styles */
+.msw { display:flex; flex-direction:column; align-items:center; gap:8px; }
+.msw-top { display:flex; flex-direction:column; gap:8px; align-items:center; color: var(--primary); font-weight:700; }
+.msw-counters { display:flex; gap:14px; }
+.msw-controls { display:flex; gap:10px; align-items:center; flex-wrap: wrap; justify-content:center; }
+.msw-diffs { display:flex; gap:6px; flex-wrap: wrap; }
+.msw-btn { background: transparent; color: var(--primary); border:1px solid var(--primary); padding: 0.3rem 0.6rem; border-radius:4px; cursor:pointer; }
+.msw-btn:hover { background: var(--accent); color: var(--primary); }
+.msw-btn.active { background: var(--primary); color: #fff; }
+.msw-grid-wrap { overflow:auto; max-width: 100%; border: 1px solid var(--accent); border-radius: 6px; padding: 8px; background: var(--background); }
+.msw-grid { display:grid; gap:4px; }
+.msw-cell { width:28px; height:28px; border-radius:4px; border:1px solid #b0b0b0; background:#e0e0e0; display:flex; align-items:center; justify-content:center; font-weight:800; font-size: 0.95rem; color:#333; user-select:none; }
+.msw-cell:disabled { opacity: 0.9; }
+.msw-cell.revealed { background:#d6d6d6; border-color:#a8a8a8; }
+.msw-cell.flag { background:#f6eecf; border-color:#d6c99b; }
+.msw-cell.exploded { background:#ffcccc; border-color:#ff7777; }
+.msw-cell.n1{ color:#1976d2 }
+.msw-cell.n2{ color:#388e3c }
+.msw-cell.n3{ color:#d32f2f }
+.msw-cell.n4{ color:#512da8 }
+.msw-cell.n5{ color:#bf360c }
+.msw-cell.n6{ color:#00796b }
+.msw-cell.n7{ color:#455a64 }
+.msw-cell.n8{ color:#616161 }
+.msw-status { margin-top: 6px; padding: 6px 10px; border-radius:6px; font-weight:600; }
+.msw-status.lose { background: rgba(244,67,54,0.1); color: #c62828; border: 1px solid rgba(244,67,54,0.4); }
+.msw-status.win { background: rgba(76,175,80,0.12); color: #1b5e20; border: 1px solid rgba(76,175,80,0.38); }
+.msw-help { font-size: 0.8rem; color: var(--light-text); }
+
+/* Dark mode adjustments for Minesweeper */
+html.dark-mode .msw-grid-wrap { background:#0f0f0f; border-color:#222; }
+html.dark-mode .msw-cell { background:#1e1e1e; border-color:#333; color:#eee; }
+html.dark-mode .msw-cell.revealed { background:#2a2a2a; border-color:#444; }
+html.dark-mode .msw-cell.flag { background:#2b2414; border-color:#5a4d24; }
+html.dark-mode .msw-cell.exploded { background:#3a1212; border-color:#7a1e1e; }
+html.dark-mode .msw-btn { color: var(--secondary); border-color: var(--secondary); }
+html.dark-mode .msw-btn.active { background: var(--secondary); color:#000; }
+
 /* Chat open animation */
 .chat-window { animation: chatPop 160ms ease-out; transform-origin: bottom right; }
 @keyframes chatPop { from { transform: scale(0.98); opacity: 0; } to { transform: scale(1); opacity: 1; } }
