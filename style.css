@@ -491,12 +491,15 @@ html.dark-mode .dark‑mode‑toggle:hover {
 .wol2-label { fill: var(--light-text); font-size: 0.8rem; font-weight: 700; pointer-events: none; }
 /* 2048 styles */
 .g2048 { display:flex; flex-direction:column; align-items:center; gap:8px; }
-.g2048-top { display:flex; gap:12px; align-items:center; justify-content:center; color: var(--primary); font-weight:700; }
+.g2048-top { display:flex; gap:12px; align-items:center; justify-content:center; color: var(--primary); font-weight:700; flex-wrap: wrap; }
+.g2048-controls { display:flex; gap:8px; align-items:center; }
+.g2048-sizes { display:flex; gap:6px; }
 .g2048-restart { background: transparent; color: var(--primary); border:1px solid var(--primary); padding: 0.3rem 0.6rem; border-radius:4px; cursor:pointer; }
 .g2048-restart:hover { background: var(--accent); color: var(--primary); }
+.g2048-restart.active { background: var(--primary); color: #fff; }
 .g2048-grid { background: #bbada0; padding: 8px; border-radius: 6px; }
 .g2048-row { display:flex; }
-.g2048-cell { width: 72px; height: 72px; margin: 6px; border-radius: 4px; display:flex; align-items:center; justify-content:center; font-weight:800; font-size: 1.2rem; color:#776e65; background:#cdc1b4; }
+.g2048-cell { width: 72px; height: 72px; margin: 6px; border-radius: 4px; display:flex; align-items:center; justify-content:center; font-weight:800; font-size: 1.2rem; color:#776e65; background:#cdc1b4; transform: scale(1); }
 .g2048-help { font-size: 0.8rem; color: var(--light-text); }
 .g2048-over { margin-top: 6px; padding: 6px 10px; background: rgba(244,67,54,0.1); color: #c62828; border: 1px solid rgba(244,67,54,0.4); border-radius: 6px; font-weight: 600; }
 
@@ -512,6 +515,19 @@ html.dark-mode .dark‑mode‑toggle:hover {
 .g2048-cell.v512{background:#edc850;color:#f9f6f2; font-size:1.1rem}
 .g2048-cell.v1024{background:#edc53f;color:#f9f6f2; font-size:1rem}
 .g2048-cell.v2048{background:#edc22e;color:#f9f6f2; font-size:1rem}
+
+/* 2048 sizes */
+.g2048-grid.size5 .g2048-cell { width: 60px; height: 60px; margin: 5px; font-size: 1.05rem; }
+
+/* 2048 animations */
+@keyframes tileSpawn { from { transform: scale(0.6); opacity: 0.2; } to { transform: scale(1); opacity: 1; } }
+@keyframes tileBump { 0% { transform: scale(1); } 40% { transform: scale(1.12); } 100% { transform: scale(1); } }
+.g2048-cell.spawn { animation: tileSpawn 120ms ease-out; }
+.g2048-cell.bump { animation: tileBump 140ms ease-in-out; }
+
+/* Chat open animation */
+.chat-window { animation: chatPop 160ms ease-out; transform-origin: bottom right; }
+@keyframes chatPop { from { transform: scale(0.98); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
 .chat-icon {
     background-color: var(--secondary);
