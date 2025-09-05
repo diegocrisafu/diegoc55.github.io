@@ -516,6 +516,22 @@ html.dark-mode .dark‑mode‑toggle:hover {
 .g2048-cell.v1024{background:#edc53f;color:#f9f6f2; font-size:1rem}
 .g2048-cell.v2048{background:#edc22e;color:#f9f6f2; font-size:1rem}
 
+/* Dark mode adjustments for games */
+html.dark-mode .game-canvas { background: #0f0f0f; border-color: #222; }
+html.dark-mode .g2048-grid { background: #554c42; }
+html.dark-mode .g2048-cell { background: #3b3732; color: #eee2d9; }
+html.dark-mode .g2048-cell.v2{background:#3f3a34}
+html.dark-mode .g2048-cell.v4{background:#4a433d}
+html.dark-mode .g2048-cell.v8{background:#a9603f;color:#fff}
+html.dark-mode .g2048-cell.v16{background:#b05d3a;color:#fff}
+html.dark-mode .g2048-cell.v32{background:#be553a;color:#fff}
+html.dark-mode .g2048-cell.v64{background:#c0482d;color:#fff}
+html.dark-mode .g2048-cell.v128{background:#bba14a;color:#fff}
+html.dark-mode .g2048-cell.v256{background:#b6963f;color:#fff}
+html.dark-mode .g2048-cell.v512{background:#b18d37;color:#fff}
+html.dark-mode .g2048-cell.v1024{background:#ab8330;color:#fff}
+html.dark-mode .g2048-cell.v2048{background:#a57928;color:#fff}
+
 /* 2048 sizes */
 .g2048-grid.size5 .g2048-cell { width: 60px; height: 60px; margin: 5px; font-size: 1.05rem; }
 

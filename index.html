@@ -308,6 +308,7 @@
                     const [history, setHistory] = React.useState([]); // stack of {grid, score}
                     const [spawnPos, setSpawnPos] = React.useState(null); // 'r-c'
                     const [mergeSet, setMergeSet] = React.useState(()=> new Set()); // of 'r-c'
+                    const [animating, setAnimating] = React.useState(false);
                     const touchRef = React.useRef(null);
 
                     function blank(n){ return Array.from({length:n},()=>Array(n).fill(0)); }
@@ -348,6 +349,7 @@
                         return true;
                     }
                     function move(dir){ // 0=L,1=U,2=R,3=D
+                        if(animating) return; // throttle while animating
                         setMergeSet(new Set()); setSpawnPos(null);
                         const n=size; let g=clone(grid);
                         const prev={grid:clone(grid), score};
@@ -356,6 +358,7 @@
                         g=g.map((r,ri)=>{ const {row,adds,mergedIdx}=compressRow(r); if(row.some((v,i)=>v!==r[i])) moved=true; add+=adds; mergedIdx.forEach(ci=>mergedCoords.push([ri,ci])); return row; });
                         for(let i=0;i<(4-dir)%4;i++) g=rotate(g);
                         if(moved){
+                            setAnimating(true);
                             setHistory(h=>{ const nh=[...h, prev]; return nh.length>50 ? nh.slice(nh.length-50) : nh; });
                             const sp=spawn(g,n); setGrid(sp.grid); setSpawnPos(sp.pos);
                             // rotate merged coords back to original orientation
@@ -364,6 +367,8 @@
                             setScore(s=>{ const ns=s+add; if(ns>best){ localStorage.setItem('g2048Best',String(ns)); setBest(ns); } return ns; });
                             if(!win && any2048(sp.grid)) setWin(true);
                             if(isGameOver(sp.grid)) setOver(true);
+                            // release input after brief animation window
+                            setTimeout(()=>setAnimating(false), 160);
                         }
                     }
                     function restart(n=size){ setGrid(initGrid(n)); setScore(0); setOver(false); setWin(false); setHistory([]); setSpawnPos(null); setMergeSet(new Set()); }
@@ -385,7 +390,7 @@
 
                     const onTouchStart=(e)=>{ const t=e.changedTouches[0]; touchRef.current={x:t.clientX,y:t.clientY}; };
                     const onTouchEnd=(e)=>{
-                        if(!touchRef.current) return; const t=e.changedTouches[0];
+                        if(!touchRef.current || animating) return; const t=e.changedTouches[0];
                         const dx=t.clientX-touchRef.current.x, dy=t.clientY-touchRef.current.y;
                         const adx=Math.abs(dx), ady=Math.abs(dy);
                         if(Math.max(adx,ady)<18) return; if(adx>ady) move(dx>0?2:0); else move(dy>0?3:1);
