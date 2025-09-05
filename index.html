@@ -86,6 +86,122 @@
             );
         }
 
+                // Lightweight Snake mini-game rendered on a Canvas.
+                function GameHero() {
+                    const canvasRef = React.useRef(null);
+                    const [running, setRunning] = React.useState(false);
+                    const [score, setScore] = React.useState(0);
+                    const dirRef = React.useRef({ x: 1, y: 0 });
+                    const snakeRef = React.useRef([{ x: 8, y: 12 }]);
+                    const appleRef = React.useRef({ x: 14, y: 12 });
+                    const lastTimeRef = React.useRef(0);
+                    const accRef = React.useRef(0);
+                    const grid = 20; // 20x15 grid on 400x300 canvas
+                    const stepMs = 120; // speed
+
+                    const reset = () => {
+                        snakeRef.current = [{ x: 8, y: 12 }];
+                        dirRef.current = { x: 1, y: 0 };
+                        appleRef.current = { x: Math.floor(Math.random()*grid), y: Math.floor(Math.random()*15) };
+                        setScore(0);
+                    };
+
+                    React.useEffect(() => {
+                        reset();
+                        const onKey = (e) => {
+                            const k = e.key;
+                            const d = dirRef.current;
+                            if (k === 'ArrowUp' || k === 'w') { if (d.y === 0) dirRef.current = { x: 0, y: -1 }; }
+                            else if (k === 'ArrowDown' || k === 's') { if (d.y === 0) dirRef.current = { x: 0, y: 1 }; }
+                            else if (k === 'ArrowLeft' || k === 'a') { if (d.x === 0) dirRef.current = { x: -1, y: 0 }; }
+                            else if (k === 'ArrowRight' || k === 'd') { if (d.x === 0) dirRef.current = { x: 1, y: 0 }; }
+                        };
+                        window.addEventListener('keydown', onKey);
+                        return () => window.removeEventListener('keydown', onKey);
+                    }, []);
+
+                    React.useEffect(() => {
+                        let rafId;
+                        const loop = (t) => {
+                            if (!running) { rafId = requestAnimationFrame(loop); return; }
+                            const canvas = canvasRef.current;
+                            if (!canvas) return;
+                            const ctx = canvas.getContext('2d');
+                            const w = canvas.width, h = canvas.height;
+                            // fixed timestep
+                            const dt = t - (lastTimeRef.current || t);
+                            lastTimeRef.current = t;
+                            accRef.current += dt;
+                            if (accRef.current >= stepMs) {
+                                accRef.current = 0;
+                                // advance
+                                const snake = [...snakeRef.current];
+                                const head = { x: snake[0].x + dirRef.current.x, y: snake[0].y + dirRef.current.y };
+                                // wrap
+                                head.x = (head.x + grid) % grid;
+                                head.y = (head.y + 15) % 15;
+                                // self collision
+                                if (snake.some((s) => s.x === head.x && s.y === head.y)) {
+                                    setRunning(false);
+                                } else {
+                                    snake.unshift(head);
+                                    // apple
+                                    const apple = appleRef.current;
+                                    if (head.x === apple.x && head.y === apple.y) {
+                                        setScore((s) => s + 1);
+                                        // place new apple not on snake
+                                        let nx, ny;
+                                        do {
+                                            nx = Math.floor(Math.random() * grid);
+                                            ny = Math.floor(Math.random() * 15);
+                                        } while (snake.some((s) => s.x === nx && s.y === ny));
+                                        appleRef.current = { x: nx, y: ny };
+                                    } else {
+                                        snake.pop();
+                                    }
+                                    snakeRef.current = snake;
+                                }
+                            }
+
+                            // draw
+                            ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--background') || '#f5f7fa';
+                            ctx.fillRect(0, 0, w, h);
+                            // grid glow
+                            ctx.strokeStyle = 'rgba(0,0,0,0.05)';
+                            for (let x=0; x<=w; x+=20) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,h); ctx.stroke(); }
+                            for (let y=0; y<=h; y+=20) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(w,y); ctx.stroke(); }
+                            // apple
+                            ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--secondary') || '#4b86b4';
+                            ctx.fillRect(appleRef.current.x*20+2, appleRef.current.y*20+2, 16, 16);
+                            // snake
+                            ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--primary') || '#2a4d69';
+                            snakeRef.current.forEach((s, i) => {
+                                ctx.globalAlpha = Math.max(0.6, 1 - i*0.02);
+                                ctx.fillRect(s.x*20+2, s.y*20+2, 16, 16);
+                            });
+                            ctx.globalAlpha = 1;
+                            rafId = requestAnimationFrame(loop);
+                        };
+                        rafId = requestAnimationFrame(loop);
+                        return () => cancelAnimationFrame(rafId);
+                    }, [running]);
+
+                    const handleStartPause = () => setRunning((r) => !r);
+                    const handleRestart = () => { reset(); setRunning(true); };
+
+                    return (
+                        <div className="game-hero">
+                            <canvas ref={canvasRef} width="400" height="300" className="game-canvas" aria-label="Snake game area"></canvas>
+                            <div className="game-controls">
+                                <button className="button downloadbtn" onClick={handleStartPause}>{running ? 'Pause' : 'Play'}</button>
+                                <button className="game-restart" onClick={handleRestart}>Restart</button>
+                                <span className="game-score">Score: {score}</span>
+                            </div>
+                            <div className="game-help">Use arrow keys or WASD to move. Eat squares, avoid yourself.</div>
+                        </div>
+                    );
+                }
+
                 // The main App component. Assembles all sections and the navigation bar.
                 function App() {
                         // Initialize dark mode from localStorage or system preference
@@ -100,12 +216,19 @@
                         }, [darkMode]);
                         const toggleDarkMode = () => setDarkMode(d => !d);
 
-            // State for the chatbot open/closed status and chat messages
+                        // State for the chatbot open/closed status and chat messages
             const [chatOpen, setChatOpen] = React.useState(false);
             const [chatInput, setChatInput] = React.useState('');
             const [messages, setMessages] = React.useState([
                 { from: 'bot', text: 'Hello! I\'m your personal assistant. How can I help you?' }
             ]);
+
+                        // Resolve chat base for health checks and requests
+                        const getChatBase = React.useCallback(() => {
+                            const configured = (window.CHAT_API_BASE || '').trim();
+                            return (configured || (location.hostname === 'localhost' ? 'http://localhost:8787' : '')).replace(/\/$/, '');
+                        }, []);
+                        const { healthy: chatHealthy, check: checkChatHealth } = useChatHealth(getChatBase);
 
             // Replace the ChatGPT helper with a Gemini helper. This function calls
             // Google’s Gemini generative API using the supplied API key. The API
@@ -169,12 +292,17 @@
                     <NavBar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
                     {/* Home section with a hero message */}
                     <Section id="home" title="">
-                        <div className="hero">
-                            <h1>Hello, I'm Diego Crisafulli</h1>
-                            <p className="subtitle">Software & ML Engineer</p>
-                            <p>Crafting cloud‑native solutions, web experiences, and immersive simulations.</p>
-                            {/* Resume download button */}
-                            <a href="Diego_Resume.pdf" className="button download‑btn" download>Download Resume</a>
+                        <div className="hero hero-flex">
+                            <div className="hero-left">
+                                <h1>Hello, I'm Diego Crisafulli</h1>
+                                <p className="subtitle">Software & ML Engineer</p>
+                                <p>Crafting cloudnative solutions, web experiences, and immersive simulations.</p>
+                                {/* Resume download button */}
+                                <a href="Diego_Resume.pdf" className="button downloadbtn" download>Download Resume</a>
+                            </div>
+                            <div className="hero-right">
+                                <GameHero />
+                            </div>
                         </div>
                     </Section>
                     {/* About section describing Diego’s professional summary */}
@@ -322,8 +450,11 @@
                         {chatOpen && (
                             <div className="chat-window">
                                 {/* Header with title, close and clear buttons */}
-                                <div className="chat-window-header">
-                                    <h4>Assistant</h4>
+                                                                <div className="chat-window-header">
+                                                                        <h4>
+                                                                            <span className={`chat-status-dot ${chatHealthy ? 'online' : 'offline'}`} title={chatHealthy ? 'Online' : 'Offline'}></span>
+                                                                            Assistant
+                                                                        </h4>
                                     <div className="chat-window-controls">
                                         <button
                                             className="chat-clear-btn"
@@ -339,12 +470,13 @@
                                         >
                                             Clear
                                         </button>
+                                                                                <button className="chat-clear-btn" onClick={() => checkChatHealth()} aria-label="Retry health check">Check</button>
                                         <button
                                             className="chat-close-btn"
                                             aria-label="Close chat window"
                                             onClick={() => setChatOpen(false)}
                                         >
-                                            ×
+                                            \u00d7
                                         </button>
                                     </div>
                                 </div>
@@ -372,7 +504,40 @@
             );
         }
 
-        // Render the App component into the root div
+                // Chat health util inside App scope
+                function useChatHealth(getBase) {
+                    const [healthy, setHealthy] = React.useState(false);
+                    const check = React.useCallback(async () => {
+                        try {
+                            const base = getBase();
+                            if (!base) { setHealthy(false); return false; }
+                            // try /health (node) first, then root (worker)
+                            let ok = false;
+                            try {
+                                const r1 = await fetch(`${base}/health`, { method: 'GET' });
+                                ok = r1.ok;
+                                if (!ok) throw new Error('health not ok');
+                            } catch {
+                                const r2 = await fetch(base, { method: 'GET' });
+                                ok = r2.ok;
+                            }
+                            setHealthy(!!ok);
+                            return ok;
+                        } catch {
+                            setHealthy(false);
+                            return false;
+                        }
+                    }, [getBase]);
+                    // poll every 30s
+                    React.useEffect(() => {
+                        check();
+                        const id = setInterval(check, 30000);
+                        return () => clearInterval(id);
+                    }, [check]);
+                    return { healthy, check };
+                }
+
+                // Render the App component into the root div
         ReactDOM.render(<App />, document.getElementById('root'));
     </script>
     
