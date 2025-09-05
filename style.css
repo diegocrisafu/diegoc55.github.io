@@ -439,14 +439,16 @@ html.dark-mode .dark‑mode‑toggle:hover {
     align-items: flex-end;
 }
 
-/* Web of Life interactive graph */
-.wol { position: relative; height: 320px; display: flex; align-items: center; justify-content: center; }
-.wol-center { position: absolute; width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #000; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.4rem; box-shadow: 0 10px 24px rgba(0,0,0,0.15); }
-.orbit { position: absolute; width: calc(var(--r) * 2); height: calc(var(--r) * 2); border-radius: 50%; animation: orbit var(--dur) linear infinite; animation-direction: var(--dir); }
-.orbit.ring { border: 1px dashed rgba(0,0,0,0.1); pointer-events: none; }
-.orbit .node { position: absolute; left: 50%; top: 50%; transform-origin: -50% -50%; transform: rotate(var(--a, 0)) translate(var(--r)) rotate(calc(-1 * var(--a, 0))); background: var(--background); color: var(--primary); border: 1px solid var(--accent); border-radius: 999px; padding: 6px 10px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.08); transition: transform 0.2s ease, box-shadow 0.2s ease; }
-.orbit .node:hover { transform: rotate(var(--a, 0)) translate(calc(var(--r) + 6px)) rotate(calc(-1 * var(--a, 0))); box-shadow: 0 8px 18px rgba(0,0,0,0.15); }
-@keyframes orbit { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+/* Web of Life v2 (SVG radial graph) */
+.wol2 { display: flex; justify-content: center; }
+.wol2-svg { width: 100%; max-width: 720px; filter: url(#ds); }
+.wol2-ring { fill: none; stroke: rgba(0,0,0,0.06); stroke-dasharray: 4 6; }
+.wol2-link { stroke: rgba(0,0,0,0.08); stroke-width: 1; transition: stroke 0.2s ease; }
+.wol2-link.active { stroke: var(--secondary); }
+.wol2-center-text { font-size: 0.95rem; font-weight: 900; fill: #000; }
+.wol2-node circle { fill: var(--white); stroke: var(--accent); stroke-width: 2; transition: transform 0.2s ease, filter 0.2s ease; }
+.wol2-node.active circle, .wol2-node:hover circle { transform: scale(1.12); filter: drop-shadow(0 6px 12px rgba(0,0,0,0.2)); }
+.wol2-label { fill: var(--light-text); font-size: 0.8rem; font-weight: 700; pointer-events: none; }
 
 .chat-icon {
     background-color: var(--secondary);
