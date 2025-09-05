@@ -259,28 +259,76 @@
                     );
                 }
 
-                // Interactive Web of Life — orbiting nodes linking to sections and CV
-                function WebOfLife() {
-                    const scrollTo = (id) => {
-                        const el = document.getElementById(id);
-                        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    };
-                    return (
-                        <div className="wol">
-                            <div className="wol-center" aria-label="Center node">Diego</div>
-                            <div className="orbit" style={{"--r":"120px","--dur":"32s","--dir":"normal"}}>
-                                <button className="node" onClick={() => window.open('Diego_Resume.pdf','_blank')} title="Résumé / CV">CV</button>
-                                <button className="node" style={{"--a":"120deg"}} onClick={() => scrollTo('projects')} title="Projects">Projects</button>
-                                <button className="node" style={{"--a":"240deg"}} onClick={() => scrollTo('contact')} title="Contact">Contact</button>
-                            </div>
-                            <div className="orbit" style={{"--r":"170px","--dur":"40s","--dir":"reverse"}}>
-                                <button className="node" onClick={() => scrollTo('experience')} title="Experience">Experience</button>
-                                <button className="node" style={{"--a":"180deg"}} onClick={() => scrollTo('skills')} title="Skills">Skills</button>
-                            </div>
-                            <div className="orbit ring" style={{"--r":"210px","--dur":"60s","--dir":"normal"}} aria-hidden="true"></div>
-                        </div>
-                    );
-                }
+                                // Web of Life (SVG radial graph) — polished, professional layout
+                                function WebOfLife() {
+                                    const center = { x: 300, y: 200 };
+                                    const items = [
+                                        { id: 'cv', label: 'CV', action: () => window.open('Diego_Resume.pdf','_blank') },
+                                        { id: 'projects', label: 'Projects', action: () => scrollToId('projects') },
+                                        { id: 'experience', label: 'Experience', action: () => scrollToId('experience') },
+                                        { id: 'skills', label: 'Skills', action: () => scrollToId('skills') },
+                                        { id: 'education', label: 'Education', action: () => scrollToId('education') },
+                                        { id: 'contact', label: 'Contact', action: () => scrollToId('contact') }
+                                    ];
+                                    const [active, setActive] = React.useState(null);
+
+                                    function scrollToId(id) {
+                                        const el = document.getElementById(id);
+                                        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                    }
+
+                                    // compute radial positions (two rings)
+                                    const ring1 = 150, ring2 = 210;
+                                    const positions = items.map((it, i) => {
+                                        const ring = i < 3 ? ring1 : ring2;
+                                        const idx = i < 3 ? i : i - 3;
+                                        const count = i < 3 ? 3 : (items.length - 3);
+                                        const angle = (Math.PI * 2 * (idx / count)) + (i < 3 ? -Math.PI/6 : Math.PI/6);
+                                        return { ...it, x: center.x + ring * Math.cos(angle), y: center.y + ring * Math.sin(angle) };
+                                    });
+
+                                    return (
+                                        <div className="wol2">
+                                            <svg className="wol2-svg" viewBox="0 0 600 420" role="img" aria-label="Interactive map of Diego's work">
+                                                <defs>
+                                                    <filter id="ds"><feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.25"/></filter>
+                                                    <linearGradient id="cg" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                        <stop offset="0%" stopColor="var(--primary)"/>
+                                                        <stop offset="100%" stopColor="var(--secondary)"/>
+                                                    </linearGradient>
+                                                </defs>
+                                                {/* rings */}
+                                                <circle cx={center.x} cy={center.y} r={ring1} className="wol2-ring" />
+                                                <circle cx={center.x} cy={center.y} r={ring2} className="wol2-ring" />
+                                                {/* links */}
+                                                {positions.map(p => (
+                                                    <line key={'l-'+p.id} x1={center.x} y1={center.y} x2={p.x} y2={p.y} className={`wol2-link ${active===p.id?'active':''}`} />
+                                                ))}
+                                                {/* center node */}
+                                                <g className="wol2-center" transform={`translate(${center.x},${center.y})`}>
+                                                    <circle r="36" fill="url(#cg)" />
+                                                    <text textAnchor="middle" dominantBaseline="middle" className="wol2-center-text">Diego</text>
+                                                </g>
+                                                {/* nodes */}
+                                                {positions.map(p => (
+                                                    <g key={p.id}
+                                                         className={`wol2-node ${active===p.id?'active':''}`}
+                                                         transform={`translate(${p.x},${p.y})`}
+                                                         onMouseEnter={() => setActive(p.id)}
+                                                         onMouseLeave={() => setActive(null)}
+                                                         onFocus={() => setActive(p.id)}
+                                                         onBlur={() => setActive(null)}
+                                                         onClick={p.action}
+                                                         role="button" tabIndex={0}
+                                                         onKeyDown={(e)=>{ if(e.key==='Enter'||e.key===' ') { e.preventDefault(); p.action(); } }}>
+                                                        <circle r="20" />
+                                                        <text y="36" textAnchor="middle" className="wol2-label">{p.label}</text>
+                                                    </g>
+                                                ))}
+                                            </svg>
+                                        </div>
+                                    );
+                                }
 
                 // The main App component. Assembles all sections and the navigation bar.
                 function App() {
