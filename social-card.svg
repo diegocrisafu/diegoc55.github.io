@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2a4d69"/>
+      <stop offset="1" stop-color="#4b86b4"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <g fill="#fff" font-family="Segoe UI, Arial, Helvetica, sans-serif">
+    <text x="96" y="250" font-size="82" font-weight="800">Diego Crisafulli</text>
+    <text x="96" y="330" font-size="40" opacity="0.95">Software & ML Engineer · Cloud-native builder · Full-stack developer</text>
+    <rect x="96" y="380" width="420" height="4" fill="#fff" opacity="0.65"/>
+  </g>
+</svg>
