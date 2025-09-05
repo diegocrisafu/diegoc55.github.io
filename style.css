@@ -303,12 +303,15 @@ html.dark-mode .dark‑mode‑toggle:hover {
 .hero-left { text-align: left; }
 .hero-right { display: flex; justify-content: center; }
 .game-hero { display: flex; flex-direction: column; align-items: center; }
+.game-scorebar { width: 400px; display: flex; justify-content: space-between; margin-bottom: 6px; color: var(--primary); font-weight: 600; }
 .game-canvas { border: 1px solid var(--accent); border-radius: 6px; background: var(--background); }
 .game-controls { margin-top: 0.5rem; display: flex; gap: 0.5rem; align-items: center; }
 .game-restart { background: transparent; color: var(--primary); border: 1px solid var(--primary); padding: 0.35rem 0.6rem; border-radius: 4px; cursor: pointer; }
 .game-restart:hover { background: var(--accent); color: var(--primary); }
 .game-score { font-weight: 600; color: var(--primary); }
+.game-best { font-weight: 600; color: var(--secondary); }
 .game-help { font-size: 0.8rem; color: var(--light-text); margin-top: 0.25rem; }
+.game-overlay { margin-top: 6px; padding: 6px 10px; background: rgba(244,67,54,0.1); color: #c62828; border: 1px solid rgba(244,67,54,0.4); border-radius: 6px; font-weight: 600; }
 
 @media (max-width: 900px) {
     .hero.hero-flex { grid-template-columns: 1fr; }
