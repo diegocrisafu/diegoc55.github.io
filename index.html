@@ -4,6 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Diego Crisafulli – Portfolio</title>
+    <meta name="description" content="Portfolio of Diego Crisafulli – Software & ML Engineer. Cloud-native builder, full-stack developer, and simulation specialist.">
+    <meta name="author" content="Diego Crisafulli">
+    <meta name="robots" content="index,follow">
+    <link rel="canonical" href="https://diegocrisafu.github.io/diegoc55.github.io/">
+    <meta name="theme-color" content="#2a4d69">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Diego Crisafulli – Portfolio">
+    <meta property="og:description" content="Cloud-native builder, full-stack developer, and simulation specialist.">
+    <meta property="og:url" content="https://diegocrisafu.github.io/diegoc55.github.io/">
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Diego Crisafulli – Portfolio">
+    <meta name="twitter:description" content="Cloud-native builder, full-stack developer, and simulation specialist.">
+    <!-- Performance hints for CDN deps -->
+    <link rel="preconnect" href="https://unpkg.com" crossorigin>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="manifest" href="manifest.webmanifest">
     <!-- Link to the stylesheet for styling -->
     <link rel="stylesheet" href="style.css">
     <!-- Chat config: define window.CHAT_API_BASE before app code runs -->
@@ -28,8 +46,24 @@
                 } catch (_) {}
             });
         </script>
+                <!-- Structured data: Person -->
+                <script type="application/ld+json">
+                {
+                    "@context": "https://schema.org",
+                    "@type": "Person",
+                    "name": "Diego Crisafulli",
+                    "jobTitle": "Software & ML Engineer",
+                    "url": "https://diegocrisafu.github.io/diegoc55.github.io/",
+                    "email": "mailto:diego.crisafu@gmail.com",
+                    "sameAs": [
+                        "https://www.linkedin.com/in/diegocrisafulli212bb0256",
+                        "https://github.com/diegocrisafu"
+                    ]
+                }
+                </script>
 </head>
 <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
     <!-- Root element where our React app will mount -->
     <div id="root"></div>
 
@@ -298,11 +332,11 @@
                                                     </linearGradient>
                                                 </defs>
                                                 {/* rings */}
-                                                <circle cx={center.x} cy={center.y} r={ring1} className="wol2-ring" />
-                                                <circle cx={center.x} cy={center.y} r={ring2} className="wol2-ring" />
+                                                <circle cx={center.x} cy={center.y} r={ring1} className="wol2-ring" aria-hidden="true" />
+                                                <circle cx={center.x} cy={center.y} r={ring2} className="wol2-ring" aria-hidden="true" />
                                                 {/* links */}
                                                 {positions.map(p => (
-                                                    <line key={'l-'+p.id} x1={center.x} y1={center.y} x2={p.x} y2={p.y} className={`wol2-link ${active===p.id?'active':''}`} />
+                                                    <line key={'l-'+p.id} x1={center.x} y1={center.y} x2={p.x} y2={p.y} className={`wol2-link ${active===p.id?'active':''}`} aria-hidden="true" />
                                                 ))}
                                                 {/* center node */}
                                                 <g className="wol2-center" transform={`translate(${center.x},${center.y})`}>
@@ -321,6 +355,7 @@
                                                          onClick={p.action}
                                                          role="button" tabIndex={0}
                                                          onKeyDown={(e)=>{ if(e.key==='Enter'||e.key===' ') { e.preventDefault(); p.action(); } }}>
+                                                        <title>{p.label}</title>
                                                         <circle r="20" />
                                                         <text y="36" textAnchor="middle" className="wol2-label">{p.label}</text>
                                                     </g>
@@ -677,6 +712,14 @@
                 // Render the App component into the root div
         ReactDOM.render(<App />, document.getElementById('root'));
     </script>
+        <script>
+            // Register service worker for basic offline support
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('./sw.js').catch(() => {});
+                });
+            }
+        </script>
         <script>
             // Lightweight typewriter for the intro subtitle
             (function(){
