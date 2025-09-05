@@ -293,6 +293,28 @@ html.dark-mode .dark‑mode‑toggle:hover {
     text-align: center;
 }
 
+/* Animated intro hero */
+.hero-intro { display: flex; flex-direction: column; align-items: center; gap: 0.8rem; }
+.intro-name { font-size: 3rem; line-height: 1.1; margin: 0.4rem 0 0; font-weight: 900; letter-spacing: 0.5px; }
+.intro-first, .intro-last {
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    animation: hueShift 8s linear infinite;
+}
+.intro-last { margin-left: 0.35rem; }
+.intro-typing { font-size: 1.1rem; color: var(--secondary); min-height: 1.5rem; }
+.cursor { color: var(--secondary); animation: blink 1s step-end infinite; margin-left: 2px; }
+.intro-sub { color: var(--light-text); }
+.intro-game { margin-top: 0.4rem; }
+.intro-cta { margin-top: 0.6rem; }
+
+@keyframes blink { 50% { opacity: 0; } }
+@keyframes hueShift { from { filter: hue-rotate(0deg); } to { filter: hue-rotate(360deg); } }
+
+@media (max-width: 600px) {
+    .intro-name { font-size: 2.2rem; }
+}
+
 /* Hero split layout for game */
 .hero.hero-flex {
         display: grid;
