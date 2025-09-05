@@ -14,10 +14,13 @@
     <meta property="og:title" content="Diego Crisafulli – Portfolio">
     <meta property="og:description" content="Cloud-native builder, full-stack developer, and simulation specialist.">
     <meta property="og:url" content="https://diegocrisafu.github.io/diegoc55.github.io/">
+    <meta property="og:image" content="social-card.svg">
+    <meta property="og:image:alt" content="Diego Crisafulli – Software & ML Engineer">
     <!-- Twitter -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Diego Crisafulli – Portfolio">
     <meta name="twitter:description" content="Cloud-native builder, full-stack developer, and simulation specialist.">
+    <meta name="twitter:image" content="social-card.svg">
     <!-- Performance hints for CDN deps -->
     <link rel="preconnect" href="https://unpkg.com" crossorigin>
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -54,6 +57,7 @@
                     "name": "Diego Crisafulli",
                     "jobTitle": "Software & ML Engineer",
                     "url": "https://diegocrisafu.github.io/diegoc55.github.io/",
+                      "image": "https://diegocrisafu.github.io/diegoc55.github.io/social-card.svg",
                     "email": "mailto:diego.crisafu@gmail.com",
                     "sameAs": [
                         "https://www.linkedin.com/in/diegocrisafulli212bb0256",
@@ -344,8 +348,8 @@
                                                     <text textAnchor="middle" dominantBaseline="middle" className="wol2-center-text">Diego</text>
                                                 </g>
                                                 {/* nodes */}
-                                                {positions.map(p => (
-                                                    <g key={p.id}
+                                                                                                {positions.map(p => (
+                                                                                                        <g key={p.id}
                                                          className={`wol2-node ${active===p.id?'active':''}`}
                                                          transform={`translate(${p.x},${p.y})`}
                                                          onMouseEnter={() => setActive(p.id)}
@@ -358,6 +362,12 @@
                                                         <title>{p.label}</title>
                                                         <circle r="20" />
                                                         <text y="36" textAnchor="middle" className="wol2-label">{p.label}</text>
+                                                                                                                {active===p.id && (
+                                                                                                                    <g transform="translate(0,-34)">
+                                                                                                                        <rect x="-60" y="-22" width="120" height="22" rx="4" className="wol2-tip-bg"></rect>
+                                                                                                                        <text textAnchor="middle" className="wol2-tip">Go to {p.label}</text>
+                                                                                                                    </g>
+                                                                                                                )}
                                                     </g>
                                                 ))}
                                             </svg>

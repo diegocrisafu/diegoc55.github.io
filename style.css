@@ -479,6 +479,8 @@ html.dark-mode .dark‑mode‑toggle:hover {
 .wol2-node circle { fill: var(--white); stroke: var(--accent); stroke-width: 2; transition: transform 0.2s ease, filter 0.2s ease; }
 .wol2-node.active circle, .wol2-node:hover circle { transform: scale(1.12); filter: drop-shadow(0 6px 12px rgba(0,0,0,0.2)); }
 .wol2-label { fill: var(--light-text); font-size: 0.8rem; font-weight: 700; pointer-events: none; }
+.wol2-tip-bg { fill: rgba(0,0,0,0.75); }
+.wol2-tip { fill: #fff; font-size: 0.72rem; font-weight: 600; dominant-baseline: middle; }
 
 .chat-icon {
     background-color: var(--secondary);
