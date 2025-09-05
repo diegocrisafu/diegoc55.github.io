@@ -293,6 +293,28 @@ html.dark-mode .dark‑mode‑toggle:hover {
     text-align: center;
 }
 
+/* Hero split layout for game */
+.hero.hero-flex {
+        display: grid;
+        grid-template-columns: 1fr 420px;
+        gap: 1.5rem;
+        align-items: center;
+}
+.hero-left { text-align: left; }
+.hero-right { display: flex; justify-content: center; }
+.game-hero { display: flex; flex-direction: column; align-items: center; }
+.game-canvas { border: 1px solid var(--accent); border-radius: 6px; background: var(--background); }
+.game-controls { margin-top: 0.5rem; display: flex; gap: 0.5rem; align-items: center; }
+.game-restart { background: transparent; color: var(--primary); border: 1px solid var(--primary); padding: 0.35rem 0.6rem; border-radius: 4px; cursor: pointer; }
+.game-restart:hover { background: var(--accent); color: var(--primary); }
+.game-score { font-weight: 600; color: var(--primary); }
+.game-help { font-size: 0.8rem; color: var(--light-text); margin-top: 0.25rem; }
+
+@media (max-width: 900px) {
+    .hero.hero-flex { grid-template-columns: 1fr; }
+    .hero-left { text-align: center; }
+}
+
 .hero h1 {
     font-size: 2.5rem;
     margin-bottom: 0.5rem;
@@ -482,6 +504,9 @@ html.dark-mode .dark‑mode‑toggle:hover {
     margin: 0;
     font-size: 0.9rem;
 }
+.chat-status-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; vertical-align: middle; background: #888; box-shadow: 0 0 6px rgba(0,0,0,0.2); }
+.chat-status-dot.online { background: #4caf50; box-shadow: 0 0 8px rgba(76,175,80,0.7); }
+.chat-status-dot.offline { background: #f44336; box-shadow: 0 0 8px rgba(244,67,54,0.6); }
 .chat-window-controls {
     display: flex;
     gap: 0.4rem;
