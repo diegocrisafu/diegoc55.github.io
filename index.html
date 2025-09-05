@@ -11,8 +11,8 @@
     <!-- Include React and React‑DOM from a CDN -->
     <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
-    <!-- Include Babel to allow writing JSX in the browser -->
-    <script crossorigin src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <!-- Include modern Babel Standalone (v7) to transpile JSX in-browser -->
+    <script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
         <!-- Surface runtime errors to the page for easier debugging on static hosting -->
         <script>
             window.addEventListener('error', function (e) {
@@ -34,7 +34,7 @@
     <div id="root"></div>
 
     <!-- React application code (Babel will transpile JSX) -->
-    <script type="text/babel" data-presets="es2015,react">
+    <script type="text/babel" data-presets="env,react">
         /*
          * Top navigation bar component. Renders links that scroll to sections
          * within the page. The component sticks to the top of the viewport
