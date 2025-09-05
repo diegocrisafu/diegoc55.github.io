@@ -87,10 +87,14 @@
         }
 
                 // Lightweight Snake mini-game rendered on a Canvas.
-                function GameHero() {
+                        function GameHero() {
                     const canvasRef = React.useRef(null);
                     const [running, setRunning] = React.useState(false);
                     const [score, setScore] = React.useState(0);
+                            const [best, setBest] = React.useState(() => {
+                                const v = parseInt(localStorage.getItem('snakeBest') || '0', 10);
+                                return isNaN(v) ? 0 : v;
+                            });
                     const dirRef = React.useRef({ x: 1, y: 0 });
                     const snakeRef = React.useRef([{ x: 8, y: 12 }]);
                     const appleRef = React.useRef({ x: 14, y: 12 });
@@ -98,6 +102,7 @@
                     const accRef = React.useRef(0);
                     const grid = 20; // 20x15 grid on 400x300 canvas
                     const stepMs = 120; // speed
+                            const touchRef = React.useRef(null);
 
                     const reset = () => {
                         snakeRef.current = [{ x: 8, y: 12 }];
@@ -117,7 +122,12 @@
                             else if (k === 'ArrowRight' || k === 'd') { if (d.x === 0) dirRef.current = { x: 1, y: 0 }; }
                         };
                         window.addEventListener('keydown', onKey);
-                        return () => window.removeEventListener('keydown', onKey);
+                                    const onVis = () => { if (document.hidden) setRunning(false); };
+                                    document.addEventListener('visibilitychange', onVis);
+                                    return () => {
+                                        window.removeEventListener('keydown', onKey);
+                                        document.removeEventListener('visibilitychange', onVis);
+                                    };
                     }, []);
 
                     React.useEffect(() => {
@@ -141,8 +151,14 @@
                                 head.x = (head.x + grid) % grid;
                                 head.y = (head.y + 15) % 15;
                                 // self collision
-                                if (snake.some((s) => s.x === head.x && s.y === head.y)) {
-                                    setRunning(false);
+                                                if (snake.some((s) => s.x === head.x && s.y === head.y)) {
+                                                    setRunning(false);
+                                                    // store best
+                                                    setBest((b) => {
+                                                        const nb = Math.max(b, score);
+                                                        localStorage.setItem('snakeBest', String(nb));
+                                                        return nb;
+                                                    });
                                 } else {
                                     snake.unshift(head);
                                     // apple
@@ -186,18 +202,46 @@
                         return () => cancelAnimationFrame(rafId);
                     }, [running]);
 
-                    const handleStartPause = () => setRunning((r) => !r);
+                                const handleStartPause = () => setRunning((r) => !r);
                     const handleRestart = () => { reset(); setRunning(true); };
 
+                                const onTouchStart = (e) => {
+                                    const t = e.changedTouches[0];
+                                    touchRef.current = { x: t.clientX, y: t.clientY };
+                                };
+                                const onTouchEnd = (e) => {
+                                    if (!touchRef.current) return;
+                                    const t = e.changedTouches[0];
+                                    const dx = t.clientX - touchRef.current.x;
+                                    const dy = t.clientY - touchRef.current.y;
+                                    const adx = Math.abs(dx), ady = Math.abs(dy);
+                                    const d = dirRef.current;
+                                    if (Math.max(adx, ady) < 18) return; // small swipe threshold
+                                    if (adx > ady) {
+                                        if (dx > 0 && d.x === 0) dirRef.current = { x: 1, y: 0 };
+                                        else if (dx < 0 && d.x === 0) dirRef.current = { x: -1, y: 0 };
+                                    } else {
+                                        if (dy > 0 && d.y === 0) dirRef.current = { x: 0, y: 1 };
+                                        else if (dy < 0 && d.y === 0) dirRef.current = { x: 0, y: -1 };
+                                    }
+                                    touchRef.current = null;
+                                };
+
                     return (
-                        <div className="game-hero">
-                            <canvas ref={canvasRef} width="400" height="300" className="game-canvas" aria-label="Snake game area"></canvas>
+                                    <div className="game-hero" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
+                                        <div className="game-scorebar">
+                                            <span className="game-score">Score: {score}</span>
+                                            <span className="game-best">Best: {best}</span>
+                                        </div>
+                                        <canvas ref={canvasRef} width="400" height="300" className="game-canvas" aria-label="Snake game area"></canvas>
                             <div className="game-controls">
-                                <button className="button downloadbtn" onClick={handleStartPause}>{running ? 'Pause' : 'Play'}</button>
+                                            <button className="button download‑btn" onClick={handleStartPause}>{running ? 'Pause' : 'Play'}</button>
                                 <button className="game-restart" onClick={handleRestart}>Restart</button>
-                                <span className="game-score">Score: {score}</span>
                             </div>
                             <div className="game-help">Use arrow keys or WASD to move. Eat squares, avoid yourself.</div>
+                                        {!running && score > 0 && (
+                                            <div className="game-overlay">Game Over — Score {score}. Press Restart.</div>
+                                        )}
                         </div>
                     );
                 }
@@ -296,9 +340,9 @@
                             <div className="hero-left">
                                 <h1>Hello, I'm Diego Crisafulli</h1>
                                 <p className="subtitle">Software & ML Engineer</p>
-                                <p>Crafting cloudnative solutions, web experiences, and immersive simulations.</p>
+                                <p>Crafting cloud‑native solutions, web experiences, and immersive simulations.</p>
                                 {/* Resume download button */}
-                                <a href="Diego_Resume.pdf" className="button downloadbtn" download>Download Resume</a>
+                                <a href="Diego_Resume.pdf" className="button download‑btn" download>Download Resume</a>
                             </div>
                             <div className="hero-right">
                                 <GameHero />
