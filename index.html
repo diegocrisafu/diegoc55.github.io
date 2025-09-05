@@ -458,6 +458,13 @@
                     const [seconds, setSeconds] = React.useState(0);
                     const [remaining, setRemaining] = React.useState(preset.mines);
                     const [flagMode, setFlagMode] = React.useState(false); // for touch
+                    const [recent, setRecent] = React.useState(() => new Set());
+                    const [origin, setOrigin] = React.useState(null);
+                    const [bests, setBests] = React.useState(() => { try { return JSON.parse(localStorage.getItem('mswBestTimes')||'{}'); } catch { return {}; } });
+                    const [showCustom, setShowCustom] = React.useState(false);
+                    const [cw, setCw] = React.useState(12);
+                    const [ch, setCh] = React.useState(12);
+                    const [cm, setCm] = React.useState(20);
 
                     // timer
                     React.useEffect(()=>{
@@ -467,6 +474,7 @@
                     },[started, over, won]);
 
                     // helpers
+                    function fmtTime(s){ const m=Math.floor(s/60), r=s%60; return `${m}:${r.toString().padStart(2,'0')}`; }
                     function makeEmpty(w,h){
                         return Array.from({length:h},()=> Array.from({length:w},()=>({
                             r:0, // adj count
@@ -1133,10 +1141,12 @@
                 setPreset(to);
                 setGrid(makeEmpty(to.w, to.h));
                 setStarted(false); setOver(false); setWon(false); setSeconds(0); setRemaining(to.mines); setFlagMode(false);
+                setRecent(new Set()); setOrigin(null);
             }
 
             function handleReveal(x,y){
                 if(over||won) return; const H=grid.length,W=grid[0].length;
+                const prev = grid;
                 let g = grid.map(row=> row.map(c=>({...c})));
                 // first click: lay mines away from click and neighbors
                 if(!started){
@@ -1151,12 +1161,17 @@
                     for(let yy=0;yy<g.length;yy++) for(let xx=0;xx<g[0].length;xx++){ if(g[yy][xx].m) g[yy][xx].v=true; }
                     setGrid(g); setOver(true); return; }
                 revealFlood(g,x,y);
+                // compute recently revealed cells
+                const keys=[]; for(let yy=0;yy<g.length;yy++) for(let xx=0;xx<g[0].length;xx++){ if(!prev[yy][xx].v && g[yy][xx].v) keys.push(`${xx}-${yy}`); }
                 setGrid(g);
+                setOrigin({x,y}); setRecent(new Set(keys)); setTimeout(()=> setRecent(new Set()), 500);
                 // win check
                 if(countHiddenSafe(g)===0){
                     // flag all remaining mines
                     for(let yy=0;yy<g.length;yy++) for(let xx=0;xx<g[0].length;xx++){ if(g[yy][xx].m){ g[yy][xx].f=true; g[yy][xx].v=true; }}
                     setGrid(g); setWon(true); setOver(true);
+                    // best time update
+                    setBests(prevB=>{ const v=prevB[preset.id]; const nb = (v==null || seconds < v) ? seconds : v; const out={...prevB, [preset.id]: nb}; try { localStorage.setItem('mswBestTimes', JSON.stringify(out)); } catch{} return out; });
                 }
                 setRemaining(Math.max(0, preset.mines - totalFlags(g)));
             }
@@ -1171,6 +1186,7 @@
 
             function handleChord(x,y){
                 if(over||won) return;
+                const prev = grid;
                 const g = grid.map(row=> row.map(c=>({...c})));
                 const cell=g[y][x]; if(!cell.v || cell.r<=0) return;
                 const aroundFlags = countFlagsAround(g,x,y);
@@ -1184,10 +1200,15 @@
                     for(let yy=0;yy<g.length;yy++) for(let xx=0;xx<g[0].length;xx++){ if(g[yy][xx].m) g[yy][xx].v=true; }
                     setGrid(g); setOver(true); return;
                 }
+                // compute recently revealed
+                const keys=[]; for(let yy=0;yy<g.length;yy++) for(let xx=0;xx<g[0].length;xx++){ if(!prev[yy][xx].v && g[yy][xx].v) keys.push(`${xx}-${yy}`); }
                 setGrid(g);
+                setOrigin({x,y}); setRecent(new Set(keys)); setTimeout(()=> setRecent(new Set()), 500);
                 if(countHiddenSafe(g)===0){
                     for(let yy=0;yy<g.length;yy++) for(let xx=0;xx<g[0].length;xx++){ if(g[yy][xx].m){ g[yy][xx].f=true; g[yy][xx].v=true; }}
                     setGrid(g); setWon(true); setOver(true);
+                    // best time update
+                    setBests(prevB=>{ const v=prevB[preset.id]; const nb = (v==null || seconds < v) ? seconds : v; const out={...prevB, [preset.id]: nb}; try { localStorage.setItem('mswBestTimes', JSON.stringify(out)); } catch{} return out; });
                 }
                 setRemaining(Math.max(0, preset.mines - totalFlags(g)));
             }
@@ -1210,33 +1231,52 @@
                         <div className="msw-counters">
                             <span className="msw-count">Mines: {remaining}</span>
                             <span className="msw-count">Time: {seconds.toString().padStart(3,'0')}</span>
+                            <span className="msw-count">Best: {bests[preset.id]!=null ? fmtTime(bests[preset.id]) : '—'}</span>
                         </div>
                         <div className="msw-controls">
                             <div className="msw-diffs">
                                 {PRESETS.map(p=> (
                                     <button key={p.id} className={`msw-btn ${p.id===preset.id?'active':''}`} onClick={()=> reset(p)}>{p.name}</button>
                                 ))}
+                                <button className={`msw-btn ${String(preset.id||'').startsWith('custom')?'active':''}`} onClick={()=> setShowCustom(v=>!v)}>Custom…</button>
                             </div>
                             <button className="msw-btn" onClick={()=> reset(preset)}>New Game</button>
                             <button className={`msw-btn ${flagMode?'active':''}`} onClick={()=> setFlagMode(f=>!f)} title="Touch mode: place flags">Flag Mode</button>
                         </div>
+                        {showCustom && (
+                            <div className="msw-custom">
+                                <label>W <input type="number" min="5" max="50" value={cw} onChange={e=> setCw(Math.max(5, Math.min(50, parseInt(e.target.value||'0',10))))} /></label>
+                                <label>H <input type="number" min="5" max="50" value={ch} onChange={e=> setCh(Math.max(5, Math.min(50, parseInt(e.target.value||'0',10))))} /></label>
+                                <label>M <input type="number" min="1" max={cw*ch-9} value={cm} onChange={e=> setCm(Math.max(1, Math.min(cw*ch-9, parseInt(e.target.value||'0',10))))} /></label>
+                                <button className="msw-btn" onClick={()=> {
+                                    const w=cw, h=ch, mines=Math.min(cm, w*h-9);
+                                    const id=`custom:${w}x${h}:${mines}`;
+                                    reset({ id, name:'Custom', w, h, mines });
+                                    setShowCustom(false);
+                                }}>Start</button>
+                            </div>
+                        )}
                     </div>
                     <div className="msw-grid-wrap">
                         <div className="msw-grid" style={{
                             gridTemplateColumns: `repeat(${grid[0].length}, 28px)`
                         }} role="grid" aria-label="Minesweeper board">
-                            {grid.map((row, y)=> (
-                                row.map((cell,x)=>{
+                                    {grid.map((row, y)=> (
+                                        row.map((cell,x)=>{
                                     const key=`${x}-${y}`;
-                                    const classes = ['msw-cell'];
+                                            const classes = ['msw-cell'];
                                     if(cell.v) classes.push('revealed');
                                     if(cell.f) classes.push('flag');
                                     if(cell.x) classes.push('exploded');
-                                    if(cell.v && !cell.m && cell.r>0) classes.push(`n${cell.r}`);
+                                            if(cell.v && !cell.m && cell.r>0) classes.push(`n${cell.r}`);
+                                            const isRecent = recent.has(key);
+                                            if(isRecent) classes.push('wave');
+                                            const d = origin ? (Math.abs(x-origin.x) + Math.abs(y-origin.y)) : 0;
                                     return (
                                         <button
                                             key={key}
-                                            className={classes.join(' ')}
+                                                    className={classes.join(' ')}
+                                                    style={{ ['--d']: d }}
                                             onClick={(e)=> onCellClick(e,x,y)}
                                             onContextMenu={(e)=> onCellRightClick(e,x,y)}
                                             onDoubleClick={(e)=> onCellDoubleClick(e,x,y)}
