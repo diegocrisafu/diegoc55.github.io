@@ -95,6 +95,8 @@
                                 const v = parseInt(localStorage.getItem('snakeBest') || '0', 10);
                                 return isNaN(v) ? 0 : v;
                             });
+                    const [started, setStarted] = React.useState(false);
+                    const [gameOver, setGameOver] = React.useState(false);
                     const dirRef = React.useRef({ x: 1, y: 0 });
                     const snakeRef = React.useRef([{ x: 8, y: 12 }]);
                     const appleRef = React.useRef({ x: 14, y: 12 });
@@ -116,6 +118,12 @@
                         const onKey = (e) => {
                             const k = e.key;
                             const d = dirRef.current;
+                            if (k === ' ' || k === 'Spacebar') {
+                                e.preventDefault();
+                                if (!started) { setStarted(true); setGameOver(false); setRunning(true); return; }
+                                setRunning((r) => !r);
+                                return;
+                            }
                             if (k === 'ArrowUp' || k === 'w') { if (d.y === 0) dirRef.current = { x: 0, y: -1 }; }
                             else if (k === 'ArrowDown' || k === 's') { if (d.y === 0) dirRef.current = { x: 0, y: 1 }; }
                             else if (k === 'ArrowLeft' || k === 'a') { if (d.x === 0) dirRef.current = { x: -1, y: 0 }; }
@@ -153,6 +161,8 @@
                                 // self collision
                                                 if (snake.some((s) => s.x === head.x && s.y === head.y)) {
                                                     setRunning(false);
+                                                    setStarted(false);
+                                                    setGameOver(true);
                                                     // store best
                                                     setBest((b) => {
                                                         const nb = Math.max(b, score);
@@ -202,8 +212,8 @@
                         return () => cancelAnimationFrame(rafId);
                     }, [running]);
 
-                                const handleStartPause = () => setRunning((r) => !r);
-                    const handleRestart = () => { reset(); setRunning(true); };
+                                const handleStartPause = () => { if (!started) { setStarted(true); setGameOver(false); setRunning(true); } else { setRunning((r) => !r); } };
+                    const handleRestart = () => { reset(); setGameOver(false); setStarted(true); setRunning(true); };
 
                                 const onTouchStart = (e) => {
                                     const t = e.changedTouches[0];
@@ -235,13 +245,39 @@
                                         </div>
                                         <canvas ref={canvasRef} width="400" height="300" className="game-canvas" aria-label="Snake game area"></canvas>
                             <div className="game-controls">
-                                            <button className="button download‑btn" onClick={handleStartPause}>{running ? 'Pause' : 'Play'}</button>
+                                            <button className="button download‑btn" onClick={handleStartPause}>{started ? (running ? 'Pause' : 'Resume') : 'Play'}</button>
                                 <button className="game-restart" onClick={handleRestart}>Restart</button>
                             </div>
-                            <div className="game-help">Use arrow keys or WASD to move. Eat squares, avoid yourself.</div>
-                                        {!running && score > 0 && (
+                            <div className="game-help">Use arrow keys or WASD (or swipe) to move. Space toggles play/pause.</div>
+                                        {!started && !gameOver && (
+                                            <div className="game-overlay start">Press Space or Play to begin</div>
+                                        )}
+                                        {gameOver && (
                                             <div className="game-overlay">Game Over — Score {score}. Press Restart.</div>
                                         )}
+                        </div>
+                    );
+                }
+
+                // Interactive Web of Life — orbiting nodes linking to sections and CV
+                function WebOfLife() {
+                    const scrollTo = (id) => {
+                        const el = document.getElementById(id);
+                        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    };
+                    return (
+                        <div className="wol">
+                            <div className="wol-center" aria-label="Center node">Diego</div>
+                            <div className="orbit" style={{"--r":"120px","--dur":"32s","--dir":"normal"}}>
+                                <button className="node" onClick={() => window.open('Diego_Resume.pdf','_blank')} title="Résumé / CV">CV</button>
+                                <button className="node" style={{"--a":"120deg"}} onClick={() => scrollTo('projects')} title="Projects">Projects</button>
+                                <button className="node" style={{"--a":"240deg"}} onClick={() => scrollTo('contact')} title="Contact">Contact</button>
+                            </div>
+                            <div className="orbit" style={{"--r":"170px","--dur":"40s","--dir":"reverse"}}>
+                                <button className="node" onClick={() => scrollTo('experience')} title="Experience">Experience</button>
+                                <button className="node" style={{"--a":"180deg"}} onClick={() => scrollTo('skills')} title="Skills">Skills</button>
+                            </div>
+                            <div className="orbit ring" style={{"--r":"210px","--dur":"60s","--dir":"normal"}} aria-hidden="true"></div>
                         </div>
                     );
                 }
@@ -348,6 +384,11 @@
                                 <GameHero />
                             </div>
                         </div>
+                    </Section>
+                    {/* Web of Life section */}
+                    <Section id="web-of-life" title="Web of Life">
+                        <p style={{marginTop:0}}>Hover or tap nodes to explore my work and background.</p>
+                        <WebOfLife />
                     </Section>
                     {/* About section describing Diego’s professional summary */}
                     <Section id="about" title="About">
