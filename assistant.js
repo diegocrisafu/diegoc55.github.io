@@ -147,9 +147,9 @@
         history.push({from:'bot', text: remote, meta:{mode:'remote'}});
         return remote;
       }
-      const local = localAnswer(message, history);
-      history.push({from:'bot', text: local, meta:{mode:'local', cats: multiMatch(message)}});
-      return local + ' (local)';
+  const local = localAnswer(message, history);
+  history.push({from:'bot', text: local, meta:{mode:'local', cats: multiMatch(message)}});
+  return local;
     }
     function getHistory(){ return history.slice(-cfg.maxHistory); }
     function forceLocal(v){ if(v){try{localStorage.setItem(cfg.forceLocalFlagKey,'1');}catch{} } else {try{localStorage.removeItem(cfg.forceLocalFlagKey);}catch{} } }
