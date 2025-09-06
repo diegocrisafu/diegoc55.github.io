@@ -1,4 +1,4 @@
-const PRECACHE = 'static-v12';
+const PRECACHE = 'static-v13';
 const CORE = [
   './',
   './index.html',

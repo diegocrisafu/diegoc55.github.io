@@ -595,7 +595,8 @@
             const [messages, setMessages] = React.useState([
                 { from: 'bot', text: 'Hello! I\'m your personal assistant. How can I help you?' }
             ]);
-            // Simplified: removed mode badge/toggle and suggestions
+            // Reintroduce simple Auto/Local toggle + Clear + Check buttons
+            const [forceLocal, setForceLocal] = React.useState(() => { try { return localStorage.getItem('forceLocalChat')==='1'; } catch { return false; } });
             const messagesEndRef = React.useRef(null);
             React.useEffect(()=>{ if(messagesEndRef.current){ messagesEndRef.current.scrollIntoView({behavior:'smooth'}); } },[messages]);
 
@@ -834,13 +835,10 @@
                                         Assistant
                                     </h4>
                                     <div className="chat-window-controls">
-                                        <button
-                                            className="chat-close-btn"
-                                            aria-label="Close chat window"
-                                            onClick={() => setChatOpen(false)}
-                                        >
-                                            \u00d7
-                                        </button>
+                                        <button className="chat-clear-btn" onClick={()=>{ const next=!forceLocal; setForceLocal(next); try{ if(next) localStorage.setItem('forceLocalChat','1'); else localStorage.removeItem('forceLocalChat'); }catch{}; }} title={forceLocal? 'Forced local mode. Click for auto remote.':'Auto mode. Click to force local.'}>{forceLocal? 'Local':'Auto'}</button>
+                                        <button className="chat-clear-btn" aria-label="Clear conversation" onClick={()=> setMessages([{from:'bot', text:"Hello! I'm your personal assistant. How can I help you?"}])}>Clear</button>
+                                        <button className="chat-clear-btn" aria-label="Check backend health" onClick={()=>checkChatHealth()}>Check</button>
+                                        <button className="chat-close-btn" aria-label="Close chat window" onClick={()=> setChatOpen(false)}>\u00d7</button>
                                     </div>
                                 </div>
                                 <div className="chat-messages">
