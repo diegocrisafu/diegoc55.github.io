@@ -595,6 +595,16 @@
             const [messages, setMessages] = React.useState([
                 { from: 'bot', text: 'Hello! I\'m your personal assistant. How can I help you?' }
             ]);
+            const [forceLocal, setForceLocal] = React.useState(() => { try { return localStorage.getItem('forceLocalChat')==='1'; } catch { return false; } });
+            const ModeBadge = ({last}) => {
+                if(!last) return null; const isLocal = /\(local\)$/.test(last.text);
+                return <span className={`mode-badge ${isLocal? 'local':'remote'}`}>{isLocal? 'Local':'Remote'}</span>;
+            };
+            const ModeToggle = () => <button className="chat-clear-btn" onClick={()=>{ const next=!forceLocal; setForceLocal(next); try{ if(next) localStorage.setItem('forceLocalChat','1'); else localStorage.removeItem('forceLocalChat'); }catch{}; }} title={forceLocal? 'Forced local mode. Click to allow remote.':'Allowing remote. Click to force local.'}>{forceLocal? 'Local':'Auto'}</button>;
+            const suggestionSet = ['skills','experience','projects','education','contact'];
+            const addSuggestion = (s) => { setChatInput(s); };
+            const messagesEndRef = React.useRef(null);
+            React.useEffect(()=>{ if(messagesEndRef.current){ messagesEndRef.current.scrollIntoView({behavior:'smooth'}); } },[messages]);
 
                         // Resolve chat base for health checks and requests
                         const getChatBase = React.useCallback(() => {
@@ -815,7 +825,9 @@
                             className="chat-icon"
                             role="button"
                             aria-label={chatOpen ? 'Close chat' : 'Open chat'}
+                            aria-pressed={chatOpen}
                             tabIndex="0"
+                            onKeyDown={(e)=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); setChatOpen(o=>!o);} }}
                             onClick={() => setChatOpen(!chatOpen)}
                         >
                             💬
@@ -823,12 +835,13 @@
                         {chatOpen && (
                             <div className="chat-window">
                                 {/* Header with title, close and clear buttons */}
-                                                                <div className="chat-window-header">
-                                                                        <h4>
-                                                                            <span className={`chat-status-dot ${chatHealthy ? 'online' : 'offline'}`} title={chatHealthy ? 'Online' : 'Offline'}></span>
-                                                                            Assistant
-                                                                        </h4>
+                                <div className="chat-window-header">
+                                    <h4>
+                                        <span className={`chat-status-dot ${chatHealthy ? 'online' : 'offline'}`} title={chatHealthy ? 'Online' : 'Offline'}></span>
+                                        Assistant <ModeBadge last={[...messages].reverse().find(m=>m.from==='bot')} />
+                                    </h4>
                                     <div className="chat-window-controls">
+                                        <ModeToggle />
                                         <button
                                             className="chat-clear-btn"
                                             aria-label="Clear conversation"
@@ -857,6 +870,10 @@
                                     {messages.map((msg, idx) => (
                                         <div key={idx} className={`chat-message ${msg.from}`}>{msg.text}</div>
                                     ))}
+                                    <div ref={messagesEndRef} />
+                                </div>
+                                <div className="chat-suggestions" aria-label="Quick suggestions">
+                                    {suggestionSet.map(s => <div key={s} className="chat-chip" onClick={()=>addSuggestion(s)}>{s}</div>)}
                                 </div>
                                 {/* Input area with send button */}
                                 <div className="chat-input-container">

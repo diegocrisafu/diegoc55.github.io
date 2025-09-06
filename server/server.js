@@ -30,15 +30,22 @@ app.use('/api/', limiter);
 
 app.post('/api/chat', async (req, res) => {
   try {
-    const userText = (req.body && req.body.message ? String(req.body.message) : '').trim();
+  const userText = (req.body && req.body.message ? String(req.body.message) : '').trim();
+  const context = Array.isArray(req.body && req.body.context) ? req.body.context : [];
     if (!userText) {
       return res.status(400).json({ error: 'Missing message' });
     }
+    if (!GEMINI_API_KEY) {
+      return res.status(500).json({ error: 'Missing server API key', advice: 'Set GEMINI_API_KEY in environment.' });
+    }
 
     const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
-    const payload = {
-      contents: [ { parts: [ { text: userText } ] } ]
-    };
+    let contents = [ { parts: [ { text: userText } ] } ];
+    if(context.length){
+      const prior = context.filter(c=>c && c.text).map(c=>({ parts:[{text: String(c.text).slice(0,500)}] }));
+      contents = [...prior, { parts:[{ text: userText }] }];
+    }
+    const payload = { contents };
 
     const r = await fetch(endpoint, {
       method: 'POST',
@@ -48,7 +55,9 @@ app.post('/api/chat', async (req, res) => {
 
     if (!r.ok) {
       const text = await r.text();
-      return res.status(r.status).json({ error: 'Upstream error', details: text });
+      let parsed; try { parsed = JSON.parse(text); } catch {}
+      const upstreamMsg = parsed?.error?.message || parsed?.message || text.slice(0,300);
+      return res.status(r.status).json({ error: 'Upstream error', status: r.status, upstream: upstreamMsg });
     }
 
     const data = await r.json();
@@ -63,7 +72,7 @@ app.post('/api/chat', async (req, res) => {
     return res.json({ reply });
   } catch (err) {
     console.error('Proxy error:', err);
-    return res.status(500).json({ error: 'Server error' });
+    return res.status(500).json({ error: 'Server error', details: err && err.message });
   }
 });
 

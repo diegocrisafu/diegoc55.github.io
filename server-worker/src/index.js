@@ -9,15 +9,23 @@ export default {
 
     if (new URL(request.url).pathname === '/api/chat' && request.method === 'POST') {
       try {
-        const { message } = await request.json();
-        const text = (message || '').toString().trim();
+  const { message, context } = await request.json();
+  const text = (message || '').toString().trim();
         if (!text) {
           return json({ error: 'Missing message' }, 400, request, ALLOWED_ORIGIN);
+        }
+        if (!GEMINI_API_KEY) {
+          return json({ error: 'Missing server API key', advice: 'Set GEMINI_API_KEY in worker environment vars.' }, 500, request, ALLOWED_ORIGIN);
         }
 
   // Using gemini-1.5-flash (fast, multimodal capable) — adjust here if upgrading models
   const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
-        const payload = { contents: [ { parts: [ { text } ] } ] };
+        let contents = [ { parts: [ { text } ] } ];
+        if(Array.isArray(context) && context.length){
+          const prior = context.filter(c=>c && c.text).map(c=>({ role: c.role==='model'?'model':'user', parts:[{text: c.text.slice(0,500)}] }));
+          contents = [...prior, { parts:[{text}] }];
+        }
+        const payload = { contents };
 
         const r = await fetch(endpoint, {
           method: 'POST',
@@ -27,7 +35,9 @@ export default {
 
         if (!r.ok) {
           const body = await r.text();
-          return json({ error: 'Upstream error', status: r.status, details: body }, r.status, request, ALLOWED_ORIGIN);
+          let parsed; try { parsed = JSON.parse(body); } catch {}
+          const upstreamMsg = parsed?.error?.message || parsed?.message || body.slice(0,300);
+          return json({ error: 'Upstream error', status: r.status, upstream: upstreamMsg }, r.status, request, ALLOWED_ORIGIN);
         }
 
         const data = await r.json();
@@ -37,8 +47,8 @@ export default {
           if (parts?.[0]?.text) reply = parts[0].text.trim();
         }
         return json({ reply }, 200, request, ALLOWED_ORIGIN);
-      } catch (e) {
-  return json({ error: 'Server error' }, 500, request, ALLOWED_ORIGIN);
+    } catch (e) {
+  return json({ error: 'Server error', details: (e && e.message) || 'unknown' }, 500, request, ALLOWED_ORIGIN);
       }
     }
 

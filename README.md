@@ -11,7 +11,7 @@ To view the portfolio locally:
 3. Use the **Dark Mode** toggle in the navigation bar to switch between light and dark themes.
 4. Click the **Download Résumé** button in the hero section to obtain a PDF copy of the résumé (update the link in `index.html` to point to your actual CV).
 
-5. Hover over the floating **chat** icon in the bottom‑right corner to reveal a personal assistant chatbot.  The assistant can answer basic questions about the site and guide you to different sections.
+5. Hover over the floating **chat** icon in the bottom‑right corner to reveal a personal assistant chatbot.  The assistant can answer questions about skills, experience, projects, education, contact info, plus small‑talk (greetings, thanks, "how are you", a joke). It now remembers your name (e.g. say "I'm Alex") and recent topics for short follow‑ups ("tell me more" / "that one"). A badge shows whether a response was Remote or Local.
 
 6. Explore the **Featured Projects** section to learn about additional applications such as the real‑time data dashboard and expense tracker.  Links to their GitHub repositories and deployed pages are provided.
 
@@ -20,7 +20,24 @@ To view the portfolio locally:
   - Production: Deploy the Cloudflare Worker in `server-worker/` and set its secret `GEMINI_API_KEY` in the Cloudflare Dashboard. Then set the site’s backend base in `chat-config.js` to your Worker URL (no trailing slash).
   - Local dev: Run the Node proxy in `server/` (set `GEMINI_API_KEY` in `.env`, `npm install`, `npm start`) and set `window.CHAT_API_BASE = 'http://localhost:8787'` in `chat-config.js`.
 
-  If the backend isn’t configured or reachable, the assistant will show a short error message in the chat.
+  If the backend isn’t configured or reachable, the assistant automatically falls back to local responses and shows a Local badge. Use the in‑chat Auto/Local toggle to force local mode.
+
+### Assistant Features Summary
+
+| Feature | Description |
+|---------|-------------|
+| Local knowledge base | Preloaded portfolio facts (skills, experience, projects, education, contact, summary). |
+| Remote model (Gemini) | Optional; proxied via Node server or Cloudflare Worker. |
+| Automatic fallback | If remote fails or key missing, switches to local seamlessly. |
+| Mode badge | Displays Remote or Local for each bot reply. |
+| Force Local toggle | Click Auto/Local button in chat header to disable remote calls. |
+| Name memory | Learns your name via "I'm X" / "my name is X" and greets you personally. |
+| Topic follow‑ups | Phrases like "tell me more" or pronouns refer back to last topic. |
+| Fuzzy matching | Accepts minor typos (Levenshtein distance ≤ 1) for category keywords. |
+| Small‑talk | Greetings, thanks, how‑are‑you, lightweight joke. |
+| Context to model | Sends short recent history to remote model for coherence. |
+
+To modify behaviour, edit `assistant.js`. Service worker version (`sw.js`) is bumped when assistant logic changes (currently static-v10) ensuring cache refresh.
 
 ## Customisation
 
