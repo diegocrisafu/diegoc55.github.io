@@ -77,6 +77,9 @@
     const raw=(input||'').trim();
     if(!raw) return 'Ask about skills, experience, projects, education, contact, or say help.';
     const q=normalize(raw);
+    if(/^(no|nope|nah|idk|i don\'t know|not really|none)$/i.test(q)){
+      return 'All good. You can ask about: skills, experience, projects, education, contact, summary — or say help for examples.';
+    }
     if(greetingRe.test(q)) {
       const nm = persistent.name ? ` ${persistent.name}` : '';
       return `Hi${nm}! Ask about skills, experience, projects, education, contact, or multiple at once.`;
