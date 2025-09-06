@@ -441,9 +441,8 @@
                     );
                 }
 
-                // Minesweeper Game — harder, with difficulty presets, first-click safety, chording, timer, touch flag mode
+                // Minesweeper Game — enhanced (presets, first-click safety, chording, timer, wave animation, best times, custom difficulty)
                 function GameMinesweeper(){
-                    // difficulty presets
                     const PRESETS = [
                         { id:'beginner', name:'Beginner', w:9, h:9, mines:10 },
                         { id:'intermediate', name:'Intermediate', w:16, h:16, mines:40 },
@@ -451,193 +450,45 @@
                         { id:'insane', name:'Insane', w:24, h:24, mines:120 },
                     ];
                     const [preset, setPreset] = React.useState(PRESETS[1]);
-                    const [grid, setGrid] = React.useState(() => makeEmpty(preset.w, preset.h));
+                    const [grid, setGrid] = React.useState(()=> makeEmpty(preset.w, preset.h));
                     const [started, setStarted] = React.useState(false);
                     const [over, setOver] = React.useState(false);
                     const [won, setWon] = React.useState(false);
                     const [seconds, setSeconds] = React.useState(0);
                     const [remaining, setRemaining] = React.useState(preset.mines);
-                    const [flagMode, setFlagMode] = React.useState(false); // for touch
-                    const [recent, setRecent] = React.useState(() => new Set());
+                    const [flagMode, setFlagMode] = React.useState(false);
+                    const [recent, setRecent] = React.useState(()=> new Set());
                     const [origin, setOrigin] = React.useState(null);
-                    const [bests, setBests] = React.useState(() => { try { return JSON.parse(localStorage.getItem('mswBestTimes')||'{}'); } catch { return {}; } });
+                    const [bests, setBests] = React.useState(()=> { try { return JSON.parse(localStorage.getItem('mswBestTimes')||'{}'); } catch { return {}; } });
                     const [showCustom, setShowCustom] = React.useState(false);
                     const [cw, setCw] = React.useState(12);
                     const [ch, setCh] = React.useState(12);
                     const [cm, setCm] = React.useState(20);
 
-                    // timer
-                    React.useEffect(()=>{
-                        if(!started || over || won) return;
-                        const id = setInterval(()=> setSeconds(s=>Math.min(999, s+1)), 1000);
-                        return ()=> clearInterval(id);
-                    },[started, over, won]);
+                    React.useEffect(()=>{ if(!started || over || won) return; const id=setInterval(()=> setSeconds(s=>Math.min(999,s+1)),1000); return ()=>clearInterval(id); },[started,over,won]);
 
-                    // helpers
                     function fmtTime(s){ const m=Math.floor(s/60), r=s%60; return `${m}:${r.toString().padStart(2,'0')}`; }
-                    function makeEmpty(w,h){
-                        return Array.from({length:h},()=> Array.from({length:w},()=>({
-                            r:0, // adj count
-                            m:false, // mine
-                            f:false, // flagged
-                            v:false, // revealed (visible)
-                            x:false, // exploded
-                        })));
-                    }
+                    function makeEmpty(w,h){ return Array.from({length:h},()=> Array.from({length:w},()=>({ r:0,m:false,f:false,v:false,x:false }))); }
                     function inb(x,y){ return y>=0 && y<grid.length && x>=0 && x<grid[0].length; }
-                    function neighbors(x,y){
-                        const d=[-1,0,1]; const out=[];
-                        for(let dy of d) for(let dx of d){ if(dx===0 && dy===0) continue; const nx=x+dx, ny=y+dy; if(inb(nx,ny)) out.push([nx,ny]); }
-                        return out;
-                    }
-                    function withMines(w,h,mines, avoid){
-                        const g = makeEmpty(w,h);
-                        const forbidden = new Set(avoid.map(([ax,ay])=>`${ax},${ay}`));
-                        // collect candidates
-                        const cand=[]; for(let y=0;y<h;y++) for(let x=0;x<w;x++){ const k=`${x},${y}`; if(!forbidden.has(k)) cand.push([x,y]); }
-                        // shuffle and pick first N
-                        for(let i=cand.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [cand[i],cand[j]]=[cand[j],cand[i]]; }
-                        const chosen = cand.slice(0, Math.min(mines, cand.length));
-                        for(const [x,y] of chosen){ g[y][x].m = true; }
-                        // counts
-                        for(let y=0;y<h;y++) for(let x=0;x<w;x++){ if(g[y][x].m) continue; g[y][x].r = neighbors(x,y).reduce((acc,[nx,ny])=> acc + (g[ny][nx].m?1:0), 0); }
-                        return g;
-                    }
-                    function revealFlood(g,x,y){
-                        const H=g.length, W=g[0].length; const stack=[[x,y]];
-                        while(stack.length){ const [cx,cy]=stack.pop(); const cell=g[cy][cx]; if(cell.v||cell.f) continue; cell.v=true; if(cell.r===0 && !cell.m){ for(const [nx,ny] of neighbors(cx,cy)){ const n=g[ny][nx]; if(!n.v && !n.f) stack.push([nx,ny]); } }
-                        }
-                    }
+                    function neighbors(x,y){ const d=[-1,0,1], out=[]; for(let dy of d) for(let dx of d){ if(dx||dy){ const nx=x+dx, ny=y+dy; if(inb(nx,ny)) out.push([nx,ny]); } } return out; }
+                    function withMines(w,h,mines,avoid){ const g=makeEmpty(w,h); const forbid=new Set(avoid.map(([ax,ay])=>`${ax},${ay}`)); const cand=[]; for(let y=0;y<h;y++) for(let x=0;x<w;x++){ const k=`${x},${y}`; if(!forbid.has(k)) cand.push([x,y]); } for(let i=cand.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [cand[i],cand[j]]=[cand[j],cand[i]]; } for(const [x,y] of cand.slice(0,Math.min(mines,cand.length))) g[y][x].m=true; for(let y=0;y<h;y++) for(let x=0;x<w;x++) if(!g[y][x].m) g[y][x].r=neighbors(x,y).reduce((a,[nx,ny])=>a+(g[ny][nx].m?1:0),0); return g; }
+                    function revealFlood(g,x,y){ const stack=[[x,y]]; while(stack.length){ const [cx,cy]=stack.pop(); const c=g[cy][cx]; if(c.v||c.f) continue; c.v=true; if(!c.m && c.r===0){ for(const n of neighbors(cx,cy)){ const [nx,ny]=n; const cc=g[ny][nx]; if(!cc.v && !cc.f) stack.push([nx,ny]); } } } }
                     function countFlagsAround(g,x,y){ let c=0; for(const [nx,ny] of neighbors(x,y)) if(g[ny][nx].f) c++; return c; }
-                    function countHiddenSafe(g){ let c=0; for(let y=0;y<g.length;y++) for(let x=0;x<g[0].length;x++){ const c0=g[y][x]; if(!c0.m && !c0.v) c++; } return c; }
-                    function totalFlags(g){ let c=0; for(let y=0;y<g.length;y++) for(let x=0;x<g[0].length;x++){ if(g[y][x].f) c++; } return c; }
+                    function hiddenSafe(g){ let c=0; for(let y=0;y<g.length;y++) for(let x=0;x<g[0].length;x++){ const cell=g[y][x]; if(!cell.m && !cell.v) c++; } return c; }
+                    function totalFlags(g){ let c=0; for(let y=0;y<g.length;y++) for(let x=0;x<g[0].length;x++) if(g[y][x].f) c++; return c; }
+                    function reset(to=preset){ setPreset(to); setGrid(makeEmpty(to.w,to.h)); setStarted(false); setOver(false); setWon(false); setSeconds(0); setRemaining(to.mines); setFlagMode(false); setRecent(new Set()); setOrigin(null); }
 
-                    function reset(to= preset){
-                        setPreset(to);
-                        setGrid(makeEmpty(to.w, to.h));
-                        setStarted(false); setOver(false); setWon(false); setSeconds(0); setRemaining(to.mines); setFlagMode(false);
-                    }
+                    function finishWin(g){ for(let y=0;y<g.length;y++) for(let x=0;x<g[0].length;x++){ if(g[y][x].m){ g[y][x].f=true; g[y][x].v=true; }} setGrid(g); setWon(true); setOver(true); setBests(prev=>{ const cur=prev[preset.id]; const better=(cur==null||seconds<cur)?seconds:cur; const out={...prev,[preset.id]:better}; try{localStorage.setItem('mswBestTimes',JSON.stringify(out));}catch{} return out; }); }
 
-                    function handleReveal(x,y){
-                        if(over||won) return; const H=grid.length,W=grid[0].length;
-                        let g = grid.map(row=> row.map(c=>({...c})));
-                        // first click: lay mines away from click and neighbors
-                        if(!started){
-                            const avoid = [[x,y], ...neighbors(x,y)];
-                            g = withMines(W,H,preset.mines, avoid);
-                            setStarted(true);
-                        }
-                        const cell = g[y][x];
-                        if(cell.v || cell.f) { setGrid(g); return; }
-                        if(cell.m){ cell.x=true; cell.v=true; // explode
-                            // reveal all mines
-                            for(let yy=0;yy<g.length;yy++) for(let xx=0;xx<g[0].length;xx++){ if(g[yy][xx].m) g[yy][xx].v=true; }
-                            setGrid(g); setOver(true); return; }
-                        revealFlood(g,x,y);
-                        setGrid(g);
-                        // win check
-                        if(countHiddenSafe(g)===0){
-                            // flag all remaining mines
-                            for(let yy=0;yy<g.length;yy++) for(let xx=0;xx<g[0].length;xx++){ if(g[yy][xx].m){ g[yy][xx].f=true; g[yy][xx].v=true; }}
-                            setGrid(g); setWon(true); setOver(true);
-                        }
-                        setRemaining(Math.max(0, preset.mines - totalFlags(g)));
-                    }
+                    function handleReveal(x,y){ if(over||won) return; const prev=grid; let g=grid.map(r=>r.map(c=>({...c}))); if(!started){ const avoid=[[x,y],...neighbors(x,y)]; g=withMines(preset.w,preset.h,preset.mines,avoid); setStarted(true);} const cell=g[y][x]; if(cell.v||cell.f){ setGrid(g); return;} if(cell.m){ cell.x=true; cell.v=true; for(let yy=0;yy<g.length;yy++) for(let xx=0;xx<g[0].length;xx++) if(g[yy][xx].m) g[yy][xx].v=true; setGrid(g); setOver(true); return;} revealFlood(g,x,y); const keys=[]; for(let yy=0;yy<g.length;yy++) for(let xx=0;xx<g[0].length;xx++) if(!prev[yy][xx].v && g[yy][xx].v) keys.push(`${xx}-${yy}`); setGrid(g); setOrigin({x,y}); setRecent(new Set(keys)); setTimeout(()=> setRecent(new Set()),500); if(hiddenSafe(g)===0) finishWin(g); setRemaining(Math.max(0,preset.mines-totalFlags(g))); }
+                    function handleToggleFlag(x,y){ if(over||won) return; if(!started) setStarted(true); const g=grid.map(r=>r.map(c=>({...c}))); const cell=g[y][x]; if(cell.v){ setGrid(g); return;} cell.f=!cell.f; setGrid(g); setRemaining(Math.max(0,preset.mines-totalFlags(g))); }
+                    function handleChord(x,y){ if(over||won) return; const prev=grid; const g=grid.map(r=>r.map(c=>({...c}))); const cell=g[y][x]; if(!cell.v||cell.r<=0) return; if(countFlagsAround(g,x,y)!==cell.r) return; let exploded=false; for(const [nx,ny] of neighbors(x,y)){ const n=g[ny][nx]; if(n.v||n.f) continue; if(n.m){ n.x=true; n.v=true; exploded=true;} else revealFlood(g,nx,ny);} if(exploded){ for(let yy=0;yy<g.length;yy++) for(let xx=0;xx<g[0].length;xx++) if(g[yy][xx].m) g[yy][xx].v=true; setGrid(g); setOver(true); return;} const keys=[]; for(let yy=0;yy<g.length;yy++) for(let xx=0;xx<g[0].length;xx++) if(!prev[yy][xx].v && g[yy][xx].v) keys.push(`${xx}-${yy}`); setGrid(g); setOrigin({x,y}); setRecent(new Set(keys)); setTimeout(()=> setRecent(new Set()),500); if(hiddenSafe(g)===0) finishWin(g); setRemaining(Math.max(0,preset.mines-totalFlags(g))); }
+                    function onCellClick(e,x,y){ e.preventDefault(); if(flagMode || e.shiftKey||e.ctrlKey||e.metaKey) handleToggleFlag(x,y); else handleReveal(x,y); }
+                    function onCellRight(e,x,y){ e.preventDefault(); handleToggleFlag(x,y); }
+                    function onCellDouble(e,x,y){ e.preventDefault(); handleChord(x,y); }
+                    React.useEffect(()=>{ setRemaining(Math.max(0,preset.mines-totalFlags(grid))); },[grid,preset]);
 
-                    function handleToggleFlag(x,y){
-                        if(over||won) return; if(!started) setStarted(true);
-                        const g = grid.map(row=> row.map(c=>({...c})));
-                        const cell=g[y][x]; if(cell.v) { setGrid(g); return; }
-                        cell.f = !cell.f; setGrid(g);
-                        setRemaining(Math.max(0, preset.mines - totalFlags(g)));
-                    }
-
-                    function handleChord(x,y){
-                        if(over||won) return;
-                        const g = grid.map(row=> row.map(c=>({...c})));
-                        const cell=g[y][x]; if(!cell.v || cell.r<=0) return;
-                        const aroundFlags = countFlagsAround(g,x,y);
-                        if(aroundFlags !== cell.r) return;
-                        // reveal all unflagged neighbors
-                        let exploded=false;
-                        for(const [nx,ny] of neighbors(x,y)){
-                            const n=g[ny][nx]; if(n.v||n.f) continue; if(n.m){ n.x=true; n.v=true; exploded=true; } else { revealFlood(g,nx,ny); }
-                        }
-                        if(exploded){
-                            for(let yy=0;yy<g.length;yy++) for(let xx=0;xx<g[0].length;xx++){ if(g[yy][xx].m) g[yy][xx].v=true; }
-                            setGrid(g); setOver(true); return;
-                        }
-                        setGrid(g);
-                        if(countHiddenSafe(g)===0){
-                            for(let yy=0;yy<g.length;yy++) for(let xx=0;xx<g[0].length;xx++){ if(g[yy][xx].m){ g[yy][xx].f=true; g[yy][xx].v=true; }}
-                            setGrid(g); setWon(true); setOver(true);
-                        }
-                        setRemaining(Math.max(0, preset.mines - totalFlags(g)));
-                    }
-
-                    function onCellClick(e,x,y){
-                        e.preventDefault();
-                        if(flagMode || (e.shiftKey || e.ctrlKey || e.metaKey)) handleToggleFlag(x,y);
-                        else handleReveal(x,y);
-                    }
-                    function onCellRightClick(e,x,y){ e.preventDefault(); handleToggleFlag(x,y); }
-                    function onCellDoubleClick(e,x,y){ e.preventDefault(); handleChord(x,y); }
-
-                    // redraw remaining when grid changes flags externally
-                    React.useEffect(()=>{ setRemaining(Math.max(0, preset.mines - totalFlags(grid))); }, [grid, preset]);
-
-                    // rebuild grid when preset changes via reset() which we call explicitly
-                    return (
-                        <div className="msw">
-                            <div className="msw-top">
-                                <div className="msw-counters">
-                                    <span className="msw-count">Mines: {remaining}</span>
-                                    <span className="msw-count">Time: {seconds.toString().padStart(3,'0')}</span>
-                                </div>
-                                <div className="msw-controls">
-                                    <div className="msw-diffs">
-                                        {PRESETS.map(p=> (
-                                            <button key={p.id} className={`msw-btn ${p.id===preset.id?'active':''}`} onClick={()=> reset(p)}>{p.name}</button>
-                                        ))}
-                                    </div>
-                                    <button className="msw-btn" onClick={()=> reset(preset)}>New Game</button>
-                                    <button className={`msw-btn ${flagMode?'active':''}`} onClick={()=> setFlagMode(f=>!f)} title="Touch mode: place flags">Flag Mode</button>
-                                </div>
-                            </div>
-                            <div className="msw-grid-wrap">
-                                <div className="msw-grid" style={{
-                                    gridTemplateColumns: `repeat(${grid[0].length}, 28px)`
-                                }} role="grid" aria-label="Minesweeper board">
-                                    {grid.map((row, y)=> (
-                                        row.map((cell,x)=>{
-                                            const key=`${x}-${y}`;
-                                            const classes = ['msw-cell'];
-                                            if(cell.v) classes.push('revealed');
-                                            if(cell.f) classes.push('flag');
-                                            if(cell.x) classes.push('exploded');
-                                            if(cell.v && !cell.m && cell.r>0) classes.push(`n${cell.r}`);
-                                            return (
-                                                <button
-                                                    key={key}
-                                                    className={classes.join(' ')}
-                                                    onClick={(e)=> onCellClick(e,x,y)}
-                                                    onContextMenu={(e)=> onCellRightClick(e,x,y)}
-                                                    onDoubleClick={(e)=> onCellDoubleClick(e,x,y)}
-                                                    aria-label={!cell.v? (cell.f? 'Flagged' : 'Hidden') : (cell.m ? 'Mine' : `${cell.r||0}`)}
-                                                    disabled={over && !cell.v}
-                                                >
-                                                    {cell.v ? (cell.m ? '💣' : (cell.r||'')) : (cell.f ? '🚩' : '')}
-                                                </button>
-                                            );
-                                        })
-                                    ))}
-                                </div>
-                            </div>
-                            {(over && !won) && <div className="msw-status lose" role="alert">Boom! Try again.</div>}
-                            {(won) && <div className="msw-status win" role="alert">Cleared! Congrats.</div>}
-                            <div className="msw-help">Tip: Right-click to flag, double-click numbers to chord. On touch, toggle Flag Mode.</div>
-                        </div>
-                    );
+                    return (<div className="msw"> <div className="msw-top"> <div className="msw-counters"> <span className="msw-count">Mines: {remaining}</span> <span className="msw-count">Time: {seconds.toString().padStart(3,'0')}</span> <span className="msw-count">Best: {bests[preset.id]!=null?fmtTime(bests[preset.id]):'—'}</span> </div> <div className="msw-controls"> <div className="msw-diffs"> {PRESETS.map(p=> <button key={p.id} className={`msw-btn ${p.id===preset.id?'active':''}`} onClick={()=> reset(p)}>{p.name}</button>)} <button className={`msw-btn ${String(preset.id||'').startsWith('custom')?'active':''}`} onClick={()=> setShowCustom(x=>!x)}>Custom…</button> </div> <button className="msw-btn" onClick={()=> reset(preset)}>New Game</button> <button className={`msw-btn ${flagMode?'active':''}`} onClick={()=> setFlagMode(f=>!f)} title="Touch mode: place flags">Flag Mode</button> </div> {showCustom && <div className="msw-custom"> <label>W <input type="number" min="5" max="50" value={cw} onChange={e=> setCw(Math.max(5,Math.min(50,parseInt(e.target.value||'0',10))))}/></label> <label>H <input type="number" min="5" max="50" value={ch} onChange={e=> setCh(Math.max(5,Math.min(50,parseInt(e.target.value||'0',10))))}/></label> <label>M <input type="number" min="1" max={cw*ch-9} value={cm} onChange={e=> setCm(Math.max(1,Math.min(cw*ch-9,parseInt(e.target.value||'0',10))))}/></label> <button className="msw-btn" onClick={()=> { const w=cw,h=ch,mines=Math.min(cm,w*h-9); reset({id:`custom:${w}x${h}:${mines}`, name:'Custom', w,h,mines}); setShowCustom(false); }}>Start</button> </div>} </div> <div className="msw-grid-wrap"> <div className="msw-grid" style={{gridTemplateColumns:`repeat(${grid[0].length}, 28px)`}} role="grid" aria-label="Minesweeper board"> {grid.map((row,y)=> row.map((cell,x)=>{ const key=`${x}-${y}`; const classes=['msw-cell']; if(cell.v) classes.push('revealed'); if(cell.f) classes.push('flag'); if(cell.x) classes.push('exploded'); if(cell.v && !cell.m && cell.r>0) classes.push(`n${cell.r}`); const isRecent=recent.has(key); if(isRecent) classes.push('wave'); const d=origin?(Math.abs(x-origin.x)+Math.abs(y-origin.y)):0; return <button key={key} className={classes.join(' ')} style={{['--d']:d}} onClick={e=>onCellClick(e,x,y)} onContextMenu={e=>onCellRight(e,x,y)} onDoubleClick={e=>onCellDouble(e,x,y)} aria-label={!cell.v?(cell.f?'Flagged':'Hidden'):(cell.m?'Mine':`${cell.r||0}`)} disabled={over&&!cell.v}>{cell.v?(cell.m?'💣':(cell.r||'')):(cell.f?'🚩':'')}</button>; }))} </div> </div> {over && !won && <div className="msw-status lose" role="alert">Boom! Try again.</div>} {won && <div className="msw-status win" role="alert">Cleared! Congrats.</div>} <div className="msw-help">Tip: Right-click to flag, double-click numbers to chord. On touch, toggle Flag Mode.</div> </div>);
                 }
 
                                 // Web of Life (SVG radial graph) — polished, professional layout
@@ -759,30 +610,82 @@
                 // Resolve API base: prefer configured base; fallback to localhost in dev.
                 const configured = (window.CHAT_API_BASE || '').trim();
                 const base = (configured || (location.hostname === 'localhost' ? 'http://localhost:8787' : '')).replace(/\/$/, '');
-                if (!base) {
-                    return 'Assistant is not configured yet.';
-                }
-                const url = `${base}/api/chat`;
-                try {
-                    const response = await fetch(url, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ message })
-                    });
-                    if (!response.ok) {
-                        let detail = '';
-                        try { detail = await response.text(); } catch {}
-                        console.error('Proxy error:', detail || response.statusText);
-                        // Show a short, actionable message to the user
-                        return 'Assistant temporarily unavailable.';
+                // Local fallback responder (rule / intent based) for when remote API key not present or fetch fails.
+                // Lightweight semantic matching via keyword sets. All content is static, sourced from page.
+                function localResponder(raw){
+                    // localResponder contract:
+                    //  input: raw (string) user message
+                    //  output: concise answer drawn from a static knowledge base about Diego
+                    //  strategy: simple keyword / intent mapping (fast, no external deps)
+                    //  edge cases: empty -> guidance, unknown -> suggestion prompt
+                    //  future extension points: multi-intent aggregation, fuzzy matching, telemetry of misses
+                    const text = (raw||'').trim();
+                    if(!text) return 'Hi! Ask me about Diego\'s skills, experience, projects, education or how to contact him.';
+                    const q = text.toLowerCase();
+                    // Greetings
+                    if(/^(hi|hey|hello|yo|sup)\b/.test(q)) return 'Hi! I\'m a local assistant. Ask me about skills, experience, projects, education, contact, or say help.';
+                    if(q.includes('help') || /^\?+$/.test(q)) return 'You can ask: "what are your skills", "experience at CAE", "projects", "education", "contact info", or just say hi.';
+                    // Core fact snippets
+                    const facts = {
+                        skills: 'Core skills: Cloud & DevOps (Azure, AWS EC2/S3/Lambda, GitHub Actions, CI/CD, IaC); Programming (JavaScript, TypeScript, PowerShell, Python, C++, HTML5, CSS3); Databases (MongoDB, SQL); AI & Automation (OpenAI API, Generative AI, Prompt Engineering, Test Automation); 3D & Simulation (Unreal Engine, NVIDIA Omniverse, VR/AR); Tools (Git, GitHub Copilot, Docker, SCTP, TLS, DPDK/VPP).',
+                        experience: 'Recent roles: Software Engineer (DevOps) at CAE (since May 2025) improving deployment efficiency +30% and reducing downtime 25%; IVR System Developer at CAE (Sep 2024–May 2025); Software Engineer Intern at CAE (Oct 2023–Sep 2024); Simulation Developer at Presagis (Jun 2022–Jun 2023); 3D Artist/Developer at Presagis (Sep 2021–Jun 2022).',
+                        projects: 'Sample projects: VR Brain Installation (neuroscience data to immersive VR), The Actual Informer (news summarization app with OpenAI), Real-Time Dashboard (Python Dash streaming analytics), Expense Tracker (React with local persistence).',
+                        education: 'Education: Concordia University (Double Major Computational Design & Computer Science, 2022–present). Marianopolis College (Commerce DEC, 2020–2022).',
+                        contact: 'Contact: diego.crisafu@gmail.com. LinkedIn: linkedin.com/in/diegocrisafulli212bb0256 GitHub: github.com/diegocrisafu',
+                        summary: 'Diego is a Software & ML Engineer focusing on cloud-native solutions, full‑stack development, automation and immersive simulations.'
+                    };
+                    // Intent detection by keyword groups
+                    const intents = [
+                        {k:['skill','stack','tech','technologies'], v:'skills'},
+                        {k:['experience','roles','job','work history'], v:'experience'},
+                        {k:['project','build','portfolio'], v:'projects'},
+                        {k:['education','school','study','studies','university','college'], v:'education'},
+                        {k:['contact','email','reach','linkedin','github'], v:'contact'},
+                        {k:['summary','about','profile','bio'], v:'summary'},
+                    ];
+                    for(const intent of intents){
+                        if(intent.k.some(kw => q.includes(kw))) return facts[intent.v];
                     }
-                    const data = await response.json();
-                    return (data.reply || 'Sorry, no response available.');
-                } catch (error) {
-                    console.error('Proxy call failed:', error);
-                    return 'Network error contacting assistant.';
+                    // Specific role queries
+                    if(q.includes('devops') || q.includes('deployment')) return 'DevOps focus: automation pipelines (Azure, GitHub Actions), reliability improvements, cloud scaling and CI/CD optimization.';
+                    if(q.includes('omniverse') || q.includes('unreal') || q.includes('simulation')) return 'Simulation background: NVIDIA Omniverse Isaac Sim, Unreal Engine, VR/AR, digital twins, sensor & lidar integration.';
+                    if(q.includes('ai') || q.includes('machine learning') || q.includes('ml')) return 'AI work: OpenAI / generative AI integration, prompt engineering, automation, data visualization; ML elements inside simulation and VR contexts.';
+                    // Fallback: short fuzzy suggestion
+                    return 'Not sure about that. Try asking about skills, experience, projects, education, or contact.';
                 }
+                async function tryRemote(){
+                    if(!base) return null;
+                    try {
+                        const response = await fetch(`${base}/api/chat`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ message }) });
+                        if(!response.ok) return null;
+                        const data = await response.json();
+                        const reply = (data && data.reply) ? String(data.reply).trim() : '';
+                        if(!reply) return null;
+                        // Detect placeholder / unavailable style responses and treat as failure to force local fallback
+                        const lowered = reply.toLowerCase();
+                        if(/assistant\s+temporarily?\s+unavailable/.test(lowered) || /temporary unavailable/.test(lowered)) return null;
+                        return reply;
+                    } catch { return null; }
+                }
+                const remote = await tryRemote();
+                if(remote) return remote;
+                // Expose last local responder for manual console testing (non-enumerable to avoid clutter)
+                try { Object.defineProperty(window, '__lastLocalResponder', { value: localResponder, configurable: true, writable: true }); } catch {}
+                return localResponder(message) + ' (local)';
             }
+
+            // Optional lightweight self-test: append '?selftest=1' to URL to log sample local answers (does not alter UI state)
+            (function(){
+                if(location.search.includes('selftest=1') && !window.__chatSelfTested){
+                    window.__chatSelfTested = true;
+                    const samples = ['skills','experience','projects','education','contact','hi','unknown topic'];
+                    console.group('[chat selftest] local responder');
+                    Promise.all(samples.map(q => getAIReply(q).then(r => ({q,r})))).then(rows => {
+                        rows.forEach(row => console.log(row.q + ' -> ' + row.r));
+                        console.groupEnd();
+                    });
+                }
+            })();
 
             // Handle sending a chat message. This helper is invoked when the user
             // presses Enter or clicks the Send button. It appends the user’s
