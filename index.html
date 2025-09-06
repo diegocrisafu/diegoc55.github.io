@@ -30,10 +30,12 @@
     <!-- Chat config: define window.CHAT_API_BASE before app code runs -->
     <script src="./chat-config.js"></script>
     <!-- Include React and React‑DOM from a CDN -->
-    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
     <!-- Include modern Babel Standalone (v7) to transpile JSX in-browser -->
     <script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Modular assistant logic -->
+    <script src="assistant.js"></script>
         <!-- Surface runtime errors to the page for easier debugging on static hosting -->
         <script>
             window.addEventListener('error', function (e) {
@@ -606,89 +608,8 @@
             // key is embedded directly in the endpoint URL as required by the
             // Gemini REST specification. If the call fails, a fallback message is
             // returned. See Google’s documentation for additional details【744721557993995†L420-L448】.
-            async function getAIReply(message) {
-                // Resolve API base: prefer configured base; fallback to localhost in dev.
-                const configured = (window.CHAT_API_BASE || '').trim();
-                const base = (configured || (location.hostname === 'localhost' ? 'http://localhost:8787' : '')).replace(/\/$/, '');
-                // Force-local flag: set window.__FORCE_LOCAL_CHAT = true (console), or add ?localchat=1 once, or localStorage.forceLocalChat = '1'
-                const forceLocal = (() => {
-                    if (window.__FORCE_LOCAL_CHAT) return true;
-                    if (location.search.includes('localchat=1')) { try { localStorage.setItem('forceLocalChat','1'); } catch {} return true; }
-                    try { if (localStorage.getItem('forceLocalChat') === '1') return true; } catch {}
-                    return false;
-                })();
-                // Local fallback responder (rule / intent based) for when remote API key not present or fetch fails.
-                // Lightweight semantic matching via keyword sets. All content is static, sourced from page.
-                function localResponder(raw){
-                    // localResponder contract:
-                    //  input: raw (string) user message
-                    //  output: concise answer drawn from a static knowledge base about Diego
-                    //  strategy: simple keyword / intent mapping (fast, no external deps)
-                    //  edge cases: empty -> guidance, unknown -> suggestion prompt
-                    //  future extension points: multi-intent aggregation, fuzzy matching, telemetry of misses
-                    const text = (raw||'').trim();
-                    if(!text) return 'Hi! Ask me about Diego\'s skills, experience, projects, education or how to contact him.';
-                    const q = text.toLowerCase();
-                    // Greetings
-                    if(/^(hi|hey|hello|yo|sup)\b/.test(q)) return 'Hi! I\'m a local assistant. Ask me about skills, experience, projects, education, contact, or say help.';
-                    if(q.includes('help') || /^\?+$/.test(q)) return 'You can ask: "what are your skills", "experience at CAE", "projects", "education", "contact info", or just say hi.';
-                    // Core fact snippets
-                    const facts = {
-                        skills: 'Core skills: Cloud & DevOps (Azure, AWS EC2/S3/Lambda, GitHub Actions, CI/CD, IaC); Programming (JavaScript, TypeScript, PowerShell, Python, C++, HTML5, CSS3); Databases (MongoDB, SQL); AI & Automation (OpenAI API, Generative AI, Prompt Engineering, Test Automation); 3D & Simulation (Unreal Engine, NVIDIA Omniverse, VR/AR); Tools (Git, GitHub Copilot, Docker, SCTP, TLS, DPDK/VPP).',
-                        experience: 'Recent roles: Software Engineer (DevOps) at CAE (since May 2025) improving deployment efficiency +30% and reducing downtime 25%; IVR System Developer at CAE (Sep 2024–May 2025); Software Engineer Intern at CAE (Oct 2023–Sep 2024); Simulation Developer at Presagis (Jun 2022–Jun 2023); 3D Artist/Developer at Presagis (Sep 2021–Jun 2022).',
-                        projects: 'Sample projects: VR Brain Installation (neuroscience data to immersive VR), The Actual Informer (news summarization app with OpenAI), Real-Time Dashboard (Python Dash streaming analytics), Expense Tracker (React with local persistence).',
-                        education: 'Education: Concordia University (Double Major Computational Design & Computer Science, 2022–present). Marianopolis College (Commerce DEC, 2020–2022).',
-                        contact: 'Contact: diego.crisafu@gmail.com. LinkedIn: linkedin.com/in/diegocrisafulli212bb0256 GitHub: github.com/diegocrisafu',
-                        summary: 'Diego is a Software & ML Engineer focusing on cloud-native solutions, full‑stack development, automation and immersive simulations.'
-                    };
-                    // Intent detection by keyword groups
-                    const intents = [
-                        {k:['skill','stack','tech','technologies'], v:'skills'},
-                        {k:['experience','roles','job','work history'], v:'experience'},
-                        {k:['project','build','portfolio'], v:'projects'},
-                        {k:['education','school','study','studies','university','college'], v:'education'},
-                        {k:['contact','email','reach','linkedin','github'], v:'contact'},
-                        {k:['summary','about','profile','bio'], v:'summary'},
-                    ];
-                    for(const intent of intents){
-                        if(intent.k.some(kw => q.includes(kw))) return facts[intent.v];
-                    }
-                    // Specific role queries
-                    if(q.includes('devops') || q.includes('deployment')) return 'DevOps focus: automation pipelines (Azure, GitHub Actions), reliability improvements, cloud scaling and CI/CD optimization.';
-                    if(q.includes('omniverse') || q.includes('unreal') || q.includes('simulation')) return 'Simulation background: NVIDIA Omniverse Isaac Sim, Unreal Engine, VR/AR, digital twins, sensor & lidar integration.';
-                    if(q.includes('ai') || q.includes('machine learning') || q.includes('ml')) return 'AI work: OpenAI / generative AI integration, prompt engineering, automation, data visualization; ML elements inside simulation and VR contexts.';
-                    // Fallback: short fuzzy suggestion
-                    return 'Not sure about that. Try asking about skills, experience, projects, education, or contact.';
-                }
-                async function tryRemote(){
-                    if(forceLocal) return null;
-                    if(!base) return null;
-                    try {
-                        const response = await fetch(`${base}/api/chat`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ message }) });
-                        if(!response.ok) return null;
-                        const data = await response.json();
-                        const reply = (data && data.reply) ? String(data.reply).trim() : '';
-                        if(!reply) return null;
-                        // Detect placeholder / unavailable style responses and treat as failure to force local fallback
-                        const lowered = reply.toLowerCase();
-                        if(/assistant\s+temporarily?\s+unavailable/.test(lowered) || /temporary unavailable/.test(lowered)) return null;
-                        return reply;
-                    } catch { return null; }
-                }
-                const remote = await tryRemote();
-                if(remote){
-                    // Post-guard: in case upstream wording changes slightly
-                    const low = remote.toLowerCase();
-                    if(/temporar(il|)y/.test(low) && /unavailable/.test(low)) {
-                        // treat as failure
-                    } else {
-                        return remote;
-                    }
-                }
-                // Expose last local responder for manual console testing (non-enumerable to avoid clutter)
-                try { Object.defineProperty(window, '__lastLocalResponder', { value: localResponder, configurable: true, writable: true }); } catch {}
-                return localResponder(message) + ' (local)';
-            }
+            // Assistant engine initialization (modular)
+            const assistantEngine = new (window.AssistantEngine||function(){return {ask: async ()=> 'Assistant not loaded'}})();
 
             // Optional lightweight self-test: append '?selftest=1' to URL to log sample local answers (does not alter UI state)
             (function(){
@@ -714,7 +635,7 @@
                     setMessages(prev => [...prev, { from: 'user', text: input }]);
                     setChatInput('');
                     // Fetch AI reply
-                    const reply = await getAIReply(input);
+                    const reply = await assistantEngine.ask(input);
                     setMessages(prev => [...prev, { from: 'bot', text: reply }]);
                 }
             };

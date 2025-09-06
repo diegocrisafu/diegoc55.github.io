@@ -1,10 +1,11 @@
-const PRECACHE = 'static-v8';
+const PRECACHE = 'static-v9';
 const CORE = [
   './',
   './index.html',
   './style.css',
   './favicon.svg',
   './manifest.webmanifest',
+  './assistant.js',
   './social-card.svg'
 ];
 
