@@ -595,14 +595,7 @@
             const [messages, setMessages] = React.useState([
                 { from: 'bot', text: 'Hello! I\'m your personal assistant. How can I help you?' }
             ]);
-            const [forceLocal, setForceLocal] = React.useState(() => { try { return localStorage.getItem('forceLocalChat')==='1'; } catch { return false; } });
-            const ModeBadge = ({last}) => {
-                if(!last) return null; const isLocal = /\(local\)$/.test(last.text);
-                return <span className={`mode-badge ${isLocal? 'local':'remote'}`}>{isLocal? 'Local':'Remote'}</span>;
-            };
-            const ModeToggle = () => <button className="chat-clear-btn" onClick={()=>{ const next=!forceLocal; setForceLocal(next); try{ if(next) localStorage.setItem('forceLocalChat','1'); else localStorage.removeItem('forceLocalChat'); }catch{}; }} title={forceLocal? 'Forced local mode. Click to allow remote.':'Allowing remote. Click to force local.'}>{forceLocal? 'Local':'Auto'}</button>;
-            const suggestionSet = ['skills','experience','projects','education','contact'];
-            const addSuggestion = (s) => { setChatInput(s); };
+            // Simplified: removed mode badge/toggle and suggestions
             const messagesEndRef = React.useRef(null);
             React.useEffect(()=>{ if(messagesEndRef.current){ messagesEndRef.current.scrollIntoView({behavior:'smooth'}); } },[messages]);
 
@@ -838,25 +831,9 @@
                                 <div className="chat-window-header">
                                     <h4>
                                         <span className={`chat-status-dot ${chatHealthy ? 'online' : 'offline'}`} title={chatHealthy ? 'Online' : 'Offline'}></span>
-                                        Assistant <ModeBadge last={[...messages].reverse().find(m=>m.from==='bot')} />
+                                        Assistant
                                     </h4>
                                     <div className="chat-window-controls">
-                                        <ModeToggle />
-                                        <button
-                                            className="chat-clear-btn"
-                                            aria-label="Clear conversation"
-                                            onClick={() =>
-                                                setMessages([
-                                                    {
-                                                        from: 'bot',
-                                                        text: "Hello! I'm your personal assistant. How can I help you?",
-                                                    },
-                                                ])
-                                            }
-                                        >
-                                            Clear
-                                        </button>
-                                                                                <button className="chat-clear-btn" onClick={() => checkChatHealth()} aria-label="Retry health check">Check</button>
                                         <button
                                             className="chat-close-btn"
                                             aria-label="Close chat window"
@@ -872,9 +849,7 @@
                                     ))}
                                     <div ref={messagesEndRef} />
                                 </div>
-                                <div className="chat-suggestions" aria-label="Quick suggestions">
-                                    {suggestionSet.map(s => <div key={s} className="chat-chip" onClick={()=>addSuggestion(s)}>{s}</div>)}
-                                </div>
+                                {/* Suggestions removed for cleaner minimal UI */}
                                 {/* Input area with send button */}
                                 <div className="chat-input-container">
                                     <input
