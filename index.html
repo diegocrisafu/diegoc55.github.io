@@ -610,6 +610,13 @@
                 // Resolve API base: prefer configured base; fallback to localhost in dev.
                 const configured = (window.CHAT_API_BASE || '').trim();
                 const base = (configured || (location.hostname === 'localhost' ? 'http://localhost:8787' : '')).replace(/\/$/, '');
+                // Force-local flag: set window.__FORCE_LOCAL_CHAT = true (console), or add ?localchat=1 once, or localStorage.forceLocalChat = '1'
+                const forceLocal = (() => {
+                    if (window.__FORCE_LOCAL_CHAT) return true;
+                    if (location.search.includes('localchat=1')) { try { localStorage.setItem('forceLocalChat','1'); } catch {} return true; }
+                    try { if (localStorage.getItem('forceLocalChat') === '1') return true; } catch {}
+                    return false;
+                })();
                 // Local fallback responder (rule / intent based) for when remote API key not present or fetch fails.
                 // Lightweight semantic matching via keyword sets. All content is static, sourced from page.
                 function localResponder(raw){
@@ -654,6 +661,7 @@
                     return 'Not sure about that. Try asking about skills, experience, projects, education, or contact.';
                 }
                 async function tryRemote(){
+                    if(forceLocal) return null;
                     if(!base) return null;
                     try {
                         const response = await fetch(`${base}/api/chat`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ message }) });
@@ -668,7 +676,15 @@
                     } catch { return null; }
                 }
                 const remote = await tryRemote();
-                if(remote) return remote;
+                if(remote){
+                    // Post-guard: in case upstream wording changes slightly
+                    const low = remote.toLowerCase();
+                    if(/temporar(il|)y/.test(low) && /unavailable/.test(low)) {
+                        // treat as failure
+                    } else {
+                        return remote;
+                    }
+                }
                 // Expose last local responder for manual console testing (non-enumerable to avoid clutter)
                 try { Object.defineProperty(window, '__lastLocalResponder', { value: localResponder, configurable: true, writable: true }); } catch {}
                 return localResponder(message) + ' (local)';
