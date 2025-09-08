@@ -105,9 +105,9 @@ html, body {
 }
 
 /* --- Interactive wipe hero (Home) --- */
-#home.section { padding: 0; }
+#home.section { padding: 0; max-width: none; width: 100%; margin: 0; }
 .wipe-hero { position: relative; height: 100svh; min-height: 100vh; width: 100%; background: url('images/img_trees.png') center/cover no-repeat; overflow: hidden; }
-.wipe-hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.36), rgba(0,0,0,0.25) 28%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.45)); z-index: 0; pointer-events: none; }
+.wipe-hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.22), rgba(0,0,0,0.18) 28%, rgba(0,0,0,0.14) 60%, rgba(0,0,0,0.32)); z-index: 0; pointer-events: none; }
 .wipe-hero-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: auto; touch-action: pan-y; }
 .wipe-hero .hero.hero-intro { position: relative; z-index: 1; min-height: 100%; padding-top: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
 .wipe-hero .intro-name { color: #fff; text-shadow: 0 6px 22px rgba(0,0,0,0.45); }
@@ -123,12 +123,16 @@ html, body {
 #home.section > h2:empty { display: none; }
 
 /* Minimal navbar at top (overlay style) */
-html.at-top .navbar { background: transparent; box-shadow: none; border-bottom: none; }
+html.at-top .navbar { background: transparent !important; box-shadow: none; border-bottom: none; }
 html.at-top .nav‑logo { color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.35); }
 html.at-top .nav‑links a { color: #ffffff; opacity: 0.92; }
-html.at-top .nav‑links a:hover, html.at-top .nav‑links a.active { color: var(--accent); text-decoration: underline; }
+html.at-top .nav‑links a:hover { color: var(--accent); text-decoration: none; }
+html.at-top .nav‑links a.active { color: var(--accent); text-decoration: none; font-weight: 600; }
 html.at-top .dark‑mode‑toggle { border-color: rgba(255,255,255,0.8); color: #fff; }
 @media (max-width: 768px){ html.at-top .nav‑links { background: rgba(0,0,0,0.35); backdrop-filter: blur(6px); } }
+
+/* Slight side padding for hero content so text doesn't touch edges on wide screens */
+.wipe-hero .hero.hero-intro { padding-inline: 1.25rem; }
 
 button, input, textarea, select {
     font-family: 'Geist', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

@@ -958,7 +958,7 @@
                 const DPR = Math.max(1, Math.min(window.devicePixelRatio || 1, 2));
                 const overlay = new Image();
                 overlay.src = 'images/Golden Trunks and Blue Sky.png';
-                let brushRadius = 80; // CSS px
+                let brushRadius = 70; // CSS px
 
                 function resize(){
                     const rect = canvas.getBoundingClientRect();
@@ -974,7 +974,7 @@
                 function drawOverlay(){
                     ctx.globalCompositeOperation = 'source-over';
                     ctx.clearRect(0,0,canvas.width,canvas.height);
-                    ctx.filter = 'blur(8px)';
+                    ctx.filter = 'blur(10px)';
                     ctx.drawImage(overlay, 0, 0, canvas.width / DPR, canvas.height / DPR);
                     ctx.filter = 'none';
                 }
