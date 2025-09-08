@@ -97,11 +97,15 @@ html.dark-mode * {
 html, body {
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Geist', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(--background);
     color: var(--text);
     scroll-behavior: smooth;
     transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button, input, textarea, select {
+    font-family: 'Geist', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Skip link for keyboard users */
