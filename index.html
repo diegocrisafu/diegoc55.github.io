@@ -684,9 +684,7 @@
                                 <div className="intro-sub">
                                     <p>Crafting cloud‑native solutions, web experiences, and immersive simulations.</p>
                                 </div>
-                                <div className="intro-game">
-                                    <GameHero />
-                                </div>
+                                {/* Keep hero clean and focused; move heavier content below */}
                                 <div className="intro-cta">
                                     <a href="Diego_Resume.pdf" className="button download‑btn" download>Download Resume</a>
                                 </div>
@@ -1019,6 +1017,17 @@
                 });
             }
         </script>
+    <script>
+        // Toggle minimal transparent navbar at top of the page
+        (function(){
+            function onScroll(){
+                const atTop = window.scrollY < 8; // small threshold
+                document.documentElement.classList.toggle('at-top', atTop);
+            }
+            window.addEventListener('scroll', onScroll, { passive: true });
+            window.addEventListener('DOMContentLoaded', onScroll);
+        })();
+    </script>
     <script>
             // Lightweight typewriter for the intro subtitle
             (function(){
