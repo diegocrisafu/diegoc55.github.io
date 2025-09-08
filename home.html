@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Reveal Effect</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+    #container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      /* Base image we want to reveal */
+      background: url('images/img_trees.png') center center/cover no-repeat;
+    }
+    #revealCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: auto; /* capture mouse/touch */
+      touch-action: none;   /* prevent touch scrolling while wiping */
+      z-index: 1;
+    }
+    .controls { position: absolute; right: 12px; bottom: 12px; z-index: 2; display: flex; gap: 8px; }
+    .btn { background: rgba(0,0,0,0.5); color: #fff; border: 1px solid rgba(255,255,255,0.3); padding: 6px 10px; border-radius: 6px; font: 600 13px system-ui, -apple-system, Segoe UI, Roboto, sans-serif; cursor: pointer; }
+    .btn:hover { background: rgba(0,0,0,0.62); }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <canvas id="revealCanvas"></canvas>
+    <div class="controls">
+      <button id="resetBtn" class="btn" aria-label="Reset wipe">Reset</button>
+    </div>
+  </div>
+  <script>
+    // Canvas setup with HiDPI support
+    const canvas = document.getElementById('revealCanvas');
+    const ctx = canvas.getContext('2d');
+    const DPR = Math.max(1, Math.min(window.devicePixelRatio || 1, 2));
+
+    // Overlay image (what we start with): Golden Trunks and Blue Sky
+    const overlay = new Image();
+    overlay.src = 'images/Golden Trunks and Blue Sky.png';
+
+    // Brush config
+    let brushRadiusCSS = 80; // in CSS pixels
+    function brushRadiusPx() { return brushRadiusCSS * DPR; }
+
+    function resizeCanvas() {
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      canvas.style.width = w + 'px';
+      canvas.style.height = h + 'px';
+      canvas.width = Math.floor(w * DPR);
+      canvas.height = Math.floor(h * DPR);
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0); // draw commands use CSS pixels
+      // Redraw overlay after resize if image ready
+      if (overlay.complete) drawOverlay();
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Draw the blurred overlay to cover the base image
+    function drawOverlay() {
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // Optional blur to enhance the "wipe away blur" effect
+      ctx.filter = 'blur(8px)';
+      // Cover the whole viewport
+      ctx.drawImage(overlay, 0, 0, canvas.width / DPR, canvas.height / DPR);
+      ctx.filter = 'none';
+    }
+
+    overlay.onload = () => {
+      drawOverlay();
+    };
+
+    // Smooth eraser using radial gradient and destination-out
+    function eraseAt(x, y) {
+      const r = brushRadiusCSS;
+      ctx.save();
+      ctx.globalCompositeOperation = 'destination-out';
+      const g = ctx.createRadialGradient(x, y, r * 0.5, x, y, r);
+      g.addColorStop(0, 'rgba(0,0,0,0.9)');
+      g.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = g;
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    // Pointer handling (mouse + touch via Pointer Events)
+    let isPointerDown = false;
+    function getXY(evt) {
+      const rect = canvas.getBoundingClientRect();
+      return {
+        x: (evt.clientX - rect.left),
+        y: (evt.clientY - rect.top)
+      };
+    }
+
+    canvas.addEventListener('pointerdown', (e) => {
+      isPointerDown = true;
+      const { x, y } = getXY(e);
+      eraseAt(x, y);
+    });
+    canvas.addEventListener('pointermove', (e) => {
+      if (!isPointerDown && e.pointerType !== 'mouse') return; // draw on hover for mouse, press for touch/pen
+      const { x, y } = getXY(e);
+      eraseAt(x, y);
+    });
+    window.addEventListener('pointerup', () => { isPointerDown = false; });
+    window.addEventListener('pointercancel', () => { isPointerDown = false; });
+
+    // Reset control to re-cover with overlay
+    document.getElementById('resetBtn').addEventListener('click', drawOverlay);
+  </script>
+</body>
+</html>
