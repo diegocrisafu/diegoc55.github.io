@@ -669,22 +669,33 @@
             return (
                 <div>
                     <NavBar darkMode={darkMode} toggleDarkMode={toggleDarkMode} currentSection={currentSection} />
-                    {/* Home section with a hero message */}
+                    {/* Home section with interactive wipe hero and intro content */}
                     <Section id="home" title="">
-                        <div className="hero hero-intro">
-                            <h1 className="intro-name" aria-label="Diego Crisafulli">
-                                <span className="intro-first">Diego</span>
-                                <span className="intro-last">Crisafulli</span>
-                            </h1>
-                            <p className="intro-typing" aria-live="polite"><span id="typewriter"></span><span className="cursor">|</span></p>
-                            <div className="intro-sub">
-                                <p>Crafting cloud‑native solutions, web experiences, and immersive simulations.</p>
+                        <div className="wipe-hero" role="img" aria-label="Interactive reveal hero">
+                            {/* Canvas overlay for wipe effect */}
+                            <canvas id="wipeCanvas" className="wipe-hero-canvas" aria-hidden="true"></canvas>
+                            {/* Foreground intro content stays above the canvas */}
+                            <div className="hero hero-intro" style={{position:'relative', zIndex:1}}>
+                                <h1 className="intro-name" aria-label="Diego Crisafulli">
+                                    <span className="intro-first">Diego</span>
+                                    <span className="intro-last">Crisafulli</span>
+                                </h1>
+                                <p className="intro-typing" aria-live="polite"><span id="typewriter"></span><span className="cursor">|</span></p>
+                                <div className="intro-sub">
+                                    <p>Crafting cloud‑native solutions, web experiences, and immersive simulations.</p>
+                                </div>
+                                <div className="intro-game">
+                                    <GameHero />
+                                </div>
+                                <div className="intro-cta">
+                                    <a href="Diego_Resume.pdf" className="button download‑btn" download>Download Resume</a>
+                                </div>
                             </div>
-                            <div className="intro-game">
-                                <GameHero />
-                            </div>
-                            <div className="intro-cta">
-                                <a href="Diego_Resume.pdf" className="button download‑btn" download>Download Resume</a>
+                            {/* Down arrow CTA to scroll to About section */}
+                            <div className="wipe-hero-overlay">
+                                <button className="down-arrow" aria-label="Scroll to content" onClick={()=>{ const el=document.getElementById('about'); if(el) el.scrollIntoView({behavior:'smooth'}); }}>
+                                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16.5c-.26 0-.51-.1-.71-.29l-6-6a1.003 1.003 0 0 1 1.42-1.42L12 13.59l5.29-5.3a1.003 1.003 0 0 1 1.42 1.42l-6 6c-.2.19-.45.29-.71.29z"/></svg>
+                                </button>
                             </div>
                         </div>
                     </Section>
@@ -937,6 +948,67 @@
 
                 // Render the App component into the root div
         ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+    
+    <!-- Initialize interactive wipe effect for Home hero -->
+    <script>
+        (function(){
+            function initWipe(){
+                const canvas = document.getElementById('wipeCanvas');
+                if(!canvas) return;
+                const ctx = canvas.getContext('2d');
+                const DPR = Math.max(1, Math.min(window.devicePixelRatio || 1, 2));
+                const overlay = new Image();
+                overlay.src = 'images/Golden Trunks and Blue Sky.png';
+                let brushRadius = 80; // CSS px
+
+                function resize(){
+                    const rect = canvas.getBoundingClientRect();
+                    const w = rect.width || window.innerWidth;
+                    const h = rect.height || window.innerHeight;
+                    canvas.style.width = w + 'px';
+                    canvas.style.height = h + 'px';
+                    canvas.width = Math.floor(w * DPR);
+                    canvas.height = Math.floor(h * DPR);
+                    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+                    if (overlay.complete) drawOverlay();
+                }
+                function drawOverlay(){
+                    ctx.globalCompositeOperation = 'source-over';
+                    ctx.clearRect(0,0,canvas.width,canvas.height);
+                    ctx.filter = 'blur(8px)';
+                    ctx.drawImage(overlay, 0, 0, canvas.width / DPR, canvas.height / DPR);
+                    ctx.filter = 'none';
+                }
+                function erase(x,y){
+                    const r = brushRadius;
+                    ctx.save();
+                    ctx.globalCompositeOperation = 'destination-out';
+                    const g = ctx.createRadialGradient(x,y, r*0.5, x,y, r);
+                    g.addColorStop(0,'rgba(0,0,0,0.9)');
+                    g.addColorStop(1,'rgba(0,0,0,0)');
+                    ctx.fillStyle = g;
+                    ctx.beginPath();
+                    ctx.arc(x,y,r,0,Math.PI*2);
+                    ctx.fill();
+                    ctx.restore();
+                }
+                function xy(e){
+                    const rect = canvas.getBoundingClientRect();
+                    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+                }
+                let down=false;
+                canvas.addEventListener('pointerdown', (e)=>{ down=true; erase(...Object.values(xy(e))); });
+                canvas.addEventListener('pointermove', (e)=>{ if(down || e.pointerType==='mouse'){ const p=xy(e); erase(p.x,p.y); }});
+                window.addEventListener('pointerup', ()=> down=false);
+                window.addEventListener('pointercancel', ()=> down=false);
+                window.addEventListener('resize', resize);
+                overlay.onload = drawOverlay;
+                resize();
+            }
+            // Run after React app mounts to ensure canvas is in DOM
+            window.addEventListener('DOMContentLoaded', ()=> setTimeout(initWipe, 0));
+        })();
     </script>
     
     <script>

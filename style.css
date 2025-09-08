@@ -104,6 +104,17 @@ html, body {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* --- Interactive wipe hero (Home) --- */
+.wipe-hero { position: relative; min-height: 100vh; width: 100%; background: url('images/img_trees.png') center/cover no-repeat; overflow: hidden; }
+.wipe-hero-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: auto; touch-action: pan-y; }
+.wipe-hero-overlay { position: absolute; inset: 0; display: grid; place-items: end center; padding-bottom: 28px; z-index: 2; pointer-events: none; }
+.wipe-hero .down-arrow { pointer-events: auto; background: rgba(0,0,0,0.45); color: #fff; border: 1px solid rgba(255,255,255,0.25); width: 44px; height: 44px; border-radius: 999px; display:flex; align-items:center; justify-content:center; cursor: pointer; transition: background .25s, transform .2s; box-shadow: 0 6px 18px rgba(0,0,0,0.25); }
+.wipe-hero .down-arrow:hover { background: rgba(0,0,0,0.60); transform: translateY(2px); }
+.wipe-hero .down-arrow svg { width: 18px; height: 18px; fill: currentColor; }
+
+/* Ensure below content isn't hidden beneath fixed navbar when anchored */
+#home { scroll-margin-top: 72px; }
+
 button, input, textarea, select {
     font-family: 'Geist', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
