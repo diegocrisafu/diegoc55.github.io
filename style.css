@@ -113,8 +113,8 @@ html, body {
 .wipe-hero .intro-name { color: #fff; text-shadow: 0 6px 22px rgba(0,0,0,0.45); }
 .wipe-hero .intro-typing, .wipe-hero .intro-sub { color: #f0f3f9; }
 .wipe-hero-overlay { position: absolute; inset: 0; display: grid; place-items: end center; padding-bottom: 28px; z-index: 2; pointer-events: none; }
-.wipe-hero .down-arrow { pointer-events: auto; background: rgba(0,0,0,0.45); color: #fff; border: 1px solid rgba(255,255,255,0.25); width: 52px; height: 52px; border-radius: 999px; display:flex; align-items:center; justify-content:center; cursor: pointer; transition: background .25s, transform .2s; box-shadow: 0 10px 26px rgba(0,0,0,0.28); }
-.wipe-hero .down-arrow:hover { background: rgba(0,0,0,0.60); transform: translateY(2px); }
+.wipe-hero .down-arrow { pointer-events: auto; background: rgba(0,0,0,0.35); color: #fff; border: 1px solid rgba(255,255,255,0.2); width: 44px; height: 44px; border-radius: 999px; display:flex; align-items:center; justify-content:center; cursor: pointer; transition: background .25s, transform .2s, opacity .2s; box-shadow: 0 8px 22px rgba(0,0,0,0.22); opacity: 0.8; }
+.wipe-hero .down-arrow:hover { background: rgba(0,0,0,0.52); transform: translateY(2px); opacity: 1; }
 .wipe-hero .down-arrow svg { width: 18px; height: 18px; fill: currentColor; }
 
 /* Ensure below content isn't hidden beneath fixed navbar when anchored */
@@ -154,7 +154,7 @@ button, input, textarea, select {
 
 /* Better focus outlines */
 *:focus-visible {
-    outline: 3px solid var(--secondary);
+    outline: 2px solid var(--secondary);
     outline-offset: 2px;
     border-radius: 4px;
 }
@@ -407,6 +407,48 @@ html.dark-mode .dark‑mode‑toggle:hover {
 
 .project p {
     margin-top: 0.4rem;
+}
+
+/* Enhanced project styling */
+.project .outcome {
+    font-size: 0.9rem;
+    color: var(--secondary);
+    font-weight: 600;
+    background: rgba(75, 134, 180, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 8px;
+}
+
+.project-meta {
+    font-size: 0.85rem;
+    color: var(--light-text);
+    margin: 8px 0;
+}
+
+.project-meta a {
+    color: var(--secondary);
+    text-decoration: none;
+    margin: 0 4px;
+}
+
+.project-meta a:hover {
+    text-decoration: underline;
+}
+
+.project-tags {
+    display: flex;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+.tag {
+    font-size: 0.75rem;
+    background: var(--accent);
+    color: var(--primary);
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-weight: 600;
 }
 
 /* Featured projects section */
@@ -722,3 +764,25 @@ html.dark-mode .msw-btn.active { background: var(--secondary); color:#000; }
         font-size: 2rem;
     }
 }
+
+/* ===== Hero and Header UX Polish ===== */
+/* New hero typography and CTAs */
+.hero-title { font-size: clamp(2.25rem, 6vw, 3.5rem); line-height: 1.15; letter-spacing: -0.01em; margin: 0 0 12px; font-weight: 700; color: #fff; text-shadow: 0 8px 26px rgba(0,0,0,0.35); }
+.hero-lead { font-size: clamp(1.05rem, 2.4vw, 1.25rem); line-height: 1.55; max-width: 72ch; margin: 0 auto; color: rgba(255,255,255,0.92); }
+.hero-ctas { display: flex; gap: 14px; margin-top: 28px; justify-content: center; }
+.btn { display: inline-flex; align-items: center; justify-content: center; padding: 0.6rem 1.1rem; border-radius: 8px; border: 1px solid transparent; font-weight: 700; text-decoration: none; transition: transform .15s ease, box-shadow .2s ease, background-color .2s ease, filter .2s ease; }
+.btn-primary { background: var(--secondary); color: #fff; }
+.btn-primary:hover { filter: brightness(1.06); transform: translateY(-1px); }
+.btn-secondary { background: rgba(255,255,255,0.12); color: #fff; border-color: rgba(255,255,255,0.25); }
+.btn-secondary:hover { background: rgba(255,255,255,0.16); transform: translateY(-1px); }
+
+/* Header actions: Resume as primary; dark mode as icon */
+.nav-actions { display: flex; gap: 10px; align-items: center; margin-left: 10px; }
+.header-resume-btn { background: var(--secondary); color: #fff; padding: 0.4rem 0.8rem; border-radius: 8px; text-decoration: none; font-weight: 700; border: 1px solid rgba(255,255,255,0.15); }
+.header-resume-btn:hover { filter: brightness(1.05); }
+.dark‑mode‑toggle.icon { width: 40px; height: 36px; display: inline-flex; align-items: center; justify-content: center; background: transparent; border: 1px solid var(--white); color: var(--white); border-radius: 8px; padding: 0; }
+html:not(.at-top) .dark‑mode‑toggle.icon { border-color: var(--secondary); color: var(--secondary); }
+
+/* Link hover/focus clarity in nav */
+.nav‑links a { border-radius: 6px; padding: 6px 8px; }
+.nav‑links a:hover { background: rgba(255,255,255,0.08); }
