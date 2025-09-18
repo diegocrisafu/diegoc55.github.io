@@ -3,24 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diego Crisafulli – Portfolio</title>
-    <meta name="description" content="Portfolio of Diego Crisafulli – Software & ML Engineer. Cloud-native builder, full-stack developer, and simulation specialist.">
+    <title>Diego Crisafulli — Software Engineer</title>
+    <meta name="description" content="Diego Crisafulli — front-end + SWE building performant data visualizations and AI tools.">
     <meta name="author" content="Diego Crisafulli">
     <meta name="robots" content="index,follow">
     <link rel="canonical" href="https://diegocrisafu.github.io/diegoc55.github.io/">
     <meta name="theme-color" content="#2a4d69">
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Diego Crisafulli – Portfolio">
-    <meta property="og:description" content="Cloud-native builder, full-stack developer, and simulation specialist.">
+    <meta property="og:title" content="Diego Crisafulli — Software Engineer">
+    <meta property="og:description" content="Front-end + SWE. Fast UIs, solid infra, measurable impact.">
     <meta property="og:url" content="https://diegocrisafu.github.io/diegoc55.github.io/">
-    <meta property="og:image" content="social-card.svg">
-    <meta property="og:image:alt" content="Diego Crisafulli – Software & ML Engineer">
+    <meta property="og:image" content="https://diegocrisafu.github.io/diegoc55.github.io/social-card.svg">
+    <meta property="og:image:alt" content="Diego Crisafulli — Software Engineer">
     <!-- Twitter -->
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Diego Crisafulli – Portfolio">
-    <meta name="twitter:description" content="Cloud-native builder, full-stack developer, and simulation specialist.">
-    <meta name="twitter:image" content="social-card.svg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Diego Crisafulli — Software Engineer">
+    <meta name="twitter:description" content="Front-end + SWE. Fast UIs, solid infra, measurable impact.">
+    <meta name="twitter:image" content="https://diegocrisafu.github.io/diegoc55.github.io/social-card.svg">
     <!-- Performance hints for CDN deps -->
     <link rel="preconnect" href="https://unpkg.com" crossorigin>
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -30,7 +30,10 @@
     <!-- Geist Sans font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Preload hero images to improve first paint -->
+    <link rel="preload" as="image" href="images/img_trees.png"/>
+    <link rel="preload" as="image" href="images/Golden Trunks and Blue Sky.png"/>
     <!-- Chat config: define window.CHAT_API_BASE before app code runs -->
     <script src="./chat-config.js"></script>
     <!-- Include React and React‑DOM from a CDN -->
@@ -61,14 +64,15 @@
                     "@context": "https://schema.org",
                     "@type": "Person",
                     "name": "Diego Crisafulli",
-                    "jobTitle": "Software & ML Engineer",
+                    "jobTitle": "Software Engineer",
                     "url": "https://diegocrisafu.github.io/diegoc55.github.io/",
-                      "image": "https://diegocrisafu.github.io/diegoc55.github.io/social-card.svg",
+                    "image": "https://diegocrisafu.github.io/diegoc55.github.io/social-card.svg",
                     "email": "mailto:diego.crisafu@gmail.com",
                     "sameAs": [
                         "https://www.linkedin.com/in/diegocrisafulli212bb0256",
                         "https://github.com/diegocrisafu"
-                    ]
+                    ],
+                    "knowsAbout": ["React", "TypeScript", "Data Visualization", "DevOps", "JavaScript", "Python", "Cloud Computing", "AI"]
                 }
                 </script>
 </head>
@@ -90,8 +94,8 @@
             // Close the menu when a link is clicked
             const handleLinkClick = () => setMenuOpen(false);
             return (
-                <nav className={`navbar ${menuOpen ? 'active' : ''}`}>                    
-                    <div className="nav‑logo">Diego Crisafulli</div>
+                <nav className={`navbar ${menuOpen ? 'active' : ''}`}>
+                    <a className="nav‑logo" href="#home">Diego Crisafulli</a>
                     {/* Hamburger menu button for small screens */}
                     <button
                         className="menu‑toggle"
@@ -102,17 +106,23 @@
                     </button>
                     <ul className="nav‑links" onClick={handleLinkClick}>
                         <li><a href="#home" className={props.currentSection==='home'?'active':''}>Home</a></li>
-                        <li><a href="#about" className={props.currentSection==='about'?'active':''}>About</a></li>
-                        <li><a href="#skills" className={props.currentSection==='skills'?'active':''}>Skills</a></li>
-                        <li><a href="#experience" className={props.currentSection==='experience'?'active':''}>Experience</a></li>
                         <li><a href="#projects" className={props.currentSection==='projects'?'active':''}>Projects</a></li>
-                        <li><a href="#education" className={props.currentSection==='education'?'active':''}>Education</a></li>
+                        <li><a href="#experience" className={props.currentSection==='experience'?'active':''}>Experience</a></li>
+                        <li><a href="#writing" className={props.currentSection==='writing'?'active':''}>Writing</a></li>
                         <li><a href="#contact" className={props.currentSection==='contact'?'active':''}>Contact</a></li>
                     </ul>
-                    {/* Dark mode toggle button */}
-                    <button className="dark‑mode‑toggle" onClick={props.toggleDarkMode}>
-                        {props.darkMode ? 'Light Mode' : 'Dark Mode'}
-                    </button>
+                    {/* Right-side actions: Resume as primary, dark mode as icon */}
+                    <div className="nav-actions">
+                        <a href="Diego_Resume.pdf" className="header-resume-btn" target="_blank" rel="noopener noreferrer">Download Résumé</a>
+                        <button
+                            className="dark‑mode‑toggle icon"
+                            onClick={props.toggleDarkMode}
+                            aria-label={props.darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+                            title={props.darkMode ? 'Light mode' : 'Dark mode'}
+                        >
+                            {props.darkMode ? '☀️' : '🌙'}
+                        </button>
+                    </div>
                 </nav>
             );
         }
@@ -676,17 +686,11 @@
                             <canvas id="wipeCanvas" className="wipe-hero-canvas" aria-hidden="true"></canvas>
                             {/* Foreground intro content stays above the canvas */}
                             <div className="hero hero-intro" style={{position:'relative', zIndex:1}}>
-                                <h1 className="intro-name" aria-label="Diego Crisafulli">
-                                    <span className="intro-first">Diego</span>
-                                    <span className="intro-last">Crisafulli</span>
-                                </h1>
-                                <p className="intro-typing" aria-live="polite"><span id="typewriter"></span><span className="cursor">|</span></p>
-                                <div className="intro-sub">
-                                    <p>Crafting cloud‑native solutions, web experiences, and immersive simulations.</p>
-                                </div>
-                                {/* Keep hero clean and focused; move heavier content below */}
-                                <div className="intro-cta">
-                                    <a href="Diego_Resume.pdf" className="button download‑btn" download>Download Resume</a>
+                                <h1 className="hero-title">Building fast, delightful data tools</h1>
+                                <p className="hero-lead">Front-end + SWE. Fast UIs, solid infra, measurable impact.</p>
+                                <div className="hero-ctas">
+                                    <a href="#projects" className="btn btn-primary">View Projects</a>
+                                    <a href="#contact" className="btn btn-secondary">Contact</a>
                                 </div>
                             </div>
                             {/* Down arrow CTA to scroll to About section */}
@@ -975,7 +979,21 @@
                     ctx.globalCompositeOperation = 'source-over';
                     ctx.clearRect(0,0,canvas.width,canvas.height);
                     ctx.filter = 'blur(10px)';
-                    ctx.drawImage(overlay, 0, 0, canvas.width / DPR, canvas.height / DPR);
+                    // Draw overlay with CSS-like `background-size: cover` to preserve aspect
+                    const cw = canvas.width / DPR;
+                    const ch = canvas.height / DPR;
+                    const iw = overlay.naturalWidth || overlay.width;
+                    const ih = overlay.naturalHeight || overlay.height;
+                    if (iw && ih) {
+                        const scale = Math.max(cw / iw, ch / ih);
+                        const dw = iw * scale;
+                        const dh = ih * scale;
+                        const dx = (cw - dw) / 2;
+                        const dy = (ch - dh) / 2;
+                        ctx.drawImage(overlay, dx, dy, dw, dh);
+                    } else {
+                        ctx.drawImage(overlay, 0, 0, cw, ch);
+                    }
                     ctx.filter = 'none';
                 }
                 function erase(x,y){
@@ -1028,26 +1046,7 @@
             window.addEventListener('DOMContentLoaded', onScroll);
         })();
     </script>
-    <script>
-            // Lightweight typewriter for the intro subtitle
-            (function(){
-                const phrases = [
-                    'Software & ML Engineer',
-                    'Cloud‑native builder',
-                    'Full‑stack developer'
-                ];
-                let i = 0, j = 0, erasing = false;
-                const el = () => document.getElementById('typewriter');
-                function tick(){
-                    const target = el(); if(!target) return;
-                    const p = phrases[i % phrases.length];
-                    if(!erasing){ j++; target.textContent = p.slice(0, j); if(j >= p.length){ erasing = true; setTimeout(tick, 1200); return; } }
-                    else { j--; target.textContent = p.slice(0, j); if(j <= 0){ erasing = false; i++; } }
-                    setTimeout(tick, erasing ? 40 : 70);
-                }
-                window.addEventListener('DOMContentLoaded', () => setTimeout(tick, 400));
-            })();
-        </script>
+    
     
 </body>
 </html>
