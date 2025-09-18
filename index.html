@@ -43,6 +43,42 @@
     <script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <!-- Modular assistant logic -->
     <script src="assistant.js"></script>
+    
+    <!-- JSON-LD Schema for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Diego Crisafulli",
+        "jobTitle": "Software Engineer",
+        "description": "Front-end + SWE building performant data visualizations and AI tools",
+        "url": "https://diegocrisafu.github.io/diegoc55.github.io/",
+        "image": "https://diegocrisafu.github.io/diegoc55.github.io/social-card.svg",
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "email": "diego@crisafulli.com",
+            "contactType": "professional"
+        },
+        "sameAs": [
+            "https://linkedin.com/in/diegocrisafulli",
+            "https://github.com/diegoc55"
+        ],
+        "knowsAbout": [
+            "Software Engineering",
+            "Front-end Development", 
+            "Data Visualization",
+            "Artificial Intelligence",
+            "React",
+            "JavaScript",
+            "Python"
+        ],
+        "alumniOf": {
+            "@type": "EducationalOrganization",
+            "name": "University of California, Berkeley"
+        }
+    }
+    </script>
+    
         <!-- Surface runtime errors to the page for easier debugging on static hosting -->
         <script>
             window.addEventListener('error', function (e) {
@@ -730,18 +766,20 @@
                             <li><strong>Tools:</strong> Git, GitHub Copilot, Docker, SCTP, TLS, DPDK/VPP</li>
                         </ul>
                     </Section>
-                    {/* Experience section summarizing career roles */}
+                    {/* Experience section with card-based layout and impact metrics */}
                     <Section id="experience" title="Experience">
-                        <div className="experience">
-                            <div className="job">
-                                <h3>Software Engineer (DevOps) – CAE</h3>
+                        <div className="experience-new">
+                            <article className="xp-card">
+                                <header className="xp-head">
+                                    <h3><span className="role">Software Engineer (DevOps)</span> — <a href="https://www.cae.com" className="company">CAE</a></h3>
                                 <span className="job‑date">May 2025 – Present</span>
                                 <ul>
                                     <li>Developed and maintained automation pipelines with Azure and GitHub Actions, boosting deployment efficiency by 30%.</li>
                                     <li>Partnered with cross‑functional teams to optimize asset flow, reducing system downtime by 25%.</li>
                                     <li>Engineered cloud computing solutions using JavaScript and PowerShell, improving overall system reliability and scalability.</li>
                                 </ul>
-                            </div>
+                                </header>
+                            </article>
                             <div className="job">
                                 <h3>IVR System Developer – CAE</h3>
                                 <span className="job‑date">Sep 2024 – May 2025</span>
@@ -833,12 +871,44 @@
                             </div>
                         </div>
                     </Section>
-                    {/* Contact section with simple contact info and call‑to‑action */}
-                    <Section id="contact" title="Contact">
-                        <p>
-                            Feel free to reach out via email at <a href="mailto:diego.crisafu@gmail.com">diego.crisafu@gmail.com</a> or connect with me on <a href="https://www.linkedin.com/in/diegocrisafulli212bb0256" target="_blank" rel="noopener noreferrer">LinkedIn</a>.
-                        </p>
-                    </Section>
+                    {/* Contact section with functional form and accessibility */}
+                    <section id="contact" aria-labelledby="contact-title">
+                        <h2 id="contact-title">Let's build something fast.</h2>
+                        <p className="sub">Email is fastest. I reply within 24 hours.</p>
+
+                        <div className="cta-row">
+                            <a id="email-link" className="btn btn-primary" href="#" rel="nofollow">Email Diego</a>
+                            <button className="btn" id="copy-email" type="button" aria-label="Copy email to clipboard">Copy email</button>
+                            <a className="btn" href="/Diego_Crisafulli.vcf" download>Download vCard</a>
+                        </div>
+
+                        <ul className="social" aria-label="Social links">
+                            <li><a href="https://github.com/diegoc55" target="_blank" rel="me noopener noreferrer" aria-label="GitHub">GitHub</a></li>
+                            <li><a href="https://www.linkedin.com/in/diegocrisafulli212bb0256" target="_blank" rel="me noopener noreferrer" aria-label="LinkedIn">LinkedIn</a></li>
+                        </ul>
+
+                        <form action="https://formsubmit.co/diego.crisafu@gmail.com" method="POST" id="contact-form" noValidate>
+                            <input type="hidden" name="_subject" value="Portfolio contact" />
+                            <input type="hidden" name="_captcha" value="false" />
+                            <input type="hidden" name="_next" value="https://diegocrisafu.github.io/diegoc55.github.io/#thanks" />
+                            <div className="hp"><label htmlFor="hp">Leave this empty</label><input id="hp" name="_honey" autoComplete="off" /></div>
+
+                            <div className="field">
+                                <label htmlFor="name">Name</label>
+                                <input id="name" name="name" type="text" autoComplete="name" required />
+                            </div>
+                            <div className="field">
+                                <label htmlFor="email">Email</label>
+                                <input id="email" name="email" type="email" autoComplete="email" required inputMode="email" />
+                            </div>
+                            <div className="field">
+                                <label htmlFor="message">Message</label>
+                                <textarea id="message" name="message" rows="6" required></textarea>
+                            </div>
+                            <button className="btn btn-primary" type="submit" id="send-btn">Send message</button>
+                            <p id="form-status" role="status" aria-live="polite"></p>
+                        </form>
+                    </section>
                     <footer className="footer">© {new Date().getFullYear()} Diego Crisafulli</footer>
                     {/* Floating chatbot component */}
                     <div className="chatbot-container">
@@ -1045,6 +1115,69 @@
             window.addEventListener('scroll', onScroll, { passive: true });
             window.addEventListener('DOMContentLoaded', onScroll);
         })();
+    </script>
+    
+    <script>
+        // Contact section functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Reconstruct email address from obfuscated parts
+            const emailElement = document.querySelector('[data-email-user]');
+            if (emailElement) {
+                const user = emailElement.dataset.emailUser;
+                const domain = emailElement.dataset.emailDomain;
+                const email = user + '@' + domain;
+                emailElement.textContent = email;
+                emailElement.href = 'mailto:' + email;
+            }
+
+            // Clipboard copy functionality
+            const copyBtn = document.getElementById('copy-email');
+            if (copyBtn) {
+                copyBtn.addEventListener('click', function() {
+                    const email = emailElement ? emailElement.textContent : 'diego@crisafulli.com';
+                    navigator.clipboard.writeText(email).then(() => {
+                        const originalText = copyBtn.textContent;
+                        copyBtn.textContent = '✓ Copied!';
+                        setTimeout(() => {
+                            copyBtn.textContent = originalText;
+                        }, 2000);
+                    }).catch(() => {
+                        // Fallback for older browsers
+                        const textArea = document.createElement('textarea');
+                        textArea.value = email;
+                        document.body.appendChild(textArea);
+                        textArea.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(textArea);
+                        
+                        const originalText = copyBtn.textContent;
+                        copyBtn.textContent = '✓ Copied!';
+                        setTimeout(() => {
+                            copyBtn.textContent = originalText;
+                        }, 2000);
+                    });
+                });
+            }
+
+            // Form submission handling with visual feedback
+            const contactForm = document.getElementById('contact-form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    const submitBtn = contactForm.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.textContent;
+                    
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Sending...';
+                    
+                    // Note: FormSubmit will handle the actual submission
+                    // This is just for visual feedback before redirect
+                    setTimeout(() => {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = originalText;
+                    }, 3000);
+                });
+            }
+        });
     </script>
     
     
