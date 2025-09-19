@@ -15,6 +15,41 @@
     --white: #ffffff;
 }
 
+/* === Theme Tokens (system/light/dark) === */
+html { color-scheme: light dark; }
+
+/* Dark (default) */
+:root{
+    --bg:#0f1117;
+    --surface:#12161d;
+    --surface-2:#161b22;
+    --text:#e6eaf2;
+    --muted:#a7b0bf;
+    --border:#242b36;
+    --accent:#5fa0ff;
+    --focus:#9ecbff;
+}
+
+/* Light */
+html[data-theme="light"]{
+    --bg:#f7f8fb;
+    --surface:#ffffff;
+    --surface-2:#f4f6fa;
+    --text:#0b0d12;
+    --muted:#475569;
+    --border:#e5e7eb;
+    --accent:#2563eb;
+    --focus:#2563eb;
+}
+
+/* Respect system when no explicit choice */
+@media (prefers-color-scheme: light){ html:not([data-theme]){ color-scheme: light dark; } }
+@media (prefers-color-scheme: dark){  html:not([data-theme]){ color-scheme: dark light; } }
+
+/* Step 1 — Remove gradients/noise and set page background */
+body, main, #contact { background: transparent; }
+body { background: var(--bg); }
+
 /* Dark mode overrides. When .dark-mode class is applied to the root wrapper, redefine
    the CSS variables to create a dark colour palette. */
 html.dark-mode {
@@ -971,6 +1006,23 @@ html:not(.at-top) .dark‑mode‑toggle.icon { border-color: var(--secondary); c
 .nav‑links a { border-radius: 6px; padding: 6px 8px; }
 .nav‑links a:hover { background: rgba(255,255,255,0.08); }
 
+/* Tokenized buttons (shared) */
+.btn{ border:1px solid var(--border); border-radius:12px; padding:.55rem .9rem; line-height:1; color:var(--text); background:var(--surface-2); min-height:44px; }
+.btn-primary{ background:var(--accent); border-color:var(--accent); color:#fff; }
+.btn:focus-visible{ outline:2px solid var(--focus); outline-offset:3px; }
+
+/* Contact section normalized to tokens */
+#contact{ max-width:72ch; margin:0 auto; padding:24px 16px; background:transparent; color:var(--text); }
+#contact .card, #contact form, #contact .methods{ background:var(--surface); border:1px solid var(--border); border-radius:14px; box-shadow:0 1px 0 rgba(0,0,0,.35); }
+#contact .sub{ color:var(--muted); }
+#contact input, #contact textarea{ background:var(--surface-2); border:1px solid var(--border); color:var(--text); border-radius:12px; padding:.6rem .75rem; }
+#contact input::placeholder, #contact textarea::placeholder{ color:var(--muted); }
+#contact input:focus-visible, #contact textarea:focus-visible{ outline:2px solid var(--focus); outline-offset:3px; }
+#contact a{ color:var(--accent); text-decoration:none; border-bottom:1px dotted rgba(95,160,255,.35); }
+#contact a:hover{ border-bottom-color:var(--accent); }
+#contact .methods{ display:grid; gap:12px; padding:12px; }
+@media (min-width:640px){ #contact .methods{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+
 /* ===== Contact Section Styling ===== */
 .contact-container {
     max-width: 72ch;
@@ -1001,18 +1053,16 @@ html:not(.at-top) .dark‑mode‑toggle.icon { border-color: var(--secondary); c
 }
 
 html.dark-mode .contact-method {
-    background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
-    border-color: var(--primary);
-    box-shadow: 0 4px 15px rgba(187, 134, 252, 0.1);
+    background: var(--surface);
+    border-color: var(--border);
+    box-shadow: 0 1px 0 rgba(0,0,0,.35);
 }
 
-html.dark-mode .contact-method:hover {
-    box-shadow: 0 8px 25px rgba(187, 134, 252, 0.2);
-}
+html.dark-mode .contact-method:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
 
 .contact-method h3 {
     margin: 0 0 1rem;
-    color: var(--primary);
+    color: var(--text);
     font-size: 1.25rem;
     font-weight: 600;
     display: flex;
@@ -1022,12 +1072,12 @@ html.dark-mode .contact-method:hover {
 
 .contact-method p {
     margin: 0.5rem 0;
-    color: var(--light-text);
+    color: var(--muted);
     line-height: 1.6;
 }
 
 .contact-link {
-    color: var(--secondary);
+    color: var(--accent);
     text-decoration: none;
     font-weight: 500;
     border-bottom: 1px solid transparent;
@@ -1035,12 +1085,12 @@ html.dark-mode .contact-method:hover {
 }
 
 .contact-link:hover {
-    border-bottom-color: var(--secondary);
+    border-bottom-color: var(--accent);
 }
 
 .copy-btn {
-    background: var(--accent);
-    color: var(--primary);
+    background: var(--surface-2);
+    color: var(--text);
     border: none;
     padding: 0.5rem 1rem;
     border-radius: 6px;
@@ -1052,39 +1102,39 @@ html.dark-mode .contact-method:hover {
 }
 
 .copy-btn:hover {
-    background: var(--secondary);
-    color: white;
+    background: var(--accent);
+    color: #fff;
     transform: translateY(-1px);
 }
 
 html.dark-mode .copy-btn {
-    background: var(--primary);
-    color: var(--background);
+    background: var(--surface-2);
+    color: var(--text);
 }
 
 html.dark-mode .copy-btn:hover {
-    background: var(--secondary);
-    color: var(--background);
+    background: var(--accent);
+    color: #fff;
 }
 
 .contact-form-container {
-    background: var(--white);
+    background: var(--surface);
     padding: 3rem;
     border-radius: 16px;
-    border: 1px solid rgba(42, 77, 105, 0.1);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--border);
+    box-shadow: 0 1px 0 rgba(0,0,0,.35);
     margin-top: 2rem;
 }
 
 html.dark-mode .contact-form-container {
-    background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
-    border-color: var(--primary);
-    box-shadow: 0 4px 20px rgba(187, 134, 252, 0.15);
+    background: var(--surface);
+    border-color: var(--border);
+    box-shadow: 0 1px 0 rgba(0,0,0,.35);
 }
 
 .contact-form-container h3 {
     margin: 0 0 2rem;
-    color: var(--primary);
+    color: var(--text);
     font-size: 1.5rem;
     text-align: center;
 }
@@ -1105,33 +1155,32 @@ html.dark-mode .contact-form-container {
 .form-group textarea {
     width: 100%;
     padding: 0.75rem 1rem;
-    border: 2px solid rgba(42, 77, 105, 0.2);
-    border-radius: 8px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
     font-size: 1rem;
     font-family: inherit;
-    background: var(--background);
+    background: var(--surface-2);
     color: var(--text);
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
     box-sizing: border-box;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
-    outline: none;
-    border-color: var(--secondary);
-    box-shadow: 0 0 0 3px rgba(75, 134, 180, 0.1);
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
 }
 
 html.dark-mode .form-group input,
 html.dark-mode .form-group textarea {
-    background: #1a1a1a;
-    border-color: var(--primary);
+    background: var(--surface-2);
+    border-color: var(--border);
 }
 
 html.dark-mode .form-group input:focus,
 html.dark-mode .form-group textarea:focus {
-    border-color: var(--secondary);
-    box-shadow: 0 0 0 3px rgba(3, 218, 198, 0.15);
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
 }
 
 .form-group textarea {
@@ -1140,23 +1189,24 @@ html.dark-mode .form-group textarea:focus {
 }
 
 .submit-btn {
-    background: var(--secondary);
-    color: white;
-    border: none;
+    background: var(--surface-2);
+    color: var(--text);
+    border: 1px solid var(--border);
     padding: 0.875rem 2rem;
-    border-radius: 8px;
+    border-radius: 12px;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
     width: 100%;
     margin-top: 1rem;
+    min-height: 44px;
 }
 
 .submit-btn:hover:not(:disabled) {
-    background: var(--primary);
+    background: var(--accent);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(42, 77, 105, 0.3);
+    color: #fff;
 }
 
 .submit-btn:disabled {
@@ -1166,12 +1216,12 @@ html.dark-mode .form-group textarea:focus {
 }
 
 html.dark-mode .submit-btn {
-    background: var(--primary);
+    background: var(--surface-2);
 }
 
 html.dark-mode .submit-btn:hover:not(:disabled) {
-    background: var(--secondary);
-    box-shadow: 0 6px 20px rgba(3, 218, 198, 0.3);
+    background: var(--accent);
+    color: #fff;
 }
 
 /* Responsive adjustments for contact section */
@@ -1215,8 +1265,8 @@ html.dark-mode .submit-btn:hover:not(:disabled) {
 /* Focus indicators for better accessibility */
 .copy-btn:focus,
 .submit-btn:focus {
-    outline: 2px solid var(--secondary);
-    outline-offset: 2px;
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
 }
 
 /* High contrast mode support */
