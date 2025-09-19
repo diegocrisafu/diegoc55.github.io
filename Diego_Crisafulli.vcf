@@ -6,6 +6,8 @@ EMAIL;TYPE=INTERNET:diego.crisafu@gmail.com
 URL:https://diegocrisafu.github.io/diegoc55.github.io
 TITLE:Software Engineer
 ORG:CAE
-URL;TYPE=LinkedIn:https://www.linkedin.com/in/diegocrisafulli212bb0256
+TEL;TYPE=CELL:+1-000-000-0000
+item1.URL;TYPE=pref:https://www.linkedin.com/in/diegocrisafulli212bb0256
+item1.X-ABLabel:LinkedIn
 URL;TYPE=GitHub:https://github.com/diegoc55
 END:VCARD
