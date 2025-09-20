@@ -115,7 +115,8 @@
 </head>
 <body>
         <a className="skip-link" href="#main-content">Skip to main content</a>
-        <!-- Simple prerender content for crawlers and no-JS users; hidden once JS is enabled -->
+        <!-- Simple prerender content for crawlers and no-JS users; only visible without JS -->
+        <noscript>
         <div id="prerender">
             <header>
                 <h1>I build fast, human-friendly data tools.</h1>
@@ -140,6 +141,7 @@
                 </section>
             </main>
         </div>
+        </noscript>
     <!-- Root element where our React app will mount -->
     <div id="root"></div>
 
@@ -973,15 +975,15 @@
                                                 <p className="sub" style={{marginTop:8}}>We only use your details to respond. No tracking pixels. <a href="/privacy.html">Privacy</a>.</p>
                                             </form>
 
-                                            <div id="contact-success" className="card" hidden>
-                                              <h3>Thanks — message received.</h3>
-                                              <p>I’ll reply within 24 hours.</p>
-                                              <div className="cta-row">
-                                                <a className="btn btn-primary" href="/Diego_Resume.pdf">Download résumé</a>
-                                                <a className="btn" href="#projects">View projects</a>
-                                                <a className="btn" id="email-again" href="#">Email again</a>
-                                              </div>
-                                            </div>
+                                                                                        <div id="contact-success" className="card" hidden>
+                                                                                            <h3>Thanks — message received.</h3>
+                                                                                            <p>I’ll reply within 24 hours.</p>
+                                                                                            <div className="cta-row">
+                                                                                                <a className="btn btn-primary" href="/Diego_Resume.pdf" target="_blank" rel="noopener">Download résumé</a>
+                                                                                                <a className="btn" href="#projects">Top project</a>
+                                                                                                <a className="btn" id="email-again" href="#">Send another</a>
+                                                                                            </div>
+                                                                                        </div>
                                             <div id="toast" role="status" aria-live="polite" hidden>Email copied</div>
                     </section>
                     <footer className="footer">© {new Date().getFullYear()} Diego Crisafulli</footer>
@@ -1242,6 +1244,19 @@
                     const body = encodeURIComponent('Hi Diego,\n\n');
                     const href = `mailto:${realEmail}?subject=${subject}&body=${body}`;
                     window.location.href = href;
+                });
+            }
+
+            if (emailAgain) {
+                emailAgain.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (successCard) successCard.hidden = true;
+                    if (contactForm) {
+                        contactForm.reset();
+                        contactForm.hidden = false;
+                        const name = document.getElementById('name');
+                        if (name) name.focus();
+                    }
                 });
             }
 

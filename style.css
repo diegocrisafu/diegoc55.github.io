@@ -1467,6 +1467,14 @@ html.dark-mode .submit-btn:hover:not(:disabled) {
 #prerender p { margin: 6px 0; color: var(--text-muted); }
 #prerender a { color: var(--primary); text-decoration: underline; text-underline-offset: 3px; }
 
+/* Improve contrast in Experience section */
+#experience h2 { color: var(--text); }
+#experience .section‑content,
+#experience .section‑content p,
+#experience .section‑content li { color: rgba( var(--text-rgb, 230,234,242), 0.95 ); }
+#experience .job‑date { color: rgba( var(--text-rgb, 230,234,242), 0.75 ); font-variant-numeric: tabular-nums; }
+#experience a { color: var(--accent); }
+
 /* Enhanced mobile responsiveness for hero section */
 @media (max-width: 768px) {
     .hero-stats { 
