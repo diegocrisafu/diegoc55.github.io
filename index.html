@@ -1150,7 +1150,9 @@
                         const dh = ih * scale;
                         const dx = (cw - dw) / 2;
                         const dy = (ch - dh) / 2;
-                        ctx.drawImage(overlay, dx, dy, dw, dh);
+                        // feather: draw with a slight bleed to avoid edge seams after blur
+                        const pad = 24; // CSS px
+                        ctx.drawImage(overlay, dx - pad, dy - pad, dw + pad*2, dh + pad*2);
                     } else {
                         ctx.drawImage(overlay, 0, 0, cw, ch);
                     }
