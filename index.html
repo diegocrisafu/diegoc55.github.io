@@ -164,16 +164,18 @@
                     <button
                         className="menu‑toggle"
                         aria-label="Toggle navigation"
+                        aria-expanded={menuOpen}
+                        aria-controls="primary-nav"
                         onClick={() => setMenuOpen((prev) => !prev)}
                     >
                         {menuOpen ? '\u00d7' : '\u2630'}
                     </button>
-                    <ul className="nav‑links" onClick={handleLinkClick}>
-                        <li><a href="#home" className={props.currentSection==='home'?'active':''}>Home</a></li>
-                        <li><a href="#projects" className={props.currentSection==='projects'?'active':''}>Projects</a></li>
-                        <li><a href="#experience" className={props.currentSection==='experience'?'active':''}>Experience</a></li>
-                        <li><a href="#writing" className={props.currentSection==='writing'?'active':''}>Writing</a></li>
-                        <li><a href="#contact" className={props.currentSection==='contact'?'active':''}>Contact</a></li>
+                    <ul id="primary-nav" className="nav‑links" onClick={handleLinkClick}>
+                        <li><a href="#home" className={props.currentSection==='home'?'active':''} aria-current={props.currentSection==='home'?'page':undefined}>Home</a></li>
+                        <li><a href="#projects" className={props.currentSection==='projects'?'active':''} aria-current={props.currentSection==='projects'?'page':undefined}>Projects</a></li>
+                        <li><a href="#experience" className={props.currentSection==='experience'?'active':''} aria-current={props.currentSection==='experience'?'page':undefined}>Experience</a></li>
+                        <li><a href="#writing" className={props.currentSection==='writing'?'active':''} aria-current={props.currentSection==='writing'?'page':undefined}>Writing</a></li>
+                        <li><a href="#contact" className={props.currentSection==='contact'?'active':''} aria-current={props.currentSection==='contact'?'page':undefined}>Contact</a></li>
                     </ul>
                     {/* Right-side actions: Resume as primary, dark mode as icon */}
                     <div className="nav-actions">
@@ -741,7 +743,7 @@
             };
 
             return (
-                <div id="main-content" role="main">
+                <div id="main-content" role="main" tabIndex="-1">
                     <NavBar darkMode={darkMode} toggleDarkMode={toggleDarkMode} currentSection={currentSection} />
                     {/* Home section with interactive wipe hero and intro content */}
                     <Section id="home" title="">
