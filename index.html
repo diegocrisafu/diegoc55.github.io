@@ -3,23 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diego Crisafulli — Software Engineer</title>
-    <meta name="description" content="Diego Crisafulli — front-end + SWE building performant data visualizations and AI tools.">
+    <title>Diego Crisafulli — Front-end & Software Engineer</title>
+    <meta name="description" content="I build fast, human-friendly data tools. Cut LCP 4.2s→1.6s; −41% bundles; AI ops tools used by 3 teams.">
     <meta name="author" content="Diego Crisafulli">
     <meta name="robots" content="index,follow">
     <link rel="canonical" href="https://diegocrisafu.github.io/diegoc55.github.io/">
     <meta name="theme-color" content="#2a4d69">
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Diego Crisafulli — Software Engineer">
-    <meta property="og:description" content="Front-end + SWE. Fast UIs, solid infra, measurable impact.">
+    <meta property="og:title" content="Diego Crisafulli — Front-end & Software Engineer">
+    <meta property="og:description" content="I build fast, human-friendly data tools. Cut LCP 4.2s→1.6s; −41% bundles; AI ops tools used by 3 teams.">
     <meta property="og:url" content="https://diegocrisafu.github.io/diegoc55.github.io/">
     <meta property="og:image" content="https://diegocrisafu.github.io/diegoc55.github.io/social-card.svg">
     <meta property="og:image:alt" content="Diego Crisafulli — Software Engineer">
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Diego Crisafulli — Software Engineer">
-    <meta name="twitter:description" content="Front-end + SWE. Fast UIs, solid infra, measurable impact.">
+    <meta name="twitter:title" content="Diego Crisafulli — Front-end & Software Engineer">
+    <meta name="twitter:description" content="I build fast, human-friendly data tools. Cut LCP 4.2s→1.6s; −41% bundles; AI ops tools used by 3 teams.">
     <meta name="twitter:image" content="https://diegocrisafu.github.io/diegoc55.github.io/social-card.svg">
     <!-- Performance hints for CDN deps -->
     <link rel="preconnect" href="https://unpkg.com" crossorigin>
@@ -43,6 +43,8 @@
     <script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <!-- Modular assistant logic -->
     <script src="assistant.js"></script>
+    <!-- Mark JS as enabled ASAP for prerender-hiding -->
+    <script>document.documentElement.classList.add('js-enabled');</script>
     
     <!-- JSON-LD Schema for SEO -->
     <script type="application/ld+json">
@@ -112,7 +114,32 @@
                 </script>
 </head>
 <body>
-    <a className="skip-link" href="#main-content">Skip to main content</a>
+        <a className="skip-link" href="#main-content">Skip to main content</a>
+        <!-- Simple prerender content for crawlers and no-JS users; hidden once JS is enabled -->
+        <div id="prerender">
+            <header>
+                <h1>I build fast, human-friendly data tools.</h1>
+                <p>Cut LCP 4.2s→1.6s, −41% bundles, shipped AI tools used by 3 teams.</p>
+                <p>
+                    <a href="#projects">View Projects</a>
+                    ·
+                    <a href="Diego_Resume.pdf" rel="noopener" target="_blank">Download Résumé</a>
+                </p>
+            </header>
+            <main>
+                <section aria-labelledby="xp-h">
+                    <h2 id="xp-h">Experience</h2>
+                    <p>DevOps and full‑stack engineer: pipelines on Azure/GitHub Actions, reliability work, and simulation/AI projects.</p>
+                </section>
+                <section aria-labelledby="proj-h">
+                    <h2 id="proj-h">Projects</h2>
+                    <ul>
+                        <li>AI summarizer that trimmed report prep time 45% across 3 teams.</li>
+                        <li>Real‑time dashboard streaming data with Python/Dash.</li>
+                    </ul>
+                </section>
+            </main>
+        </div>
     <!-- Root element where our React app will mount -->
     <div id="root"></div>
 
@@ -712,7 +739,7 @@
             };
 
             return (
-                <div>
+                <div id="main-content" role="main">
                     <NavBar darkMode={darkMode} toggleDarkMode={toggleDarkMode} currentSection={currentSection} />
                     {/* Home section with interactive wipe hero and intro content */}
                     <Section id="home" title="">
@@ -722,8 +749,8 @@
                             {/* Foreground intro content stays above the canvas */}
                             <div className="hero hero-intro" style={{position:'relative', zIndex:1}}>
                                 <div className="hero-badge">Software Engineer</div>
-                                <h1 className="hero-title">Building fast, delightful data tools</h1>
-                                <p className="hero-lead">Front-end + SWE specializing in performant UIs, solid infrastructure, and measurable impact. Turning complex data into intuitive experiences.</p>
+                                <h1 className="hero-title">I build fast, human-friendly data tools.</h1>
+                                <p className="hero-lead">Cut LCP 4.2s→1.6s, −41% bundles, shipped AI tools used by 3 teams.</p>
                                 <div className="hero-ctas">
                                     <a href="#projects" className="btn btn-primary">
                                         <span>View Projects</span>
@@ -731,8 +758,8 @@
                                             <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                                         </svg>
                                     </a>
-                                    <a href="#contact" className="btn btn-secondary">
-                                        <span>Let's Talk</span>
+                                    <a href="Diego_Resume.pdf" className="btn btn-secondary" target="_blank" rel="noopener">
+                                        <span>Download Résumé</span>
                                     </a>
                                 </div>
                                 <div className="hero-stats">

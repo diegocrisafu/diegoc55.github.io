@@ -1458,6 +1458,15 @@ html.dark-mode .submit-btn:hover:not(:disabled) {
     }
 }
 
+/* Hide prerender content once JS is enabled */
+.js-enabled #prerender { display: none !important; }
+
+/* Prerender minimal styles to keep consistent look */
+#prerender { padding: 24px 16px; max-width: 1100px; margin: 0 auto; }
+#prerender h1 { font-size: clamp(2rem, 6vw, 3rem); margin: 0 0 10px; }
+#prerender p { margin: 6px 0; color: var(--text-muted); }
+#prerender a { color: var(--primary); text-decoration: underline; text-underline-offset: 3px; }
+
 /* Enhanced mobile responsiveness for hero section */
 @media (max-width: 768px) {
     .hero-stats { 
