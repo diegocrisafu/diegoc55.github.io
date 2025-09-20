@@ -114,7 +114,7 @@
                 </script>
 </head>
 <body data-hero-reveal="on">
-        <a className="skip-link" href="#main-content">Skip to main content</a>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
         <!-- Simple prerender content for crawlers and no-JS users; only visible without JS -->
         <noscript>
         <div id="prerender">
@@ -747,7 +747,7 @@
                     <Section id="home" title="">
                         <div className="wipe-hero" role="img" aria-label="Interactive reveal hero">
                             {/* Clear image (underlay). Width/height hint to avoid CLS */}
-                            <img id="hero-clear" className="hero-clear-img" src="images/img_trees.png" width="1920" height="1080" alt="Background" />
+                            <img id="hero-clear" className="hero-clear-img" src="images/img_trees.png" width="1920" height="1080" loading="eager" decoding="async" fetchpriority="high" alt="Background" />
                             {/* Canvas overlay for wipe effect */}
                             <canvas id="wipeCanvas" className="wipe-hero-canvas" aria-hidden="true"></canvas>
                             {/* Foreground intro content stays above the canvas */}
