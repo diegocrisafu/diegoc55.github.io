@@ -143,8 +143,8 @@ html, body {
 /* --- Interactive wipe hero (Home) --- */
 #home.section { padding: 0; max-width: none; width: 100%; margin: 0; }
 .wipe-hero .hero-clear-img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }
-.wipe-hero { position: relative; height: 100svh; min-height: 100vh; width: 100%; background: url('images/img_trees.png') center/cover no-repeat; overflow: hidden; }
-.wipe-hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.25) 35%, rgba(0,0,0,0.20) 60%, rgba(0,0,0,0.60) 100%); z-index: 0; pointer-events: none; }
+.wipe-hero { position: relative; height: 100svh; min-height: 100vh; width: 100%; background: none; overflow: hidden; }
+.wipe-hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.30) 35%, rgba(0,0,0,0.25) 60%, rgba(0,0,0,0.70) 100%); z-index: 0; pointer-events: none; }
 .wipe-hero::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.1) 100%); z-index: 0; pointer-events: none; }
 .wipe-hero-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: auto; touch-action: pan-y; }
 .wipe-hero .hero.hero-intro { position: relative; z-index: 1; min-height: 100%; padding-top: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
@@ -224,7 +224,7 @@ button, input, textarea, select {
     backdrop-filter: blur(4px);
     transition: box-shadow 0.3s ease;
 }
-html.at-top .navbar { background: transparent !important; box-shadow: none; border-bottom: 1px solid transparent; }
+html.at-top .navbar { background: rgba(0,0,0,0.35) !important; box-shadow: none; border-bottom: 1px solid rgba(255,255,255,0.06); backdrop-filter: blur(6px); }
 body.scrolled .navbar { box-shadow:0 6px 20px -6px rgba(0,0,0,0.25); }
 
 /* Mobile menu toggle button */
