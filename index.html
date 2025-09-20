@@ -574,7 +574,7 @@
                                         <div className="wol2">
                                             <svg className="wol2-svg" viewBox="0 0 600 420" role="img" aria-label="Interactive map of Diego's work">
                                                 <defs>
-                                                    <filter id="ds"><feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.25"/></filter>
+                                                    <filter id="ds"><feDropShadow dx="0" dy="4" stdDeviation="6" floodColor="#000" floodOpacity="0.25"/></filter>
                                                     <linearGradient id="cg" x1="0%" y1="0%" x2="100%" y2="100%">
                                                         <stop offset="0%" stopColor="var(--primary)"/>
                                                         <stop offset="100%" stopColor="var(--secondary)"/>
@@ -873,7 +873,7 @@
                     {/* Contact section with functional form and accessibility */}
                                         <section id="contact" aria-labelledby="contact-title">
                                             <h2 id="contact-title">Let’s build something fast.</h2>
-                                            <div class="theme-toggle" role="group" aria-label="Theme">
+                                            <div className="theme-toggle" role="group" aria-label="Theme">
                                                     <button type="button" data-theme="system">System</button>
                                                     <button type="button" data-theme="light">Light</button>
                                                     <button type="button" data-theme="dark">Dark</button>
@@ -919,7 +919,7 @@
                             </div>
                             <button className="btn btn-primary" type="submit" id="send-btn">Send message</button>
                             <p id="form-status" role="status" aria-live="polite"></p>
-                                                <p className="sub" style="margin-top:8px">We only use your details to respond. No tracking pixels. <a href="/privacy.html">Privacy</a>.</p>
+                                                <p className="sub" style={{marginTop:8}}>We only use your details to respond. No tracking pixels. <a href="/privacy.html">Privacy</a>.</p>
                                             </form>
 
                                             <div id="contact-success" className="card" hidden>
