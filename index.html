@@ -174,7 +174,6 @@
                         <li><a href="#home" className={props.currentSection==='home'?'active':''} aria-current={props.currentSection==='home'?'page':undefined}>Home</a></li>
                         <li><a href="#projects" className={props.currentSection==='projects'?'active':''} aria-current={props.currentSection==='projects'?'page':undefined}>Projects</a></li>
                         <li><a href="#experience" className={props.currentSection==='experience'?'active':''} aria-current={props.currentSection==='experience'?'page':undefined}>Experience</a></li>
-                        <li><a href="#writing" className={props.currentSection==='writing'?'active':''} aria-current={props.currentSection==='writing'?'page':undefined}>Writing</a></li>
                         <li><a href="#contact" className={props.currentSection==='contact'?'active':''} aria-current={props.currentSection==='contact'?'page':undefined}>Contact</a></li>
                     </ul>
                     {/* Right-side actions: Resume as primary, dark mode as icon */}
@@ -1117,6 +1116,7 @@
                 const DPR = Math.max(1, Math.min(window.devicePixelRatio || 1, 2));
                 const overlay = new Image();
                 overlay.src = 'images/Golden Trunks and Blue Sky.png';
+                overlay.onerror = () => { /* fail open */ revealInstant(); };
                 let brushRadius = Math.max(50, Math.min(90, Math.floor((window.innerWidth||800) * 0.05))); // responsive brush
                 let paused = false;
                 let revealed = false;
