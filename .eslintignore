@@ -1,0 +1,4 @@
+node_modules/
+server-worker/
+dist/
+*.min.js

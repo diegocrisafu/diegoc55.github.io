@@ -1,3 +1,9 @@
+node_modules/
+.DS_Store
+.env
+dist/
+coverage/
+*.log
 # Backend secrets and dependencies
 server/.env
 server/node_modules/

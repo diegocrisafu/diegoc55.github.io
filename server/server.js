@@ -20,6 +20,15 @@ if (!GEMINI_API_KEY) {
 
 const app = express();
 app.use(express.json({ limit: '1mb' }));
+// Basic security headers (no behavior change)
+app.use((req, res, next) => {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('Referrer-Policy', 'no-referrer');
+  res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+  res.setHeader('Permissions-Policy', 'geolocation=(), microphone=(), camera=()');
+  next();
+});
 app.use(cors({ origin: ALLOWED_ORIGIN }));
 
 const limiter = rateLimit({
@@ -30,8 +39,13 @@ app.use('/api/', limiter);
 
 app.post('/api/chat', async (req, res) => {
   try {
-  const userText = (req.body && req.body.message ? String(req.body.message) : '').trim();
-  const context = Array.isArray(req.body && req.body.context) ? req.body.context : [];
+    const userText = (req.body && req.body.message ? String(req.body.message) : '').trim();
+    const context = Array.isArray(req.body && req.body.context) ? req.body.context : [];
+    // Basic input bounds to avoid abuse; preserve behavior otherwise
+    if (userText.length > 2000) {
+      return res.status(413).json({ error: 'Message too large' });
+    }
+    const safeContext = context.slice(0, 4);
     if (!userText) {
       return res.status(400).json({ error: 'Missing message' });
     }
@@ -41,8 +55,8 @@ app.post('/api/chat', async (req, res) => {
 
     const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
     let contents = [ { parts: [ { text: userText } ] } ];
-    if(context.length){
-      const prior = context.filter(c=>c && c.text).map(c=>({ parts:[{text: String(c.text).slice(0,500)}] }));
+    if(safeContext.length){
+      const prior = safeContext.filter(c=>c && c.text).map(c=>({ parts:[{text: String(c.text).slice(0,500)}] }));
       contents = [...prior, { parts:[{ text: userText }] }];
     }
     const payload = { contents };
