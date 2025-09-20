@@ -1207,7 +1207,7 @@
                 // Pointer handling
                 let down = false;
                 function onDown(e){ if (paused || revealed) return; down = true; const p=getXY(e); eraseAt(p.x,p.y); checkProgress(true); }
-                function onMove(e){ if (paused || revealed) return; if (!down && e.pointerType!=='mouse') return; const p=getXY(e); eraseAt(p.x,p.y); checkProgress(false); }
+                function onMove(e){ if (paused || revealed || !down) return; const p=getXY(e); eraseAt(p.x,p.y); checkProgress(false); }
                 function onUp(){ down = false; }
                 function onCancel(){ down = false; }
 
@@ -1231,7 +1231,7 @@
                 canvas.addEventListener('pointermove', onMove);
                 window.addEventListener('pointerup', onUp);
                 window.addEventListener('pointercancel', onCancel);
-                window.addEventListener('resize', ()=>{ sizeCanvas(); if (overlay.complete) drawOverlay(); });
+                window.addEventListener('resize', ()=>{ sizeCanvas(); if (overlay.complete) drawOverlay(); brushRadius = Math.max(50, Math.min(90, Math.floor((window.innerWidth||800) * 0.05))); });
                 if (revealBtn) revealBtn.addEventListener('click', revealInstant);
 
                 overlay.onload = () => {
