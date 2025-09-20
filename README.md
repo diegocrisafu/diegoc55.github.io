@@ -1,3 +1,22 @@
+## Hero Reveal Effect (Feature Flag)
+
+This branch adds an optional "Erase to Reveal" hero effect.
+
+- Toggle: set `data-hero-reveal="on|off"` on the `<body>` in `index.html`.
+- Default: `on` in this branch. Set to `off` to disable instantly if perf regresses.
+
+### Performance Budgets
+
+- LCP ≤ 1.8 s (mobile emulation)
+- CLS ≤ 0.02
+- Main-thread long tasks (> 50 ms) ≤ 5 during hero interaction
+
+### Test Plan
+
+- Desktop Chrome/Firefox/Safari and iOS/Android latest.
+- With `prefers-reduced-motion: reduce`, the hero should cross-fade on tap/click (no scratch).
+- Keyboard users can activate a "Reveal instantly" control.
+
 # diegoc55.github.io
 
 ## Quickstart
