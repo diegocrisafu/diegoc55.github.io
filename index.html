@@ -31,9 +31,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&display=swap" rel="stylesheet">
-    <!-- Preload hero images to improve first paint -->
-    <link rel="preload" as="image" href="images/img_trees.png"/>
-    <link rel="preload" as="image" href="images/Golden Trunks and Blue Sky.png"/>
+    <!-- Preload hero images: overlay (blurred) and underlay (clear) -->
+    <link rel="preload" as="image" href="images/Golden Trunks and Blue Sky.png" />
+    <link rel="preload" as="image" href="images/img_trees.png" />
     <!-- Chat config: define window.CHAT_API_BASE before app code runs -->
     <script src="./chat-config.js"></script>
     <!-- Include React and React‑DOM from a CDN -->
@@ -113,7 +113,7 @@
                 }
                 </script>
 </head>
-<body>
+<body data-hero-reveal="on">
         <a className="skip-link" href="#main-content">Skip to main content</a>
         <!-- Simple prerender content for crawlers and no-JS users; only visible without JS -->
         <noscript>
@@ -746,6 +746,8 @@
                     {/* Home section with interactive wipe hero and intro content */}
                     <Section id="home" title="">
                         <div className="wipe-hero" role="img" aria-label="Interactive reveal hero">
+                            {/* Clear image (underlay). Width/height hint to avoid CLS */}
+                            <img id="hero-clear" className="hero-clear-img" src="images/img_trees.png" width="1920" height="1080" alt="Background" />
                             {/* Canvas overlay for wipe effect */}
                             <canvas id="wipeCanvas" className="wipe-hero-canvas" aria-hidden="true"></canvas>
                             {/* Foreground intro content stays above the canvas */}
@@ -763,6 +765,7 @@
                                     <a href="Diego_Resume.pdf" className="btn btn-secondary" target="_blank" rel="noopener">
                                         <span>Download Résumé</span>
                                     </a>
+                                    <button type="button" className="btn reveal-btn" id="reveal-now">Reveal instantly</button>
                                 </div>
                                 <div className="hero-stats">
                                     <div className="stat">
@@ -942,7 +945,6 @@
                                                 >Email Diego</a>
                                                 <button className="btn" id="copy-email" type="button" aria-label="Copy email to clipboard">Copy email</button>
                                                 <button className="btn" id="open-email" type="button" aria-label="Open email client">Open email</button>
-                            <a className="btn" href="/Diego_Crisafulli.vcf" download>Download vCard</a>
                         </div>
 
                         <ul className="social" aria-label="Social links">
@@ -1103,15 +1105,24 @@
     <script>
         (function(){
             function initWipe(){
+                const rootFlag = (document.body && document.body.getAttribute('data-hero-reveal')) || 'on';
+                if (rootFlag !== 'on') return; // kill-switch
+
                 const canvas = document.getElementById('wipeCanvas');
+                const revealBtn = document.getElementById('reveal-now');
                 if(!canvas) return;
                 const ctx = canvas.getContext('2d');
                 const DPR = Math.max(1, Math.min(window.devicePixelRatio || 1, 2));
                 const overlay = new Image();
                 overlay.src = 'images/Golden Trunks and Blue Sky.png';
-                let brushRadius = 70; // CSS px
+                let brushRadius = Math.max(50, Math.min(90, Math.floor((window.innerWidth||800) * 0.05))); // responsive brush
+                let paused = false;
+                let revealed = false;
 
-                function resize(){
+                // Reduced motion: skip scratching and crossfade
+                const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+                function sizeCanvas(){
                     const rect = canvas.getBoundingClientRect();
                     const w = rect.width || window.innerWidth;
                     const h = rect.height || window.innerHeight;
@@ -1120,13 +1131,13 @@
                     canvas.width = Math.floor(w * DPR);
                     canvas.height = Math.floor(h * DPR);
                     ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-                    if (overlay.complete) drawOverlay();
                 }
+
                 function drawOverlay(){
                     ctx.globalCompositeOperation = 'source-over';
                     ctx.clearRect(0,0,canvas.width,canvas.height);
+                    // soft blur for the overlay to create contrast with underlay
                     ctx.filter = 'blur(10px)';
-                    // Draw overlay with CSS-like `background-size: cover` to preserve aspect
                     const cw = canvas.width / DPR;
                     const ch = canvas.height / DPR;
                     const iw = overlay.naturalWidth || overlay.width;
@@ -1143,7 +1154,8 @@
                     }
                     ctx.filter = 'none';
                 }
-                function erase(x,y){
+
+                function eraseAt(x,y){
                     const r = brushRadius;
                     ctx.save();
                     ctx.globalCompositeOperation = 'destination-out';
@@ -1156,18 +1168,85 @@
                     ctx.fill();
                     ctx.restore();
                 }
-                function xy(e){
+
+                function getXY(e){
                     const rect = canvas.getBoundingClientRect();
                     return { x: e.clientX - rect.left, y: e.clientY - rect.top };
                 }
-                let down=false;
-                canvas.addEventListener('pointerdown', (e)=>{ down=true; erase(...Object.values(xy(e))); });
-                canvas.addEventListener('pointermove', (e)=>{ if(down || e.pointerType==='mouse'){ const p=xy(e); erase(p.x,p.y); }});
-                window.addEventListener('pointerup', ()=> down=false);
-                window.addEventListener('pointercancel', ()=> down=false);
-                window.addEventListener('resize', resize);
-                overlay.onload = drawOverlay;
-                resize();
+
+                // Progress estimation using downscaled alpha sampling
+                const sampleCanvas = document.createElement('canvas');
+                const sampleCtx = sampleCanvas.getContext('2d', { willReadFrequently: true });
+                sampleCanvas.width = 64; sampleCanvas.height = 64;
+                let lastSampleTs = 0;
+                function estimateCleared(){
+                    const now = performance.now();
+                    if (now - lastSampleTs < 300) return 0; // throttle
+                    lastSampleTs = now;
+                    sampleCtx.clearRect(0,0,64,64);
+                    sampleCtx.drawImage(canvas, 0, 0, 64, 64);
+                    const data = sampleCtx.getImageData(0,0,64,64).data;
+                    let cleared = 0, total = 64*64;
+                    for (let i=3; i<data.length; i+=4){ // alpha channel
+                        if (data[i] < 16) cleared++;
+                    }
+                    return cleared / total;
+                }
+
+                function revealInstant(){
+                    if (revealed) return;
+                    revealed = true;
+                    canvas.style.transition = 'opacity 480ms ease-out';
+                    canvas.style.opacity = '0';
+                    canvas.style.pointerEvents = 'none';
+                    setTimeout(()=>{ canvas.hidden = true; }, 520);
+                }
+
+                // Pointer handling
+                let down = false;
+                function onDown(e){ if (paused || revealed) return; down = true; const p=getXY(e); eraseAt(p.x,p.y); checkProgress(true); }
+                function onMove(e){ if (paused || revealed) return; if (!down && e.pointerType!=='mouse') return; const p=getXY(e); eraseAt(p.x,p.y); checkProgress(false); }
+                function onUp(){ down = false; }
+                function onCancel(){ down = false; }
+
+                function checkProgress(force){
+                    if (!force && paused) return;
+                    const ratio = estimateCleared();
+                    if (ratio >= 0.6) revealInstant();
+                }
+
+                // Pause work when hero is offscreen
+                const io = new IntersectionObserver((entries)=>{
+                    const entry = entries[0];
+                    paused = !entry.isIntersecting;
+                    canvas.style.pointerEvents = paused ? 'none' : (revealed ? 'none' : 'auto');
+                }, { threshold: 0.05 });
+                const hero = canvas.closest('.wipe-hero');
+                if (hero) io.observe(hero);
+
+                // Wire listeners
+                canvas.addEventListener('pointerdown', onDown);
+                canvas.addEventListener('pointermove', onMove);
+                window.addEventListener('pointerup', onUp);
+                window.addEventListener('pointercancel', onCancel);
+                window.addEventListener('resize', ()=>{ sizeCanvas(); if (overlay.complete) drawOverlay(); });
+                if (revealBtn) revealBtn.addEventListener('click', revealInstant);
+
+                overlay.onload = () => {
+                    sizeCanvas();
+                    drawOverlay();
+                    if (prefersReduced) {
+                        // Respect reduced motion preference
+                        requestAnimationFrame(revealInstant);
+                    }
+                };
+
+                // If image already cached
+                if (overlay.complete) {
+                    sizeCanvas();
+                    drawOverlay();
+                    if (prefersReduced) requestAnimationFrame(revealInstant);
+                }
             }
             // Run after React app mounts to ensure canvas is in DOM
             window.addEventListener('DOMContentLoaded', ()=> setTimeout(initWipe, 0));
