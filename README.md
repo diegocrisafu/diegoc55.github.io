@@ -1,3 +1,39 @@
+# diegoc55.github.io
+
+## Quickstart
+
+Local preview (static):
+
+```bash
+python3 -m http.server 8000
+```
+
+Chat proxy (optional):
+
+```bash
+cd server
+npm install
+PORT=8787 GEMINI_API_KEY=your_key ALLOWED_ORIGIN=http://localhost:8000 node server.js
+```
+
+## Lint & Format
+
+This repo includes minimal EditorConfig, ESLint, and Prettier defaults.
+
+```bash
+npx eslint .
+```
+
+Prettier (optional formatting):
+
+```bash
+npx prettier -w .
+```
+
+## Deploy
+
+This site is designed for GitHub Pages (static hosting). No build step required.
+
 # Diego Crisafulli Portfolio
 
 This project contains the source for a simple single‑page portfolio website built with **React** and vanilla CSS.  It summarises Diego Crisafulli’s professional profile—including his summary, skills, experience, projects and education—based on the provided résumés.  The app is designed to run directly in the browser using CDN links for React and Babel, so there is no build step required.
