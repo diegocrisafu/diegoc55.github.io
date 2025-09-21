@@ -32,7 +32,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Preload LCP hero underlay image only -->
-    <link rel="preload" as="image" href="images/img_trees.png" />
+    <link rel="preload" as="image" href="images/img_trees.png" fetchpriority="high" />
     <!-- Chat config: define window.CHAT_API_BASE before app code runs -->
     <script src="./chat-config.js" defer></script>
     <!-- Include React and React‑DOM from a CDN -->
@@ -194,8 +194,8 @@
 
     <div id="root"></div>
 
-    <!-- React application code (Babel will transpile JSX) -->
-    <script type="text/babel" data-presets="env,react">
+    <!-- React application code (deferred JSX; compiled at idle) -->
+    <script type="text/jsx" id="app-jsx">
         /*
          * Top navigation bar component. Renders links that scroll to sections
          * within the page. The component sticks to the top of the viewport
@@ -1102,8 +1102,25 @@
                 }
 
                 // Render the App component into the root div
-        ReactDOM.render(<App />, document.getElementById('root'));
-    </script>
+                ReactDOM.render(<App />, document.getElementById('root'));
+        </script>
+        <!-- Compile + run JSX after load/idle to avoid blocking LCP -->
+        <script>
+            window.addEventListener('load', function(){
+                function mountApp(){
+                    try {
+                        var el = document.getElementById('app-jsx');
+                        if (!el || !window.Babel) return;
+                        var code = el.textContent || el.innerText || '';
+                        if (!code) return;
+                        var out = window.Babel.transform(code, { presets: ['env', 'react'] }).code;
+                        (0, eval)(out);
+                    } catch(e) { /* fail silently to avoid blocking */ }
+                }
+                if ('requestIdleCallback' in window) { requestIdleCallback(mountApp, { timeout: 2500 }); }
+                else { setTimeout(mountApp, 1200); }
+            }, { once: true });
+        </script>
     
     <!-- Initialize interactive wipe effect for Home hero -->
     <script>
