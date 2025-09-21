@@ -1096,11 +1096,6 @@
                     {/* Contact section with functional form and accessibility */}
                                         <section id="contact" aria-labelledby="contact-title">
                                             <h2 id="contact-title">Let’s build something fast.</h2>
-                                            <div className="theme-toggle" role="group" aria-label="Theme">
-                                                    <button type="button" data-theme="system">System</button>
-                                                    <button type="button" data-theme="light">Light</button>
-                                                    <button type="button" data-theme="dark">Dark</button>
-                                                </div>
                                             <p className="sub">Email is fastest — I reply within 24 hours.</p>
 
                         <div className="cta-row">
@@ -1630,21 +1625,7 @@
         });
     </script>
     
-        <script>
-        (() => {
-            const KEY='theme', root=document.documentElement;
-            const saved=localStorage.getItem(KEY);
-            if (saved==='light' || saved==='dark') root.setAttribute('data-theme', saved);
-
-            document.querySelectorAll('.theme-toggle [data-theme]').forEach(b=>{
-                b.addEventListener('click', ()=>{
-                    const mode=b.getAttribute('data-theme');
-                    if (mode==='system'){ localStorage.removeItem(KEY); root.removeAttribute('data-theme'); }
-                    else { localStorage.setItem(KEY, mode); root.setAttribute('data-theme', mode); }
-                });
-            });
-        })();
-        </script>
+        
     
 </body>
 </html>
