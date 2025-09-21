@@ -160,7 +160,7 @@ html, body {
 #home.section { padding: 0; max-width: none; width: 100%; margin: 0; }
 .wipe-hero .hero-clear-img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }
 .wipe-hero { position: relative; height: 100svh; min-height: 100vh; width: 100%; background: none; overflow: hidden; }
-.wipe-hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.30) 35%, rgba(0,0,0,0.25) 60%, rgba(0,0,0,0.70) 100%); z-index: 0; pointer-events: none; }
+.wipe-hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.42) 0%, rgba(0,0,0,0.24) 35%, rgba(0,0,0,0.18) 60%, rgba(0,0,0,0.55) 100%); z-index: 0; pointer-events: none; }
 .wipe-hero::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.1) 100%); z-index: 0; pointer-events: none; }
 .wipe-hero-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: auto; touch-action: pan-y; }
 .wipe-hero .hero.hero-intro { position: relative; z-index: 1; min-height: 100%; padding-top: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
@@ -1024,8 +1024,10 @@ html.dark-mode .msw-btn.active { background: var(--secondary); color:#000; }
 
 /* ===== Hero and Header UX Polish ===== */
 /* New hero typography and CTAs */
-.hero-title { font-size: clamp(2.5rem, 7vw, 4rem); line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 16px; font-weight: 700; color: #fff; text-shadow: 0 10px 30px rgba(0,0,0,0.55); }
-.hero-lead { font-size: clamp(1.125rem, 2.8vw, 1.375rem); line-height: 1.6; max-width: 80ch; margin: 0 auto 32px; color: rgba(255,255,255,0.94); }
+.hero-title { font-size: clamp(2.2rem, 6.5vw, 3.5rem); line-height: 1.12; letter-spacing: -0.02em; margin: 0 0 10px; font-weight: 700; color: #fff; text-shadow: 0 10px 30px rgba(0,0,0,0.45); }
+.hero-lead { font-size: clamp(1rem, 2.4vw, 1.25rem); line-height: 1.55; max-width: 68ch; margin: 0 auto 28px; color: rgba(255,255,255,0.92); }
+/* Sub head under rotating quote */
+.hero-sub { font-size: clamp(.9rem, 2vw, 1rem); color: rgba(255,255,255,0.85); margin: 0 0 14px; }
 .hero-ctas { display: flex; gap: 16px; margin: 32px 0; justify-content: center; align-items: center; flex-wrap: wrap; }
 
 /* Hero badge and stats */
