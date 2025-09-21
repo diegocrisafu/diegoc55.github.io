@@ -233,7 +233,7 @@ button, input, textarea, select {
     right: 0;
     padding: calc(0.5rem + env(safe-area-inset-top)) 1.5rem 0.5rem 1.5rem;
     background-color: var(--surface);
-    color: var(--white);
+    color: var(--text);
     z-index: 1000;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
     border-bottom: 1px solid var(--border);
@@ -248,7 +248,7 @@ body.scrolled .navbar { box-shadow:0 6px 20px -6px rgba(0,0,0,0.25); }
     display: none;
     background: none;
     border: none;
-    color: var(--white);
+    color: var(--text);
     font-size: 1.5rem;
     cursor: pointer;
     padding: 0.3rem;
@@ -276,7 +276,7 @@ body.scrolled .navbar { box-shadow:0 6px 20px -6px rgba(0,0,0,0.25); }
 
 .nav‑links a {
     text-decoration: none;
-    color: var(--white);
+    color: var(--text);
     font-size: 0.95rem;
     transition: color 0.3s ease;
 }
@@ -1128,7 +1128,10 @@ html:not(.at-top) .dark‑mode‑toggle.icon { border-color: var(--secondary); c
 
 /* Link hover/focus clarity in nav */
 .nav‑links a { border-radius: 6px; padding: 6px 8px; }
-.nav‑links a:hover { background: rgba(255,255,255,0.08); }
+/* Hover backgrounds tuned per theme */
+html[data-theme="dark"] .nav‑links a:hover,
+html:not([data-theme]) .nav‑links a:hover { background: rgba(255,255,255,0.08); }
+html[data-theme="light"] .nav‑links a:hover { background: rgba(0,0,0,0.06); }
 
 /* Tokenized buttons (shared) */
 .btn{ border:1px solid var(--border); border-radius:12px; padding:.55rem .9rem; line-height:1; color:var(--text); background:var(--surface-2); min-height:44px; }
