@@ -18,6 +18,20 @@
 /* === Theme Tokens (system/light/dark) === */
 html { color-scheme: light dark; }
 
+/* Use View Transitions to animate theme changes (with circular reveal) */
+:root { view-transition-name: theme; }
+@media (prefers-reduced-motion: reduce){ :root { view-transition-name: none; } }
+/* Default: simple crossfade; override with circular reveal when we set a flag */
+::view-transition-old(theme),
+::view-transition-new(theme){ animation: none; mix-blend-mode: normal; }
+html.theme-reveal::view-transition-new(theme){
+    animation: themeClipReveal 380ms cubic-bezier(.2,.8,.2,1) both;
+}
+@keyframes themeClipReveal{
+    from{ clip-path: circle(0px at var(--theme-x, 50%) var(--theme-y, 50%)); }
+    to{   clip-path: circle(140vmax at var(--theme-x, 50%) var(--theme-y, 50%)); }
+}
+
 /* Dark (default) */
 :root{
     --bg:#0f1117;
@@ -41,6 +55,8 @@ html[data-theme="light"]{
     --accent:#2563eb;
     --focus:#2563eb;
 }
+html[data-theme="light"]{ color-scheme: light dark; }
+html[data-theme="dark"]{ color-scheme: dark light; }
 
 /* Respect system when no explicit choice */
 @media (prefers-color-scheme: light){ html:not([data-theme]){ color-scheme: light dark; } }
@@ -276,36 +292,19 @@ body.scrolled .navbar { box-shadow:0 6px 20px -6px rgba(0,0,0,0.25); }
     text-decoration: underline;
 }
 
-/* Dark mode toggle button styling */
-.dark‑mode‑toggle {
-    background-color: transparent;
-    border: 1px solid var(--white);
-    color: var(--white);
-    padding: 0.3rem 0.6rem;
-    margin-left: 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.85rem;
-    transition: all 0.3s ease;
-}
-.dark‑mode‑toggle:hover {
-    background-color: var(--accent);
-    color: var(--background);
-    transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.2);
-}
+/* iOS-style segmented theme control (Light / Auto / Dark) */
+.appearance-toggle { display:inline-flex; align-items:center; gap:0; background: var(--surface-2); border:1px solid var(--border); border-radius: 999px; padding: 4px; margin-left: 0.75rem; }
+.appearance-toggle button { position:relative; appearance:none; -webkit-appearance:none; border:none; background:transparent; color: var(--text); font: 600 12px/1 'Geist', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; padding: 6px 10px; border-radius: 999px; cursor: pointer; letter-spacing: .2px; display:flex; align-items:center; gap:6px; transition: color .2s ease; }
+.appearance-toggle { position:relative; }
+.appearance-toggle .seg-indicator { position:absolute; left:4px; top:4px; bottom:4px; width: calc((100% - 8px) / 3); border-radius: 999px; background: var(--surface); box-shadow: 0 1px 1px rgba(0,0,0,0.06), 0 3px 10px rgba(0,0,0,0.06) inset; transform: translateX(var(--seg-x, 0%)); transition: transform .28s cubic-bezier(.2,.8,.2,1), background .2s; }
+.appearance-toggle .icon { font-size: 14px; }
+.appearance-toggle button[aria-checked="true"] { color: var(--accent); }
+.nav-actions { display:flex; align-items:center; gap:.5rem; }
 
-/* Enhanced dark mode toggle for dark mode */
-html.dark-mode .dark‑mode‑toggle {
-    background: linear-gradient(45deg, var(--primary), var(--secondary));
-    border: none;
-    color: #000;
-    font-weight: 600;
-}
-html.dark-mode .dark‑mode‑toggle:hover {
-    background: linear-gradient(45deg, var(--secondary), var(--accent));
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(187, 134, 252, 0.4);
+/* Compact on small screens */
+@media (max-width: 640px){
+  .appearance-toggle button span { display:none; }
+  .appearance-toggle { padding:3px; }
 }
 
 /* Resume download button styling */

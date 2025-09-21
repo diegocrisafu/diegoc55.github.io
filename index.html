@@ -204,8 +204,14 @@
         function NavBar(props) {
             // Local state for mobile menu toggling
             const [menuOpen, setMenuOpen] = React.useState(false);
-            // Close the menu when a link is clicked
             const handleLinkClick = () => setMenuOpen(false);
+            const segments = [
+                { key: 'light', label: 'Light', icon: '☀️' },
+                { key: 'system', label: 'Auto', icon: '🖥️' },
+                { key: 'dark', label: 'Dark', icon: '🌙' },
+            ];
+            const activeIndex = segments.findIndex(s => s.key === props.themeMode);
+            const segX = (activeIndex <= 0 ? 0 : activeIndex * 100);
             return (
                 <nav className={`navbar ${menuOpen ? 'active' : ''}`}>
                     <a className="nav‑logo" href="#home">Diego Crisafulli</a>
@@ -225,18 +231,26 @@
                         <li><a href="#experience" className={props.currentSection==='experience'?'active':''} aria-current={props.currentSection==='experience'?'page':undefined}>Experience</a></li>
                         <li><a href="#contact" className={props.currentSection==='contact'?'active':''} aria-current={props.currentSection==='contact'?'page':undefined}>Contact</a></li>
                     </ul>
-                    {/* Right-side actions: Resume as primary, dark mode as icon */}
-                    <div className="nav-actions">
-                        <a href="Diego_Resume.pdf" className="header-resume-btn" target="_blank" rel="noopener noreferrer">Download Résumé</a>
-                        <button
-                            className="dark‑mode‑toggle icon"
-                            onClick={props.toggleDarkMode}
-                            aria-label={props.darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
-                            title={props.darkMode ? 'Light mode' : 'Dark mode'}
-                        >
-                            {props.darkMode ? '☀️' : '🌙'}
-                        </button>
-                    </div>
+                                        <div className="nav-actions">
+                                                <a href="Diego_Resume.pdf" className="header-resume-btn" target="_blank" rel="noopener noreferrer">Download Résumé</a>
+                                                <div className="appearance-toggle" role="tablist" aria-label="Appearance">
+                                                        <div className="seg-indicator" style={{'--seg-x': `${segX}%`}} />
+                                                        {segments.map((s) => (
+                                                                <button
+                                                                    key={s.key}
+                                                                    role="tab"
+                                                                    aria-selected={props.themeMode===s.key}
+                                                                    aria-checked={props.themeMode===s.key}
+                                                                    onClick={(e) => props.onThemeChange(s.key, e.nativeEvent || e)}
+                                                                    className="seg-btn"
+                                                                    title={s.label}
+                                                                >
+                                                                    <span className="icon" aria-hidden> {s.icon} </span>
+                                                                    <span>{s.label}</span>
+                                                                </button>
+                                                        ))}
+                                                </div>
+                                        </div>
                 </nav>
             );
         }
@@ -528,6 +542,128 @@
                     };
 
                     return (
+                        <div className="game-hero" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
+                            <div className="game-scorebar">
+                                <span className="game-score">Score: {score}</span>
+                                <span className="game-best">Best: {best}</span>
+                            </div>
+                            <canvas ref={canvasRef} width="400" height="300" className="game-canvas" aria-label="Snake game area"></canvas>
+                <div className="game-controls">
+                                <button className="button download‑btn" onClick={handleStartPause}>{started ? (running ? 'Pause' : 'Resume') : 'Play'}</button>
+                    <button className="game-restart" onClick={handleRestart}>Restart</button>
+                </div>
+                <div className="game-help">Use arrow keys or WASD (or swipe) to move. Space toggles play/pause.</div>
+                            {!started && !gameOver && (
+                                <div className="game-overlay start">Press Space or Play to begin</div>
+                            )}
+                            {gameOver && (
+                                <div className="game-overlay">Game Over — Score {score}. Press Restart.</div>
+                            )}
+                    </div>
+                );
+            }
+
+                // 2048 Game (compact, keyboard+touch)
+                function Game2048(){
+                    const [size, setSize] = React.useState(4);
+                    const [grid, setGrid] = React.useState(() => initGrid(4));
+                    const [score, setScore] = React.useState(0);
+                    const [best, setBest] = React.useState(() => parseInt(localStorage.getItem('g2048Best')||'0',10)||0);
+                    const [over, setOver] = React.useState(false);
+                    const [win, setWin] = React.useState(false);
+                    const [history, setHistory] = React.useState([]); // stack of {grid, score}
+                    const [spawnPos, setSpawnPos] = React.useState(null); // 'r-c'
+                    const [mergeSet, setMergeSet] = React.useState(()=> new Set()); // of 'r-c'
+                    const [animating, setAnimating] = React.useState(false);
+                    const touchRef = React.useRef(null);
+
+                    function blank(n){ return Array.from({length:n},()=>Array(n).fill(0)); }
+                    function initGrid(n){
+                        const first = spawn(blank(n), n);
+                        const second = spawn(first.grid, n);
+                        return second.grid;
+                    }
+                    function clone(g){ return g.map(r=>r.slice()); }
+                    function spawn(g,n){
+                        if(!g || !Array.isArray(g)) return { grid: blank(n), pos: null };
+                        const empty=[]; for(let r=0;r<n;r++) for(let c=0;c<n;c++) if(!g[r][c]) empty.push([r,c]);
+                        if(!empty.length) return {grid:g, pos:null};
+                        const [r,c]=empty[Math.floor(Math.random()*empty.length)];
+                        const v=Math.random()<0.9?2:4; const ng=clone(g); ng[r][c]=v; return {grid:ng, pos:`${r}-${c}`};
+                    }
+                    function rotate(g){ // rotate right
+                        const n=g.length; const out=blank(n);
+                        for(let r=0;r<n;r++) for(let c=0;c<n;c++) out[c][n-1-r]=g[r][c];
+                        return out;
+                    }
+                    function compressRow(row){
+                        const vals=row.filter(v=>v); let merged=[]; let adds=0; let mergedIdx=[];
+                        for(let i=0;i<vals.length;i++){
+                            if(i+1<vals.length && vals[i]===vals[i+1]){ const v=vals[i]*2; merged.push(v); adds+=v; mergedIdx.push(merged.length-1); i++; }
+                            else merged.push(vals[i]);
+                        }
+                        while(merged.length<row.length) merged.push(0);
+                        return {row:merged, adds, mergedIdx};
+                    }
+                    function any2048(g){ for(let r=0;r<g.length;r++) for(let c=0;c<g.length;c++) if(g[r][c]>=2048) return true; return false; }
+                    function isGameOver(g){
+                        const n=g.length;
+                        for(let r=0;r<n;r++) for(let c=0;c<n;c++) if(!g[r][c]) return false;
+                        for(let r=0;r<n;r++) for(let c=0;c<n;c++){
+                            const v=g[r][c]; if((r+1<n && g[r+1][c]===v) || (c+1<n && g[r][c+1]===v)) return false;
+                        }
+                        return true;
+                    }
+                    function move(dir){ // 0=L,1=U,2=R,3=D
+                        if(animating) return; // throttle while animating
+                        setMergeSet(new Set()); setSpawnPos(null);
+                        const n=size; let g=clone(grid);
+                        const prev={grid:clone(grid), score};
+                        for(let i=0;i<dir;i++) g=rotate(g);
+                        let moved=false, add=0, mergedCoords=[];
+                        g=g.map((r,ri)=>{ const {row,adds,mergedIdx}=compressRow(r); if(row.some((v,i)=>v!==r[i])) moved=true; add+=adds; mergedIdx.forEach(ci=>mergedCoords.push([ri,ci])); return row; });
+                        for(let i=0;i<(4-dir)%4;i++) g=rotate(g);
+                        if(moved){
+                            setAnimating(true);
+                            setHistory(h=>{ const nh=[...h, prev]; return nh.length>50 ? nh.slice(nh.length-50) : nh; });
+                            const sp=spawn(g,n); setGrid(sp.grid); setSpawnPos(sp.pos);
+                            // rotate merged coords back to original orientation
+                            const back = (coords)=>{ let res=coords.map(x=>x); for(let i=0;i<(4-dir)%4;i++) res=res.map(([r,c])=>[c,n-1-r]); return res; };
+                            const mset=new Set(back(mergedCoords).map(([r,c])=>`${r}-${c}`)); setMergeSet(mset);
+                            setScore(s=>{ const ns=s+add; if(ns>best){ localStorage.setItem('g2048Best',String(ns)); setBest(ns); } return ns; });
+                            if(!win && any2048(sp.grid)) setWin(true);
+                            if(isGameOver(sp.grid)) setOver(true);
+                            // release input after brief animation window
+                            setTimeout(()=>setAnimating(false), 160);
+                        }
+                    }
+                    function restart(n=size){ setGrid(initGrid(n)); setScore(0); setOver(false); setWin(false); setHistory([]); setSpawnPos(null); setMergeSet(new Set()); }
+                    function undo(){ setHistory(h=>{ if(!h.length) return h; const prev=h[h.length-1]; setGrid(prev.grid); setScore(prev.score); setOver(false); setWin(false); setSpawnPos(null); setMergeSet(new Set()); return h.slice(0,-1); }); }
+                    function changeSize(n){ setSize(n); restart(n); }
+
+                    React.useEffect(()=>{
+                        const onKey=(e)=>{
+                            if(e.key==='ArrowLeft' || e.key==='a') move(0);
+                            else if(e.key==='ArrowUp' || e.key==='w') move(1);
+                            else if(e.key==='ArrowRight' || e.key==='d') move(2);
+                            else if(e.key==='ArrowDown' || e.key==='s') move(3);
+                            else if(e.key==='r') restart();
+                            else if((e.metaKey||e.ctrlKey) && e.key.toLowerCase()==='z') undo();
+                        };
+                        window.addEventListener('keydown', onKey);
+                        return ()=>window.removeEventListener('keydown', onKey);
+                    },[grid, best, size, win]);
+
+                    const onTouchStart=(e)=>{ const t=e.changedTouches[0]; touchRef.current={x:t.clientX,y:t.clientY}; };
+                    const onTouchEnd=(e)=>{
+                        if(!touchRef.current || animating) return; const t=e.changedTouches[0];
+                        const dx=t.clientX-touchRef.current.x, dy=t.clientY-touchRef.current.y;
+                        const adx=Math.abs(dx), ady=Math.abs(dy);
+                        if(Math.max(adx,ady)<18) return; if(adx>ady) move(dx>0?2:0); else move(dy>0?3:1);
+                        touchRef.current=null;
+                    };
+
+                    return (
                         <div className={`g2048 size${size}`} onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
                             <div className="g2048-top">
                                 <span>Score: {score}</span>
@@ -695,17 +831,46 @@
 
                 // The main App component. Assembles all sections and the navigation bar.
                 function App() {
-                        // Initialize dark mode from localStorage or system preference
-                        const prefers = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-                        const storedPref = typeof window !== 'undefined' ? window.localStorage.getItem('darkMode') : null;
-                        const initialDark = storedPref === null ? prefers : storedPref === 'true';
-                        const [darkMode, setDarkMode] = React.useState(initialDark);
+                        // Theme mode: 'system' | 'light' | 'dark'
+                        const getInitialTheme = () => {
+                            try { return localStorage.getItem('themeMode') || 'system'; } catch { return 'system'; }
+                        };
+                        const [themeMode, setThemeMode] = React.useState(getInitialTheme);
+                        const applyTheme = React.useCallback((mode, evt) => {
+                            const html = document.documentElement;
+                            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                            const targetDark = mode === 'dark' || (mode === 'system' && prefersDark);
+                            const setDataTheme = () => {
+                                if (mode === 'system') html.removeAttribute('data-theme');
+                                else html.setAttribute('data-theme', mode);
+                                // legacy class for older styles
+                                html.classList.toggle('dark-mode', targetDark);
+                            };
+                            const startViewTransition = () => {
+                                try {
+                                    if (!document.startViewTransition) { setDataTheme(); return; }
+                                    if (evt && evt.clientX != null) {
+                                        html.style.setProperty('--theme-x', evt.clientX + 'px');
+                                        html.style.setProperty('--theme-y', evt.clientY + 'px');
+                                        html.classList.add('theme-reveal');
+                                    }
+                                    const vt = document.startViewTransition(() => setDataTheme());
+                                    vt.finished.finally(() => html.classList.remove('theme-reveal'));
+                                } catch { setDataTheme(); }
+                            };
+                            startViewTransition();
+                            try { localStorage.setItem('themeMode', mode); } catch {}
+                        }, []);
+                        React.useEffect(() => { applyTheme(themeMode); }, [themeMode, applyTheme]);
+                        // System change listener when in 'system' mode
                         React.useEffect(() => {
-                            const root = document.documentElement; // <html>
-                            if (darkMode) root.classList.add('dark-mode'); else root.classList.remove('dark-mode');
-                            window.localStorage.setItem('darkMode', darkMode ? 'true' : 'false');
-                        }, [darkMode]);
-                        const toggleDarkMode = () => setDarkMode(d => !d);
+                            const mql = window.matchMedia('(prefers-color-scheme: dark)');
+                            const onChange = () => { const mode = (localStorage.getItem('themeMode')||'system'); if (mode==='system') applyTheme('system'); };
+                            try { mql.addEventListener('change', onChange); } catch { mql.addListener(onChange); }
+                            return () => { try { mql.removeEventListener('change', onChange); } catch { mql.removeListener(onChange); } };
+                        }, [applyTheme]);
+                        const onThemeChange = (mode, evt) => setThemeMode(mode);
+
                         // Track active section for nav highlight
                         const [currentSection, setCurrentSection] = React.useState('home');
                         React.useEffect(() => {
@@ -792,7 +957,7 @@
 
             return (
                 <div id="main-content" role="main" tabIndex="-1">
-                    <NavBar darkMode={darkMode} toggleDarkMode={toggleDarkMode} currentSection={currentSection} />
+                    <NavBar themeMode={themeMode} onThemeChange={onThemeChange} currentSection={currentSection} />
                     {/* Home hero moved to static skeleton for faster LCP */}
                     {/* Challenge game section (Minesweeper) */}
                     <Section id="challenge" title="Challenge: Minesweeper">
@@ -1065,7 +1230,7 @@
                         )}
                     </div>
                 </div>
-            );
+            }
         }
 
                 // Chat health util inside App scope
