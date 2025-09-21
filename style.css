@@ -176,9 +176,9 @@ html, body {
 .wipe-hero-overlay .down-arrow { pointer-events: auto; background: rgba(255,255,255,0.08); color:#fff; border:1px solid rgba(255,255,255,0.18); width:48px; height:48px; border-radius:999px; display:flex; align-items:center; justify-content:center; cursor:pointer; transition: all .2s ease; box-shadow:0 8px 24px rgba(0,0,0,0.25); }
 .wipe-hero-overlay .down-arrow:hover { background: rgba(255,255,255,0.16); transform: translateY(-2px); }
 .wipe-hero-overlay .down-arrow svg { width:18px; height:18px; fill: currentColor; }
-.reveal-btn { background: rgba(255,255,255,0.08); color:#fff; border:1px solid rgba(255,255,255,0.18); }
+.reveal-btn { background: transparent; color:#fff; border:1px solid rgba(255,255,255,0.45); }
 .reveal-btn { width:44px; height:44px; padding:0; display:inline-flex; align-items:center; justify-content:center; border-radius:999px; }
-.reveal-btn:hover { background: rgba(255,255,255,0.16); }
+.reveal-btn:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.6); }
 /* Ensure below content isn't hidden beneath fixed navbar when anchored */
 #home { scroll-margin-top: 72px; }
 /* Hide Home section heading if empty */
@@ -205,6 +205,27 @@ html.at-top .dark‑mode‑toggle { border-color: rgba(255,255,255,0.8); color: 
 
 /* Slight side padding for hero content so text doesn't touch edges on wide screens */
 .wipe-hero .hero.hero-intro { padding-inline: 1.25rem; }
+/* Cleaner hero layout and transparent CTAs */
+.wipe-hero .hero-intro { max-width: 960px; margin: 0 auto; }
+.wipe-hero .hero-ctas { display:flex; gap:.6rem; align-items:center; justify-content:center; flex-wrap:wrap; margin-top: 1rem; }
+@media (min-width: 768px){
+    .wipe-hero .hero-intro { align-items: flex-start; text-align: left; }
+    .wipe-hero .hero-ctas { justify-content: flex-start; }
+}
+.wipe-hero .hero-ctas .btn { 
+    background: transparent !important; 
+    color: #fff; 
+    border: 1px solid rgba(255,255,255,0.45); 
+    box-shadow: none; 
+}
+.wipe-hero .hero-ctas .btn:hover { 
+    background: rgba(255,255,255,0.12) !important; 
+    border-color: rgba(255,255,255,0.6); 
+}
+.wipe-hero .hero-ctas .btn:focus-visible{ outline: 2px solid var(--focus); outline-offset: 2px; }
+.wipe-hero .hero-ctas .btn-primary, 
+.wipe-hero .hero-ctas .btn-secondary { color:#fff; }
+.wipe-hero .hero-ctas .btn svg{ color: currentColor; }
 
 button, input, textarea, select {
     font-family: 'Geist', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
