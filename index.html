@@ -732,15 +732,15 @@
                     </footer>
                     {/* Chat widget */}
                     <div className="chatbot-container">
-                        <div
-                            className="chat-icon"
-                            role="button"
-                            aria-label={chatOpen ? 'Close chat' : 'Open chat'}
-                            tabIndex="0"
-                            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setChatOpen(o => !o); } }}
-                            onClick={() => setChatOpen(!chatOpen)}
-                        >
-                            {chatOpen ? '\u00d7' : (
+                        {!chatOpen && (
+                            <div
+                                className="chat-icon"
+                                role="button"
+                                aria-label="Open chat"
+                                tabIndex="0"
+                                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setChatOpen(true); } }}
+                                onClick={() => setChatOpen(true)}
+                            >
                                 <svg className="chat-icon-avatar" viewBox="0 0 64 64" width="36" height="36" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <circle cx="32" cy="32" r="30" fill="#D4A574"/>
                                     <ellipse cx="32" cy="56" rx="20" ry="12" fill="#5C4033"/>
@@ -752,8 +752,8 @@
                                     <ellipse cx="26" cy="33" rx="3.5" ry="1.8" fill="#c4876e" opacity="0.35"/>
                                     <ellipse cx="38" cy="33" rx="3.5" ry="1.8" fill="#c4876e" opacity="0.35"/>
                                 </svg>
-                            )}
-                        </div>
+                            </div>
+                        )}
                         {chatOpen && (
                             <div className="chat-window">
                                 <div className="chat-window-header">
