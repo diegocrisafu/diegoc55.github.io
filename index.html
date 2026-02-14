@@ -721,9 +721,11 @@
                             <li><a href="https://www.linkedin.com/in/diegocrisafulli212bb0256" target="_blank" rel="me noopener noreferrer" aria-label="LinkedIn">LinkedIn</a></li>
                         </ul>
 
-                                            <form action="https://formsubmit.co/diego.crisafu@gmail.com" method="POST" id="contact-form" noValidate>
-                            <input type="hidden" name="_subject" value="Portfolio contact" />
+                                            <form action="https://formsubmit.co/ajax/diego.crisafu@gmail.com" method="POST" id="contact-form" noValidate>
+                            <input type="hidden" name="_subject" value="Portfolio contact — diegocrisafulli.com" />
                             <input type="hidden" name="_captcha" value="false" />
+                            <input type="hidden" name="_template" value="table" />
+                            <input type="hidden" name="_autoresponse" value="Thanks for reaching out! I'll get back to you within 24 hours. — Diego" />
                                                 <input type="hidden" name="form_started_at" id="form_started_at" />
                             <div className="hp"><label htmlFor="hp">Leave this empty</label><input id="hp" name="_honey" autoComplete="off" /></div>
 
@@ -1336,10 +1338,19 @@
                     busy = true; sendBtn.disabled = true; sendBtn.textContent = 'Sending…'; formStatus.textContent = '';
 
                     try {
-                        const resp = await fetch(contactForm.action, { method: 'POST', body: new FormData(contactForm), mode: 'no-cors' });
-                        // Treat no-cors as success
-                        contactForm.hidden = true; if (successCard) successCard.hidden = false; lastSent = Date.now();
-                        startCooldown();
+                        const resp = await fetch(contactForm.action, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                            body: JSON.stringify(Object.fromEntries(new FormData(contactForm)))
+                        });
+                        const data = await resp.json();
+                        if (data.success) {
+                            contactForm.hidden = true; if (successCard) successCard.hidden = false; lastSent = Date.now();
+                            startCooldown();
+                        } else {
+                            formStatus.textContent = data.message || 'Something went wrong — try emailing me directly.';
+                            sendBtn.disabled = false; sendBtn.textContent = 'Send message';
+                        }
                     } catch (err) {
                         formStatus.textContent = 'Network error — try again or email me directly.';
                         sendBtn.disabled = false; sendBtn.textContent = 'Send message';
