@@ -2,69 +2,122 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Diego's Portfolio - Projects</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diego Crisafulli — Projects</title>
+  <meta name="theme-color" content="#faf8f5">
   <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <nav class="navbar">
-    <div class="nav-brand">Diego's Dev World</div>
+    <a class="nav-logo" href="index.html">Diego Crisafulli</a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="projects.html" class="active">Projects</a></li>
-      <li><a href="blog.html">Blog</a></li>
     </ul>
+    <div class="nav-actions">
+      <a href="Diego_Resume.pdf" class="nav-resume-btn" target="_blank" rel="noopener noreferrer">Resume</a>
+    </div>
   </nav>
 
-  <main>
-    <h1 class="page-title">My Projects</h1>
+  <main style="padding-top: 80px;">
+    <section class="section">
+      <h2>Projects</h2>
+      <div class="projects-showcase">
 
-    <!-- Project 1: Deep Learning (Replacing "Under Construction") -->
-    <section class="project">
-      <h2>Deep Learning for Brain Imaging</h2>
-      <p><strong>Problem:</strong> Existing neurology studies require advanced tools to visualize and interpret brain scan data.</p>
-      <p><strong>Solution:</strong> I developed a CNN in Python using TensorFlow, enabling real-time analysis of fMRI images and generating 3D reconstructions within a VR environment for deeper insights.</p>
-      <p><strong>Technologies:</strong> Python, TensorFlow, Keras, Unity/Unreal Engine, VR Headsets (HTC Vive), GitHub for collaboration.</p>
-      <p><strong>Results:</strong> Improved data analysis speed by 30%, giving researchers immediate visual feedback on neurological changes. This approach could significantly reduce time-to-discovery in neural research.</p>
-      <p><strong>Challenges:</strong> Dealing with high-dimensional brain data required specialized preprocessing. I employed data augmentation and domain adaptation to handle limited labeled images. Real-time VR rendering also demanded optimization techniques.</p>
-      <p><strong>Impact:</strong> The project paves the way for more interactive and educational neuroscience applications, bridging the gap between research labs and immersive user experiences.</p>
-      <button class="btn" onclick="toggleDetails('dl1-details')">Show Visuals</button>
-      <div id="dl1-details" class="hidden-content">
-        <img src="assets/brain_vr_demo.jpg" alt="Brain VR Demo" class="project-img">
-        <p>A sample screenshot from the VR environment displaying neural pathways in 3D.</p>
+        <div class="project-card-new">
+          <span class="project-card-badge hackathon">ConUHacks X</span>
+          <h3>Wooly — Sustainable Fashion Extension</h3>
+          <p>
+            Chrome extension that analyzes fabric composition on product pages and gives instant 
+            fabric-composition and money-value scores. Features an AI-powered chat mascot for fabric 
+            care advice. Uses weighted scoring algorithms that understand how fabrics work together in 
+            blends. Built with JavaScript, Chrome Extension Manifest V3, Offscreen Documents, and web scraping.
+          </p>
+          <p><strong>Team:</strong> Diego Crisafulli, Leticia Huang, Victoria Hason, Thomas Assalian</p>
+          <div class="project-links">
+            <a href="https://github.com/leticiahuang/wooly" target="_blank" rel="noopener noreferrer" class="project-link">GitHub</a>
+            <a href="https://devpost.com/software/wooly-nsbg5m" target="_blank" rel="noopener noreferrer" class="project-link">Devpost</a>
+          </div>
+        </div>
+
+        <div class="project-card-new">
+          <span class="project-card-badge research">Research</span>
+          <h3>VR Brain Installation</h3>
+          <p>
+            Lead VR/AI Developer partnering with McGill University\'s neuroscience team. Translated 
+            authentic neural imaging data into an immersive VR experience. Built AI-powered pipelines 
+            and optimized 3D environments in Unreal Engine for high-fidelity visualization of neural pathways.
+          </p>
+          <div class="project-links">
+            <a href="https://github.com/diegoc55" target="_blank" rel="noopener noreferrer" class="project-link">GitHub</a>
+          </div>
+        </div>
+
+        <div class="project-card-new">
+          <span class="project-card-badge fullstack">Full-Stack</span>
+          <h3>The Actual Informer</h3>
+          <p>
+            Full-stack news summarization web app built with TypeScript, Node.js and Express, deployed on AWS. 
+            Integrated OpenAI\'s API to rewrite and shorten articles, improving readability and engagement.
+          </p>
+          <div class="project-links">
+            <a href="https://github.com/diegoc55" target="_blank" rel="noopener noreferrer" class="project-link">GitHub</a>
+          </div>
+        </div>
+
+        <div class="project-card-new">
+          <h3>Real-Time Dashboard</h3>
+          <p>
+            A Python Dash application that streams and visualizes data in real time. Includes a data source 
+            selector and update-interval slider for dynamic monitoring.
+          </p>
+          <div class="project-links">
+            <a href="https://github.com/diegocrisafu/realtime-dashboard" target="_blank" rel="noopener noreferrer" class="project-link">GitHub</a>
+          </div>
+        </div>
+
+        <div class="project-card-new">
+          <h3>Expense Tracker</h3>
+          <p>
+            A React-based expense tracker app with local persistence, deletion and a category pie chart for 
+            budget visualization.
+          </p>
+          <div class="project-links">
+            <a href="https://github.com/diegocrisafu/expense" target="_blank" rel="noopener noreferrer" class="project-link">GitHub</a>
+            <a href="https://diegocrisafu.github.io/expense/" target="_blank" rel="noopener noreferrer" class="project-link">Live Demo</a>
+          </div>
+        </div>
+
+        <div class="project-card-new">
+          <h3>Portfolio Website</h3>
+          <p>
+            This portfolio — a React single-page application with a canvas wipe-reveal hero, 
+            AI chatbot assistant, quotes API integration, photo gallery, and PWA support.
+          </p>
+          <div class="project-links">
+            <a href="https://github.com/diegoc55/diegoc55.github.io" target="_blank" rel="noopener noreferrer" class="project-link">GitHub</a>
+          </div>
+        </div>
+
       </div>
-    </section>
-
-    <!-- Project 2: Movie Genre Classifier (AI Example) -->
-    <section class="project">
-      <h2>Movie Genre Classifier</h2>
-      <p><strong>Problem:</strong> Existing movie classification often relies on metadata like titles and plot summaries, ignoring valuable visual cues from posters.</p>
-      <p><strong>Solution:</strong> Built a CNN in Python (TensorFlow & Keras) to classify movie posters into multiple genres. Scraped thousands of images from IMDb for training.</p>
-      <p><strong>Technologies:</strong> Python, TensorFlow, Keras, Beautiful Soup, OpenCV, NumPy, Matplotlib.</p>
-      <p><strong>Results:</strong> Achieved an F1-score of 0.75—significantly higher than baseline approaches relying on text alone.</p>
-      <p><strong>Challenges:</strong> Class imbalance. Overcame this with data augmentation (rotation, flipping, cropping) and careful architecture tuning (dropout, regularization).</p>
-      <p><strong>Impact:</strong> Demonstrates the power of visual features in classification tasks; could be adapted for recommendation systems in streaming services.</p>
-      <a href="https://github.com/yourUserName/movie-genre-classifier" target="_blank" class="btn">View on GitHub</a>
-    </section>
-
-    <!-- Project 3: VR Brain Installation (More details) -->
-    <section class="project">
-      <h2>VR Brain Installation</h2>
-      <p><strong>Problem:</strong> Creating an engaging way for audiences to learn about complex brain functions using actual neuroscience data.</p>
-      <p><strong>Solution:</strong> Partnered with a neuroscience PhD candidate to develop a VR experience using brain scan data. Converted neural imaging files into VR-friendly formats, ensuring both scientific accuracy and immersive design.</p>
-      <p><strong>Technologies:</strong> Unreal Engine, C++, Python, Maya, AI-driven plugins.</p>
-      <p><strong>Results:</strong> Provided an educational and therapeutic tool that helps viewers visualize real neural pathways, winning first prize at a local Sci-Art expo.</p>
-      <p><strong>Challenges:</strong> Balancing aesthetic VR design with accurate representation of scientific data; carefully tested user interfaces for intuitive interactions.</p>
-      <p><strong>Impact:</strong> Potential to expand into hospitals or museums, bridging academic research and public engagement.</p>
     </section>
   </main>
 
-  <footer>
-    <p>© 2025 Diego Crisafulli. 
-      <a href="Diego_Resume.pdf" download>Download My Resume</a> | 
-      <a href="mailto:diegocrisafu@gmail.com">Contact Me</a>
-    </p>
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; 2025 Diego Crisafulli</p>
+      <div class="footer-links">
+        <a href="https://github.com/diegoc55" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <span class="footer-dot">&middot;</span>
+        <a href="https://www.linkedin.com/in/diegocrisafulli212bb0256" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <span class="footer-dot">&middot;</span>
+        <a href="Diego_Resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
+      </div>
+    </div>
   </footer>
-  <script src="script.js"></script>
 </body>
 </html>

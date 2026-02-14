@@ -6,12 +6,13 @@
     memoryKey: 'assistantUserMemory'
   };
   const knowledge = {
-    skills: 'Cloud & DevOps (Azure, AWS EC2/S3/Lambda, GitHub Actions, CI/CD, IaC); JS/TS, PowerShell, Python, C++, HTML5/CSS3; MongoDB & SQL; AI (OpenAI, generative, automation); 3D & Simulation (Unreal, NVIDIA Omniverse, VR/AR); Tools (Git, Docker, GitHub Copilot, SCTP, TLS, DPDK/VPP).',
-    experience: 'CAE: Software Engineer (DevOps, May 2025–present) + IVR System Developer (Sep 2024–May 2025) + Intern (Oct 2023–Sep 2024). Presagis: Simulation Developer (Jun 2022–Jun 2023), 3D Artist/Dev (Sep 2021–Jun 2022).',
-    projects: 'VR Brain Installation (neuroscience VR), The Actual Informer (news summarization w/ OpenAI), Real-Time Dashboard (Python Dash), Expense Tracker (React).',
-    education: 'Concordia University: Double Major Computational Design & CS (2022–present). Marianopolis College: Commerce DEC (2020–2022).',
+    skills: 'Cloud & DevOps (Azure, AWS EC2/S3/Lambda, GitHub Actions, CI/CD, IaC, Docker); Programming (JavaScript, TypeScript, Python, C++, PowerShell, React, Node.js); Databases (MongoDB, SQL); AI & Automation (OpenAI API, Generative AI, Machine Learning, Prompt Engineering); 3D & Simulation (Unreal Engine, NVIDIA Omniverse, VR/AR, Unity, Blender, USD Workflows); Tools (Git, GitHub Copilot, Chrome Extensions, JIRA).',
+    experience: 'CAE: Software Engineer DevOps (May 2025–present, Azure/GitHub Actions pipelines, 30% deployment efficiency boost), IVR System Developer (Sep 2024–May 2025, test automation), Software Engineer Intern on Ondulus IR team (Oct 2023–Sep 2024, night vision/LiDAR/infrared simulation). Presagis: Simulation Developer (Jun 2022–Jun 2023, NVIDIA Omniverse Isaac Sim, digital twins), 3D Artist/Developer (Sep 2021–Jun 2022, Unreal Engine, Blender).',
+    projects: 'Wooly (ConUHacks X hackathon, Chrome extension for sustainable fashion, fabric scoring & AI chat, JavaScript/Web Scraping), VR Brain Installation (neuroscience VR with McGill, Unreal Engine), The Actual Informer (news summarization, TypeScript/Node.js/AWS/OpenAI), Real-Time Dashboard (Python Dash), Expense Tracker (React), This Portfolio (React, Canvas API, AI Chat, PWA).',
+    education: 'Concordia University: Double Major in Computation Arts & Computer Science (2022–present). Marianopolis College: DEC in Commerce (2020–2022). Active participant in ConUHacks X hackathon (2026).',
     contact: 'Email: diego.crisafu@gmail.com | LinkedIn: linkedin.com/in/diegocrisafulli212bb0256 | GitHub: github.com/diegocrisafu',
-    summary: 'Software & ML Engineer focusing on cloud-native, full-stack, automation, simulation & immersive tech.'
+    summary: 'Multidisciplinary Software Engineer double-majoring in Computation Arts & Computer Science at Concordia University. 4+ years experience across CAE and Presagis in DevOps, simulation, VR/AR, AI and full-stack development. Built projects ranging from CI/CD pipelines to VR brain installations to hackathon-winning Chrome extensions.',
+    wooly: 'Wooly is a Chrome extension built at ConUHacks X (2026) that analyzes fabric composition on product pages and gives instant fabric-composition and money-value scores. Features an AI-powered chat mascot for fabric care advice. Built with JavaScript, Chrome Extension Manifest V3, Offscreen Documents, and web scraping. Team: Diego Crisafulli, Leticia Huang, Victoria Hason, Thomas Assalian. GitHub: github.com/leticiahuang/wooly | Devpost: devpost.com/software/wooly'
   };
   const categoryKeywords = {
     skills:['skill','stack','tech','technology','technologies','languages'],
@@ -19,7 +20,8 @@
     projects:['project','projects','build','portfolio','app','apps'],
     education:['education','school','study','studies','university','college','degree'],
     contact:['contact','email','reach','linkedin','github'],
-    summary:['summary','about','profile','bio']
+    summary:['summary','about','profile','bio'],
+    wooly:['wooly','hackathon','conuhacks','fabric','chrome extension','sustainable','fashion']
   };
   function normalize(s){return (s||'').toLowerCase();}
   function multiMatch(q){
