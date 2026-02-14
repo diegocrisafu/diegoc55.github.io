@@ -1172,18 +1172,25 @@ html.at-top .menu-toggle { color: #fff; }
 .chat-icon {
     background: var(--surface);
     color: var(--text);
-    width: 52px; height: 52px;
-    border-radius: 16px;
+    width: 56px; height: 56px;
+    border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
     font-size: 1.4rem;
     box-shadow: 0 4px 16px rgba(0,0,0,0.12);
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
-    border: 1px solid var(--border);
+    border: 2px solid var(--accent);
+    overflow: hidden;
+    padding: 0;
+}
+.chat-icon-avatar {
+    width: 40px; height: 40px;
+    display: block;
 }
 .chat-icon:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.16);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+    border-color: var(--accent);
 }
 
 .chat-window {
@@ -1215,16 +1222,11 @@ html.at-top .menu-toggle { color: #fff; }
     align-items: center;
     gap: 10px;
 }
-.chat-avatar {
-    width: 34px !important; height: 34px !important;
-    min-width: 34px; min-height: 34px;
-    max-width: 34px; max-height: 34px;
-    border-radius: 50%;
-    object-fit: cover;
-    display: inline-block !important;
-    border: 2px solid var(--accent);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+.chat-avatar-svg {
+    width: 32px; height: 32px;
     flex-shrink: 0;
+    border-radius: 50%;
+    overflow: hidden;
 }
 .chat-header-left .chat-header-info {
     display: flex;
@@ -1319,15 +1321,11 @@ html.at-top .menu-toggle { color: #fff; }
 .chat-msg-row.user { justify-content: flex-end; }
 .chat-msg-row.bot { justify-content: flex-start; }
 .chat-msg-row .chat-message { max-width: 78%; }
-.chat-msg-avatar {
-    width: 22px !important; height: 22px !important;
-    min-width: 22px; min-height: 22px;
-    max-width: 22px; max-height: 22px;
-    border-radius: 50%;
-    object-fit: cover;
-    display: inline-block !important;
+.chat-msg-avatar-svg {
+    width: 22px; height: 22px;
     flex-shrink: 0;
-    opacity: 0.85;
+    border-radius: 50%;
+    overflow: hidden;
 }
 
 .chat-message-text { white-space: pre-wrap; }

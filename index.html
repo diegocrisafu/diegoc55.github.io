@@ -740,13 +740,33 @@
                             onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setChatOpen(o => !o); } }}
                             onClick={() => setChatOpen(!chatOpen)}
                         >
-                            {chatOpen ? '\u00d7' : '\ud83d\udcac'}
+                            {chatOpen ? '\u00d7' : (
+                                <svg className="chat-icon-avatar" viewBox="0 0 64 64" width="36" height="36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="32" cy="32" r="30" fill="#D4A574"/>
+                                    <ellipse cx="32" cy="56" rx="20" ry="12" fill="#5C4033"/>
+                                    <circle cx="32" cy="30" r="16" fill="#D4A574"/>
+                                    <path d="M16 24c0-10 8-16 16-16s16 6 16 16c0 4-2 6-4 7l1 3c0 0-4-1-6-1h-14c-2 0-6 1-6 1l1-3c-2-1-4-3-4-7z" fill="#1a1a1a"/>
+                                    <circle cx="26" cy="30" r="2.2" fill="#1a1a1a"/>
+                                    <circle cx="38" cy="30" r="2.2" fill="#1a1a1a"/>
+                                    <path d="M28 36q4 3.5 8 0" stroke="#1a1a1a" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
+                                    <ellipse cx="26" cy="33" rx="3.5" ry="1.8" fill="#c4876e" opacity="0.35"/>
+                                    <ellipse cx="38" cy="33" rx="3.5" ry="1.8" fill="#c4876e" opacity="0.35"/>
+                                </svg>
+                            )}
                         </div>
                         {chatOpen && (
                             <div className="chat-window">
                                 <div className="chat-window-header">
                                     <div className="chat-header-left">
-                                        <img className="chat-avatar" src="images/IMG_5792.JPG" alt="Diego" />
+                                        <svg className="chat-avatar-svg" viewBox="0 0 64 64" width="32" height="32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <circle cx="32" cy="32" r="30" fill="#D4A574"/>
+                                            <ellipse cx="32" cy="56" rx="20" ry="12" fill="#5C4033"/>
+                                            <circle cx="32" cy="30" r="16" fill="#D4A574"/>
+                                            <path d="M16 24c0-10 8-16 16-16s16 6 16 16c0 4-2 6-4 7l1 3c0 0-4-1-6-1h-14c-2 0-6 1-6 1l1-3c-2-1-4-3-4-7z" fill="#1a1a1a"/>
+                                            <circle cx="26" cy="30" r="2.2" fill="#1a1a1a"/>
+                                            <circle cx="38" cy="30" r="2.2" fill="#1a1a1a"/>
+                                            <path d="M28 36q4 3.5 8 0" stroke="#1a1a1a" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
+                                        </svg>
                                         <div className="chat-header-info">
                                             <span>Diego's Assistant</span>
                                             <span className="chat-status">Online</span>
@@ -757,7 +777,17 @@
                                 <div className="chat-messages">
                                     {messages.map((msg, idx) => (
                                         <div key={idx} className={`chat-msg-row ${msg.from}`}>
-                                            {msg.from === 'bot' && <img className="chat-msg-avatar" src="images/IMG_5792.JPG" alt="" />}
+                                            {msg.from === 'bot' && (
+                                                <svg className="chat-msg-avatar-svg" viewBox="0 0 64 64" width="22" height="22" fill="none">
+                                                    <circle cx="32" cy="32" r="30" fill="#D4A574"/>
+                                                    <ellipse cx="32" cy="56" rx="20" ry="12" fill="#5C4033"/>
+                                                    <circle cx="32" cy="30" r="16" fill="#D4A574"/>
+                                                    <path d="M16 24c0-10 8-16 16-16s16 6 16 16c0 4-2 6-4 7l1 3c0 0-4-1-6-1h-14c-2 0-6 1-6 1l1-3c-2-1-4-3-4-7z" fill="#1a1a1a"/>
+                                                    <circle cx="26" cy="30" r="2.2" fill="#1a1a1a"/>
+                                                    <circle cx="38" cy="30" r="2.2" fill="#1a1a1a"/>
+                                                    <path d="M28 36q4 3.5 8 0" stroke="#1a1a1a" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
+                                                </svg>
+                                            )}
                                             <div className={`chat-message ${msg.from}`}>
                                                 <div className="chat-message-text">{msg.text}</div>
                                             </div>
@@ -765,7 +795,15 @@
                                     ))}
                                     {typing && (
                                         <div className="chat-msg-row bot">
-                                            <img className="chat-msg-avatar" src="images/IMG_5792.JPG" alt="" />
+                                            <svg className="chat-msg-avatar-svg" viewBox="0 0 64 64" width="22" height="22" fill="none">
+                                                <circle cx="32" cy="32" r="30" fill="#D4A574"/>
+                                                <ellipse cx="32" cy="56" rx="20" ry="12" fill="#5C4033"/>
+                                                <circle cx="32" cy="30" r="16" fill="#D4A574"/>
+                                                <path d="M16 24c0-10 8-16 16-16s16 6 16 16c0 4-2 6-4 7l1 3c0 0-4-1-6-1h-14c-2 0-6 1-6 1l1-3c-2-1-4-3-4-7z" fill="#1a1a1a"/>
+                                                <circle cx="26" cy="30" r="2.2" fill="#1a1a1a"/>
+                                                <circle cx="38" cy="30" r="2.2" fill="#1a1a1a"/>
+                                                <path d="M28 36q4 3.5 8 0" stroke="#1a1a1a" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
+                                            </svg>
                                             <div className="chat-message bot">
                                                 <span className="typing-dots"><span></span><span></span><span></span></span>
                                             </div>
