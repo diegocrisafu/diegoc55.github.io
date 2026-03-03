@@ -21,6 +21,9 @@
     --card-shadow-hover: 0 8px 30px rgba(30,41,59,0.10);
     --white:    #ffffff;
     --radius:   14px;
+    --mono:     'JetBrains Mono', 'Fira Code', monospace;
+    --ai-glow:  rgba(99,179,237,0.15);
+    --ai-accent:#4a90d9;
 }
 
 /* ═══ Reset & Base ═══ */
@@ -317,6 +320,7 @@ html.at-top .menu-toggle { color: #fff; }
     color: rgba(255,255,255,0.75);
     margin: 0 0 2rem;
     letter-spacing: 1px;
+    font-family: var(--mono);
     animation: fadeInUp 0.7s ease-out 0.4s both;
 }
 
@@ -471,14 +475,29 @@ html.at-top .menu-toggle { color: #fff; }
     border-bottom: none;
     position: relative;
 }
+.section h2::before {
+    content: '< ';
+    font-family: var(--mono);
+    font-weight: 400;
+    font-size: 0.75em;
+    color: var(--muted);
+    opacity: 0.5;
+    margin-right: 2px;
+}
 .section h2::after {
-    content: '';
-    display: block;
-    width: 48px;
-    height: 3px;
-    background: var(--accent);
-    border-radius: 2px;
-    margin-top: 0.6rem;
+    content: ' />';
+    font-family: var(--mono);
+    font-weight: 400;
+    font-size: 0.75em;
+    color: var(--muted);
+    opacity: 0.5;
+    margin-left: 2px;
+    display: inline;
+    width: auto;
+    height: auto;
+    background: none;
+    border-radius: 0;
+    margin-top: 0;
 }
 
 .section\u2011content p,
@@ -510,14 +529,29 @@ html.at-top .menu-toggle { color: #fff; }
     margin: 0 0 1.5rem;
     position: relative;
 }
+.about-text h2::before {
+    content: '< ';
+    font-family: var(--mono);
+    font-weight: 400;
+    font-size: 0.75em;
+    color: var(--muted);
+    opacity: 0.5;
+    margin-right: 2px;
+}
 .about-text h2::after {
-    content: '';
-    display: block;
-    width: 48px;
-    height: 3px;
-    background: var(--accent);
-    border-radius: 2px;
-    margin-top: 0.6rem;
+    content: ' />';
+    font-family: var(--mono);
+    font-weight: 400;
+    font-size: 0.75em;
+    color: var(--muted);
+    opacity: 0.5;
+    margin-left: 2px;
+    display: inline;
+    width: auto;
+    height: auto;
+    background: none;
+    border-radius: 0;
+    margin-top: 0;
 }
 
 .about-intro {
@@ -766,8 +800,10 @@ html.at-top .menu-toggle { color: #fff; }
     color: var(--text);
     padding: 5px 10px;
     border-radius: 999px;
-    font-size: 0.78rem;
+    font-size: 0.75rem;
     font-weight: 500;
+    font-family: var(--mono);
+    letter-spacing: -0.01em;
     transition: background 0.2s, color 0.2s, transform 0.15s;
 }
 .skill-tag:hover {
@@ -775,6 +811,24 @@ html.at-top .menu-toggle { color: #fff; }
     color: #fff;
     border-color: var(--accent);
     transform: scale(1.05);
+}
+
+/* AI & ML category — highlighted */
+.skill-category--ai {
+    border-color: var(--ai-accent);
+    background: linear-gradient(135deg, var(--surface) 0%, var(--ai-glow) 100%);
+}
+.skill-category--ai h4 {
+    color: var(--ai-accent);
+}
+.skill-category--ai .skill-tag {
+    background: rgba(74,144,217,0.08);
+    border-color: rgba(74,144,217,0.2);
+}
+.skill-category--ai .skill-tag:hover {
+    background: var(--ai-accent);
+    border-color: var(--ai-accent);
+    color: #fff;
 }
 
 /* ═══ Projects ═══ */
@@ -846,6 +900,11 @@ html.at-top .menu-toggle { color: #fff; }
     background: rgba(245,158,11,0.10);
     color: #d97706;
     border-color: rgba(245,158,11,0.2);
+}
+.project-card-badge.ai-badge {
+    background: rgba(74,144,217,0.10);
+    color: var(--ai-accent);
+    border-color: rgba(74,144,217,0.2);
 }
 .project-links {
     display: flex;
@@ -1363,7 +1422,8 @@ html.at-top .menu-toggle { color: #fff; }
     border: none;
     border-top: none;
     padding: 0.5rem 0.6rem;
-    font-size: 0.85rem;
+    font-size: 0.82rem;
+    font-family: var(--mono);
     outline: none;
     flex: 1;
     background: transparent;

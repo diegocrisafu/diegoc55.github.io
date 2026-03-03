@@ -3,7 +3,7 @@
 (()=>{
   var info = {
     name: 'Diego Crisafulli',
-    title: 'Software Engineer',
+    title: 'AI & Software Engineer',
     email: 'diego.crisafu@gmail.com',
     github: 'https://github.com/diegoc55',
     linkedin: 'https://www.linkedin.com/in/diegocrisafulli212bb0256',
@@ -13,7 +13,7 @@
     gradYear: '2022-present',
     previousSchool: 'Marianopolis College - DEC in Commerce (2020-2022)',
 
-    summary: "Diego is a multidisciplinary Software Engineer double-majoring in Computation Arts and Computer Science at Concordia University. He has 4+ years of professional experience across CAE and Presagis, specializing in DevOps, simulation technologies, AI, and full-stack development. He bridges artistic creativity with engineering rigor.",
+    summary: "Diego is an AI & Software Engineer double-majoring in Computation Arts and Computer Science at Concordia University. He has 4+ years of professional experience across CAE and Presagis, specializing in AI/ML, generative AI, full-stack development, and DevOps. He's passionate about building intelligent systems and bridges artistic creativity with AI engineering.",
 
     experience: [
       { role: 'Software Engineer (DevOps)', company: 'CAE', period: 'May 2025-Present', desc: 'Develops and maintains CI/CD pipelines with Azure and GitHub Actions. Boosted deployment efficiency by 30%. Engineers cloud solutions using JavaScript and PowerShell.' },
@@ -26,31 +26,31 @@
     knownSkills: {
       'Cloud & DevOps': ['Azure', 'AWS', 'EC2', 'S3', 'Lambda', 'GitHub Actions', 'CI/CD', 'Infrastructure as Code', 'Docker'],
       'Programming': ['JavaScript', 'TypeScript', 'Python', 'C++', 'C', 'PowerShell', 'React', 'Node.js', 'HTML', 'CSS', 'Express'],
-      'AI & Automation': ['OpenAI API', 'Generative AI', 'Machine Learning', 'Prompt Engineering', 'Test Automation'],
+      'AI & Machine Learning': ['OpenAI API', 'Claude API', 'LangChain', 'RAG', 'Generative AI', 'Machine Learning', 'NLP', 'Computer Vision', 'Prompt Engineering', 'Hugging Face', 'Vector Databases', 'Fine-Tuning'],
       '3D & Simulation': ['Unreal Engine', 'NVIDIA Omniverse', 'VR', 'AR', 'Unity', 'Blender', 'USD Workflows', '3D Modeling'],
       'Databases & Tools': ['MongoDB', 'SQL', 'Git', 'JIRA', 'Chrome Extensions', 'GitHub Copilot']
     },
 
     projects: [
-      { name: 'Wooly', desc: 'Chrome extension for sustainable fashion built at ConUHacks X (2025). Analyzes fabric composition on shopping pages, gives sustainability and value scores, and features an AI chat mascot for fabric care advice. Built with JavaScript, Chrome Extension Manifest V3, and web scraping.', links: 'GitHub: github.com/leticiahuang/wooly | Devpost: devpost.com/software/wooly', tech: ['JavaScript', 'Chrome Extensions', 'Web Scraping', 'AI'] },
-      { name: 'VR Brain Installation', desc: 'VR/AI research project with McGill University neuroscience team. Translates authentic neural imaging data into an immersive VR experience. Built AI-powered pipelines and optimized 3D environments in Unreal Engine.', tech: ['Unreal Engine', 'VR', 'AI', 'Python'] },
-      { name: 'The Actual Informer', desc: 'Full-stack news summarization web app built with TypeScript, Node.js, and Express, deployed on AWS. Integrates OpenAI API to rewrite and shorten articles for better readability.', tech: ['TypeScript', 'Node.js', 'Express', 'AWS', 'OpenAI API'] },
+      { name: 'The Actual Informer', desc: 'AI-powered news summarization platform. Built an NLP pipeline using OpenAI\'s API with custom prompt engineering to rewrite and condense articles. Full-stack app with TypeScript, Node.js, Express, deployed on AWS.', tech: ['TypeScript', 'Node.js', 'Express', 'AWS', 'OpenAI API', 'NLP', 'Prompt Engineering'] },
+      { name: 'VR Brain Installation', desc: 'AI/VR research project with McGill University neuroscience team. Built ML-driven pipelines to transform neural imaging data into immersive 3D visualizations using computer vision and AI processing with Unreal Engine.', tech: ['Unreal Engine', 'VR', 'AI', 'ML', 'Computer Vision', 'Python'] },
+      { name: 'Wooly', desc: 'AI-powered Chrome extension for sustainable fashion built at ConUHacks X (2025). Uses AI analysis and web scraping to score garment sustainability, with an AI chat mascot for fabric care advice.', links: 'GitHub: github.com/leticiahuang/wooly | Devpost: devpost.com/software/wooly', tech: ['JavaScript', 'Chrome Extensions', 'Web Scraping', 'AI'] },
       { name: 'Real-Time Dashboard', desc: 'Python Dash application that streams and visualizes data in real time. Features a data source selector and update-interval slider for dynamic monitoring.', tech: ['Python', 'Dash'] },
       { name: 'Expense Tracker', desc: 'React-based expense tracker with local persistence, deletion, and a category pie chart for budget visualization.', tech: ['React', 'JavaScript'] },
-      { name: 'Portfolio Website', desc: 'This site! Built with React, Canvas API, AI chatbot assistant, quotes API integration, and PWA support.', tech: ['React', 'JavaScript', 'Canvas API'] }
+      { name: 'Portfolio AI Chatbot', desc: 'This AI assistant you\'re chatting with! Custom-built conversational AI with NLP pattern matching, context-aware responses, and a knowledge graph. A live demo of AI engineering skills.', tech: ['JavaScript', 'NLP', 'AI', 'React'] }
     ],
 
     interests: 'Traveling and exploring new countries, trying local food everywhere he goes, hiking with good views, photography, creative coding, and stoic philosophy.',
     languages: 'English, French, Spanish',
     funFacts: [
-      "Diego has worked on military-grade night vision and infrared simulation systems at CAE.",
-      "He built a Chrome extension at a hackathon that promotes sustainable fashion!",
-      "He's created digital twins using NVIDIA Omniverse at Presagis.",
-      "His work bridges artistic creativity and software engineering - he's both a 3D artist and a DevOps engineer.",
-      "He's explored Japan, Spain, and loves trying local food when traveling.",
-      "He's fluent in English, French, and Spanish!",
-      "He worked with McGill University's neuroscience team on a VR brain visualization project.",
-      "He double-majors in Computation Arts AND Computer Science - creativity meets code."
+      "Diego built an NLP pipeline that uses OpenAI's API to automatically summarize news articles!",
+      "He's integrated machine learning into military-grade simulation systems at CAE - night vision, LiDAR, and infrared.",
+      "He built an AI-powered Chrome extension at a hackathon that analyzes fabric sustainability!",
+      "He created ML-driven digital twins using NVIDIA Omniverse Isaac Sim at Presagis.",
+      "He built the AI chatbot you're talking to right now - meta, right?",
+      "He worked with McGill's neuroscience team, using AI/ML to visualize brain activity in VR.",
+      "He's fluent in English, French, and Spanish - and Python, JavaScript, and C++!",
+      "He double-majors in Computation Arts AND Computer Science - where AI meets creativity."
     ]
   };
 
@@ -111,7 +111,7 @@
     if (/^(hi|hey|hello|yo|sup|hola|bonjour|what'?s up|howdy|good (morning|afternoon|evening))\b/.test(s)) return greet();
 
     // Identity questions
-    if (/who (is|are you|r u)|what is this|what do you do/.test(s)) return "Hey! I'm Diego's virtual assistant. Think of me as his right-hand bot. I know all about his work experience, skills, projects, education - you name it. I can also help you get in touch with him. What would you like to know?";
+    if (/who (is|are you|r u)|what is this|what do you do/.test(s)) return "Hey! I'm Diego's AI assistant - built by him to showcase his AI engineering skills. I know all about his work in AI/ML, his experience, projects, and more. Think of me as a live demo of his AI capabilities. What would you like to know?";
     if (/who is diego|tell me about diego|about diego|diego crisafulli/.test(s)) return info.summary + " Want to know more about something specific?";
 
     // Contact / links
@@ -141,7 +141,7 @@
     if (/skill|tech|stack|language|tool|framework|what.*know|what.*use|specializ/.test(s)) {
       if (/devops|cloud|azure|aws|docker|ci.?cd|pipeline|deploy/.test(s)) return "Cloud & DevOps is one of Diego's strongest areas! He works with: " + info.knownSkills['Cloud & DevOps'].join(', ') + ". At CAE, he boosted deployment efficiency by 30% with his CI/CD pipelines.";
       if (/program|code|javascript|python|react|c\+\+|typescript|node/.test(s)) return "Diego's programming toolkit includes: " + info.knownSkills['Programming'].join(', ') + ". He's especially strong in JavaScript/TypeScript and Python!";
-      if (/ai|machine|learning|automation|openai|gpt/.test(s)) return "Diego's AI & Automation skills include: " + info.knownSkills['AI & Automation'].join(', ') + ". He's integrated AI into multiple projects, from news summarization to VR brain visualization!";
+      if (/ai|machine|learning|automation|openai|gpt|llm|nlp|rag|langchain|claude|hugging|vector|fine.?tun|computer vision/.test(s)) return "AI & ML is Diego's strongest area! His toolkit includes: " + info.knownSkills['AI & Machine Learning'].join(', ') + ". He's built NLP pipelines for news summarization, ML-driven neural visualization with McGill, AI-powered simulations at Presagis, and conversational AI assistants. This is where he really shines!";
       if (/3d|simulation|unreal|vr|ar|blender|omniverse|unity|game/.test(s)) return "On the creative/3D side, Diego works with: " + info.knownSkills['3D & Simulation'].join(', ') + ". He was literally a 3D Artist before becoming a DevOps engineer - pretty cool range!";
       if (/database|mongo|sql|git|tool/.test(s)) return "Diego's tooling includes: " + info.knownSkills['Databases & Tools'].join(', ') + ".";
       return "Diego's got quite the skill set! Here's the breakdown:\n\n" + Object.keys(info.knownSkills).map(function(cat) { return cat + ": " + info.knownSkills[cat].join(', '); }).join('\n\n') + "\n\nAnything specific you'd like to dive into?";
@@ -192,10 +192,10 @@
     if (/available|open to|looking for|seeking|freelanc/.test(s)) return "Great question! For availability and opportunities, the best way to reach Diego is via email at " + info.email + " or LinkedIn at " + info.linkedin + ". He'd love to chat!";
 
     // Strengths
-    if (/strength|best at|strongest|what makes|stand out|unique|different/.test(s)) return "What makes Diego stand out? He genuinely bridges creativity and engineering. He went from being a 3D Artist to a DevOps Engineer, which gives him a unique perspective. He's also worked on everything from night-vision simulations to hackathon Chrome extensions. That kind of range is rare!";
+    if (/strength|best at|strongest|what makes|stand out|unique|different/.test(s)) return "What makes Diego stand out? His deep AI/ML expertise combined with full-stack engineering skills. He's built NLP pipelines, ML-powered simulations, and AI assistants - but he can also ship production cloud infrastructure and beautiful UIs. Going from 3D Artist to AI Engineer gives him a rare creative + technical perspective that's perfect for building intelligent products.";
     
     // Why hire
-    if (/why.*hire|why.*choose|should.*hire|good fit|bring to/.test(s)) return "Diego brings a rare combination of creative and technical skills. With 4+ years at companies like CAE and Presagis, he's proven he can deliver in high-stakes environments. He's built CI/CD pipelines, military-grade simulations, VR experiences, and full-stack apps. Plus, he's a fast learner who's worked across multiple tech stacks. Want me to go deeper into any area?";
+    if (/why.*hire|why.*choose|should.*hire|good fit|bring to/.test(s)) return "Diego brings AI/ML depth with full-stack delivery skills. With 4+ years at CAE and Presagis, he's proven he can build intelligent systems in high-stakes environments — from ML-powered simulations and NLP applications to production DevOps pipelines. He works across the entire AI stack: prompt engineering, LLM integration, RAG pipelines, and deploying models to production. Plus he ships fast and communicates well. Want me to go deeper into any area?";
 
     // Help
     if (/help|what can (you|i)|option|command|menu/.test(s)) return "I'd love to help! Here's what I know about Diego:\n\n- His work experience & career\n- Technical skills & technologies\n- Projects he's built\n- Education background\n- How to contact him\n- Personal interests & fun facts\n- Whether he knows specific technologies\n\nJust ask naturally - like \"does he know Python?\" or \"what's his latest project?\"";
@@ -233,7 +233,7 @@
   function greet() {
     var hour = new Date().getHours();
     var greeting = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
-    return greeting + "! I'm Diego's assistant. I know all about his experience, skills, projects, and more. What would you like to know?";
+    return greeting + "! I'm Diego's AI assistant. Ask me about his AI/ML projects, technical skills, experience, or anything else. What are you curious about?";
   }
 
   window.AssistantEngine = function() {
