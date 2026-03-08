@@ -130,7 +130,7 @@
             <div class="hero hero-intro" style="position:relative; z-index:1">
                 <p class="hero-greeting">Hi, I'm</p>
                 <h1 class="hero-title">Diego Crisafulli</h1>
-                <p class="hero-role">AI & Software Engineer</p>
+                <p class="hero-role" id="hero-role"><span id="hero-role-text"></span><span class="typing-cursor"></span></p>
                 <p class="hero-lead">AI · Full-Stack · DevOps · Simulation</p>
                 <div class="hero-ctas">
                     <a href="#about" class="btn btn-primary">
@@ -584,8 +584,15 @@
                                     AI-powered news summarization platform. Built an NLP pipeline using OpenAI's API with custom prompt engineering
                                     to rewrite and condense articles. Full-stack app with TypeScript, Node.js, Express, deployed on AWS.
                                 </p>
+                                <div className="project-tech">
+                                    <span className="project-tech-tag">TypeScript</span>
+                                    <span className="project-tech-tag">OpenAI</span>
+                                    <span className="project-tech-tag">Node.js</span>
+                                    <span className="project-tech-tag">Express</span>
+                                    <span className="project-tech-tag">AWS</span>
+                                </div>
                                 <div className="project-links">
-                                    <a className="project-link" href="https://github.com/diegoc55" target="_blank" rel="noopener noreferrer">GitHub</a>
+                                    <a className="project-link" href="https://github.com/aalokok/cart498final" target="_blank" rel="noopener noreferrer">GitHub</a>
                                 </div>
                             </div>
                             <div className="project-card-new reveal-on-scroll" data-tilt>
@@ -596,8 +603,11 @@
                                     neural imaging data into immersive 3D visualizations. Integrated computer vision and AI processing with
                                     Unreal Engine for real-time rendering of brain activity.
                                 </p>
-                                <div className="project-links">
-                                    <a className="project-link" href="https://github.com/diegoc55" target="_blank" rel="noopener noreferrer">GitHub</a>
+                                <div className="project-tech">
+                                    <span className="project-tech-tag">Python</span>
+                                    <span className="project-tech-tag">Unreal Engine</span>
+                                    <span className="project-tech-tag">OpenCV</span>
+                                    <span className="project-tech-tag">VR</span>
                                 </div>
                             </div>
                             <div className="project-card-new reveal-on-scroll" data-tilt>
@@ -607,21 +617,15 @@
                                     Chrome extension using AI analysis and web scraping to score garment sustainability. Built at ConUHacks X (2025).
                                     Features an AI chat mascot for fabric care advice, environmental impact scoring, and intelligent product analysis.
                                 </p>
+                                <div className="project-tech">
+                                    <span className="project-tech-tag">JavaScript</span>
+                                    <span className="project-tech-tag">Chrome API</span>
+                                    <span className="project-tech-tag">AI</span>
+                                    <span className="project-tech-tag">Web Scraping</span>
+                                </div>
                                 <div className="project-links">
                                     <a className="project-link" href="https://github.com/leticiahuang/wooly" target="_blank" rel="noopener noreferrer">GitHub</a>
                                     <a className="project-link" href="https://devpost.com/software/wooly-nsbg5m" target="_blank" rel="noopener noreferrer">Devpost</a>
-                                </div>
-                            </div>
-                            <div className="project-card-new reveal-on-scroll" data-tilt>
-                                <span className="project-card-badge ai-badge">AI Assistant</span>
-                                <h3>Portfolio AI Chatbot</h3>
-                                <p>
-                                    Custom-built conversational AI assistant (the one on this page!) with NLP pattern matching,
-                                    context-aware responses, and a knowledge graph of skills, projects, and experience. Designed to showcase
-                                    AI engineering in a portfolio context.
-                                </p>
-                                <div className="project-links">
-                                    <a className="project-link" href="https://github.com/diegoc55/diegoc55.github.io" target="_blank" rel="noopener noreferrer">GitHub</a>
                                 </div>
                             </div>
                             <div className="project-card-new reveal-on-scroll" data-tilt>
@@ -630,6 +634,11 @@
                                     A Python Dash application that streams and visualizes data in real time. Includes a data source selector
                                     and update-interval slider for dynamic monitoring.
                                 </p>
+                                <div className="project-tech">
+                                    <span className="project-tech-tag">Python</span>
+                                    <span className="project-tech-tag">Dash</span>
+                                    <span className="project-tech-tag">Plotly</span>
+                                </div>
                                 <div className="project-links">
                                     <a className="project-link" href="https://github.com/diegocrisafu/realtime-dashboard" target="_blank" rel="noopener noreferrer">GitHub</a>
                                 </div>
@@ -640,6 +649,11 @@
                                     A React-based expense tracker app with local persistence, deletion and a category pie chart for
                                     budget visualization.
                                 </p>
+                                <div className="project-tech">
+                                    <span className="project-tech-tag">React</span>
+                                    <span className="project-tech-tag">Chart.js</span>
+                                    <span className="project-tech-tag">CSS</span>
+                                </div>
                                 <div className="project-links">
                                     <a className="project-link" href="https://github.com/diegocrisafu/expense" target="_blank" rel="noopener noreferrer">GitHub</a>
                                     <a className="project-link" href="https://diegocrisafu.github.io/expense/" target="_blank" rel="noopener noreferrer">Live Demo</a>
@@ -1097,6 +1111,25 @@
             }
             window.addEventListener('scroll', updateScrollTop, { passive: true });
             window.addEventListener('load', updateScrollTop);
+        })();
+    </script>
+
+    <!-- Hero role typing animation -->
+    <script>
+        (function(){
+            var text = 'AI & Software Engineer';
+            var el = document.getElementById('hero-role-text');
+            if (!el) return;
+            var i = 0;
+            function type(){
+                if (i <= text.length) {
+                    el.textContent = text.slice(0, i);
+                    i++;
+                    setTimeout(type, 60 + Math.random() * 40);
+                }
+            }
+            // Start after hero animations finish (~0.5s)
+            setTimeout(type, 600);
         })();
     </script>
 
