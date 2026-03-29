@@ -58,9 +58,6 @@
         rgba(0,0,0,0.20) 60%,
         rgba(0,0,0,0.60) 100%);
 }
-[data-theme="dark"] .skill-category--ai {
-    background: linear-gradient(135deg, var(--surface) 0%, rgba(74,144,217,0.08) 100%);
-}
 [data-theme="dark"] .chat-window { border-color: var(--border); }
 [data-theme="dark"] #contact form { background: var(--surface); border-color: var(--border); }
 [data-theme="dark"] .field input,
@@ -934,23 +931,6 @@ html.at-top .theme-toggle:hover { background: rgba(255,255,255,0.12); border-col
 }
 
 /* AI & ML category — highlighted */
-.skill-category--ai {
-    border-color: var(--ai-accent);
-    background: linear-gradient(135deg, var(--surface) 0%, var(--ai-glow) 100%);
-}
-.skill-category--ai h4 {
-    color: var(--ai-accent);
-}
-.skill-category--ai .skill-tag {
-    background: rgba(74,144,217,0.08);
-    border-color: rgba(74,144,217,0.2);
-}
-.skill-category--ai .skill-tag:hover {
-    background: var(--ai-accent);
-    border-color: var(--ai-accent);
-    color: #fff;
-}
-
 /* ═══ Projects ═══ */
 .projects-showcase {
     display: flex;
@@ -1811,9 +1791,5 @@ html.at-top .theme-toggle:hover { background: rgba(255,255,255,0.12); border-col
     transform: translateY(-1px);
     box-shadow: 0 2px 8px rgba(194,112,62,0.12);
 }
-.skill-category--ai .skill-tag:hover {
-    box-shadow: 0 2px 8px var(--ai-glow);
-}
-
 /* ═══ View Transition cleanup (no longer needed but keep harmless) ═══ */
 :root { view-transition-name: none; }
