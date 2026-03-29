@@ -13,10 +13,10 @@
     gradYear: '2022-present',
     previousSchool: 'Marianopolis College - DEC in Commerce (2020-2022)',
 
-    summary: "Diego is an AI & Software Engineer double-majoring in Computation Arts and Computer Science at Concordia University. He has 4+ years of professional experience across CAE and Presagis, specializing in AI/ML, generative AI, full-stack development, and DevOps. He's passionate about building intelligent systems and bridges artistic creativity with AI engineering.",
+    summary: "Diego is an AI & Software Engineer double-majoring in Computation Arts and Computer Science at Concordia University. He has 4+ years of professional experience across CAE and Presagis, specializing in cloud computing, full-stack development, and AI/ML. He's passionate about building intelligent systems and bridges artistic creativity with AI engineering.",
 
     experience: [
-      { role: 'Software Engineer (DevOps)', company: 'CAE', period: 'May 2025-Present', desc: 'Develops and maintains CI/CD pipelines with Azure and GitHub Actions. Boosted deployment efficiency by 30%. Engineers cloud solutions using JavaScript and PowerShell.' },
+      { role: 'Software Engineer Intern (Cloud)', company: 'CAE', period: 'May 2025-Sep 2025', desc: 'Developed and maintained CI/CD pipelines with Azure and GitHub Actions. Boosted deployment efficiency by 30%. Engineered cloud solutions using JavaScript and PowerShell.' },
       { role: 'IVR System Developer', company: 'CAE', period: 'Sep 2024-May 2025', desc: 'Improved IVR functionality and user experience. Developed automated test scripts in JavaScript, XML, and JSON. Boosted testing coverage and reduced defects significantly.' },
       { role: 'Software Engineer Intern', company: 'CAE', period: 'Oct 2023-Sep 2024', desc: 'Ondulus IR team - developed and tested night vision, LiDAR, and infrared simulation systems. Led C++ sensor testing and automated testing workflows.' },
       { role: 'Simulation Developer', company: 'Presagis', period: 'Jun 2022-Jun 2023', desc: 'Built simulations using NVIDIA Omniverse Isaac Sim with machine learning, point-cloud, and LiDAR technology. Created digital twins with USD workflows. Integrated Python automation.' },
