@@ -381,6 +381,16 @@ html.at-top .theme-toggle:hover { background: rgba(255,255,255,0.12); border-col
     letter-spacing: -0.03em;
     text-shadow: 0 8px 30px rgba(0,0,0,0.4);
     animation: fadeInUp 0.7s ease-out 0.2s both;
+    background: linear-gradient(135deg, #fff 0%, #ffd6b3 40%, #fff 60%, #c2703e 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: fadeInUp 0.7s ease-out 0.2s both, gradientShift 6s ease-in-out infinite;
+}
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
 }
 
 .hero-role {
@@ -389,6 +399,21 @@ html.at-top .theme-toggle:hover { background: rgba(255,255,255,0.12); border-col
     color: rgba(255,255,255,0.92);
     margin: 0 0 0.4rem;
     animation: fadeInUp 0.7s ease-out 0.3s both;
+}
+
+/* Typing cursor animation for hero role */
+.hero-role .typing-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1.1em;
+    background: rgba(255,255,255,0.8);
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    animation: blink 0.7s step-end infinite;
+}
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
 }
 
 .hero-lead {
@@ -765,6 +790,25 @@ html.at-top .theme-toggle:hover { background: rgba(255,255,255,0.12); border-col
     box-shadow: 0 0 0 3px var(--accent-soft);
     z-index: 1;
 }
+.timeline-dot::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 2px solid var(--accent);
+    opacity: 0;
+    animation: dotPulse 2.5s ease-in-out infinite;
+}
+@keyframes dotPulse {
+    0%, 100% { opacity: 0; transform: scale(0.8); }
+    50% { opacity: 0.4; transform: scale(1.3); }
+}
+.timeline-item:first-child .timeline-dot::after { animation-delay: 0s; }
+.timeline-item:nth-child(2) .timeline-dot::after { animation-delay: 0.5s; }
+.timeline-item:nth-child(3) .timeline-dot::after { animation-delay: 1s; }
+.timeline-item:nth-child(4) .timeline-dot::after { animation-delay: 1.5s; }
+.timeline-item:nth-child(5) .timeline-dot::after { animation-delay: 2s; }
+
 .timeline-item:first-child .timeline-dot {
     width: 16px;
     height: 16px;
@@ -909,34 +953,53 @@ html.at-top .theme-toggle:hover { background: rgba(255,255,255,0.12); border-col
 
 /* ═══ Projects ═══ */
 .projects-showcase {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
     margin-top: 0.5rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
 }
 .project-card-new {
     background: var(--surface);
-    border: 1px solid var(--border);
+    border: 2px solid var(--border);
     border-radius: var(--radius);
     padding: 1.5rem;
-    position: relative;
+    position: sticky;
+    top: 80px;
     overflow: hidden;
-    transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+    transition: border-color 0.3s, box-shadow 0.3s, transform 0.6s cubic-bezier(.4,0,.2,1), opacity 0.6s ease, background-image 0.3s;
+    box-shadow: var(--card-shadow);
+    will-change: transform, opacity;
+}
+@media (max-width: 768px) {
+    .projects-showcase {
+        max-width: 100%;
+    }
+    .project-card-new {
+        position: relative;
+        top: auto !important;
+    }
 }
 .project-card-new::before {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0;
     height: 3px;
-    background: var(--accent);
+    background: linear-gradient(90deg, var(--accent), var(--ai-accent), var(--accent));
+    background-size: 200% 100%;
     opacity: 0;
     transition: opacity 0.3s;
+    animation: gradientSlide 3s linear infinite;
+}
+@keyframes gradientSlide {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
 }
 .project-card-new:hover::before { opacity: 1; }
 .project-card-new:hover {
-    border-color: var(--accent);
-    box-shadow: var(--card-shadow-hover);
-    transform: translateY(-3px);
+    box-shadow: 0 8px 32px rgba(194,112,62,0.12), 0 0 0 1px rgba(194,112,62,0.08);
 }
 .project-card-new h3 {
     margin: 0 0 0.5rem;
@@ -981,6 +1044,28 @@ html.at-top .theme-toggle:hover { background: rgba(255,255,255,0.12); border-col
     background: rgba(74,144,217,0.10);
     color: var(--ai-accent);
     border-color: rgba(74,144,217,0.2);
+}
+.project-card-badge.assessment {
+    background: rgba(236,72,153,0.10);
+    color: #db2777;
+    border-color: rgba(236,72,153,0.2);
+}
+.project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0.5rem 0 0.75rem;
+}
+.project-tech-tag {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: var(--surface-2);
+    color: var(--muted);
+    border: 1px solid var(--border);
+    letter-spacing: 0.02em;
 }
 .project-links {
     display: flex;
@@ -1054,10 +1139,10 @@ html.at-top .theme-toggle:hover { background: rgba(255,255,255,0.12); border-col
 .quote-card {
     position: relative;
     padding: 2.5rem 2rem 2rem;
-    background: var(--surface);
+    background: linear-gradient(135deg, var(--surface) 0%, var(--surface-2) 100%);
     border-radius: var(--radius);
     border: 1px solid var(--border);
-    box-shadow: var(--card-shadow);
+    box-shadow: var(--card-shadow), inset 0 1px 0 rgba(255,255,255,0.06);
     transition: opacity 0.4s ease, transform 0.4s ease;
     min-height: 160px;
     display: flex;
@@ -1648,6 +1733,39 @@ html.at-top .theme-toggle:hover { background: rgba(255,255,255,0.12); border-col
 .about-photos.reveal-on-scroll { transition-delay: 0s; }
 .about-photos.reveal-on-scroll { transition-delay: 0.15s; }
 
+/* ═══ Alternating Project Card Entrances ═══ */
+.project-card-new.reveal-on-scroll:nth-child(odd) {
+    transform: translateX(-40px);
+    opacity: 0;
+}
+.project-card-new.reveal-on-scroll:nth-child(even) {
+    transform: translateX(40px);
+    opacity: 0;
+}
+.project-card-new.reveal-on-scroll.revealed {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+/* ═══ Animated Gradient Border on Hover ═══ */
+@property --border-angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+}
+@keyframes rotateBorder {
+    to { --border-angle: 360deg; }
+}
+.project-card-new:hover {
+    border-color: transparent;
+    background-image:
+        linear-gradient(var(--surface), var(--surface)),
+        conic-gradient(from var(--border-angle), var(--accent), var(--ai-accent), var(--accent));
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    animation: rotateBorder 3s linear infinite;
+}
+
 /* ═══ Accessibility: focus-visible ring for all interactive elements ═══ */
 .btn:focus-visible,
 .nav-resume-btn:focus-visible,
@@ -1669,6 +1787,32 @@ html.at-top .theme-toggle:hover { background: rgba(255,255,255,0.12); border-col
     clip: rect(0,0,0,0);
     white-space: nowrap;
     border: 0;
+}
+
+/* ═══ Page Entrance Animation ═══ */
+@keyframes pageEntrance {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+#root {
+    animation: pageEntrance 0.6s ease-out both;
+}
+
+/* ═══ Animated Timeline Line ═══ */
+.experience-timeline::before {
+    background: linear-gradient(180deg, var(--accent), var(--border));
+}
+
+/* ═══ Skill Tag Hover Glow ═══ */
+.skill-tag {
+    transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+.skill-tag:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(194,112,62,0.12);
+}
+.skill-category--ai .skill-tag:hover {
+    box-shadow: 0 2px 8px var(--ai-glow);
 }
 
 /* ═══ View Transition cleanup (no longer needed but keep harmless) ═══ */
