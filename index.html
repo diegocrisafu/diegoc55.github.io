@@ -1,1465 +1,890 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diego Crisafulli — AI & Software Engineer</title>
-    <meta name="description" content="AI & Software Engineer specializing in cloud computing, full-stack development, and machine learning. Concordia University — Computation Arts & Computer Science.">
-    <meta name="author" content="Diego Crisafulli">
-    <meta name="robots" content="index,follow">
-    <link rel="canonical" href="https://diegocrisafu.github.io/diegoc55.github.io/">
-    <meta name="theme-color" content="#faf8f5">
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Diego Crisafulli — AI & Software Engineer">
-    <meta property="og:description" content="AI & Software Engineer building intelligent systems. 4+ years at CAE & Presagis. Concordia University.">
-    <meta property="og:url" content="https://diegocrisafu.github.io/diegoc55.github.io/">
-    <meta property="og:image" content="https://diegocrisafu.github.io/diegoc55.github.io/social-card.svg">
-    <meta property="og:image:alt" content="Diego Crisafulli — AI & Software Engineer">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Diego Crisafulli · Software Engineer</title>
+    <meta name="description" content="Software engineer working across cloud, AI/ML, simulation and full-stack. Four years across CAE, Presagis and McKesson. Based in Montreal. Looking for Summer/Fall 2026 roles." />
+    <meta name="author" content="Diego Crisafulli" />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://diegocrisafu.github.io/diegoc55.github.io/" />
+    <meta name="theme-color" content="#faf8f5" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#14130f" media="(prefers-color-scheme: dark)" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Diego Crisafulli · Software Engineer" />
+    <meta property="og:description" content="Cloud, AI/ML, simulation, full-stack. Four years at CAE and Presagis. Now at McKesson. Montreal." />
+    <meta property="og:url" content="https://diegocrisafu.github.io/diegoc55.github.io/" />
+    <meta property="og:image" content="social-card.svg" />
+    <meta property="og:image:alt" content="Diego Crisafulli · Software Engineer" />
+
     <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Diego Crisafulli — AI & Software Engineer">
-    <meta name="twitter:description" content="AI & Software Engineer building intelligent systems. 4+ years at CAE & Presagis. Concordia University.">
-    <meta name="twitter:image" content="https://diegocrisafu.github.io/diegoc55.github.io/social-card.svg">
-    <!-- Performance hints for CDN deps -->
-    <link rel="preconnect" href="https://unpkg.com" crossorigin>
-    <link rel="icon" href="favicon.svg" type="image/svg+xml">
-    <link rel="manifest" href="manifest.webmanifest">
-    <!-- Link to the stylesheet for styling -->
-    <link rel="stylesheet" href="style.css">
-    <!-- Geist Sans font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    <!-- Preload LCP hero underlay image only -->
-    <link rel="preload" as="image" href="images/img_trees.png" fetchpriority="high" />
-    <!-- Chat config: define window.CHAT_API_BASE before app code runs -->
-    <script src="./chat-config.js" defer></script>
-    <!-- Include React and React‑DOM from a CDN -->
-    <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js" defer></script>
-    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" defer></script>
-    <!-- Include modern Babel Standalone (v7) to transpile JSX in-browser -->
-    <script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js" defer></script>
-    <!-- Modular assistant logic -->
-    <script src="assistant.js" defer></script>
-    <!-- Mark JS as enabled ASAP for prerender-hiding -->
-    <script>document.documentElement.classList.add('js-enabled');</script>
-    
-    <!-- JSON-LD Schema for SEO -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Diego Crisafulli · Software Engineer" />
+    <meta name="twitter:description" content="Cloud, AI/ML, simulation, full-stack. Four years at CAE and Presagis. Now at McKesson. Montreal." />
+    <meta name="twitter:image" content="social-card.svg" />
+
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="manifest.webmanifest" />
+
+    <!-- Fonts: Instrument Serif (display) + Geist (body) + JetBrains Mono (UI/meta) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" />
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- JSON-LD -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "Person",
         "name": "Diego Crisafulli",
-        "jobTitle": "AI & Software Engineer",
-        "description": "AI & Software Engineer specializing in cloud computing, full-stack development, and machine learning",
+        "jobTitle": "Software Engineer",
+        "description": "Software engineer working across cloud, AI/ML, simulation and full-stack.",
         "url": "https://diegocrisafu.github.io/diegoc55.github.io/",
         "image": "https://diegocrisafu.github.io/diegoc55.github.io/social-card.svg",
         "email": "mailto:diego.crisafu@gmail.com",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Montreal",
+            "addressRegion": "QC",
+            "addressCountry": "CA"
+        },
         "sameAs": [
             "https://www.linkedin.com/in/diegocrisafulli212bb0256",
-            "https://github.com/diegoc55"
+            "https://github.com/diegocrisafu"
         ],
-        "knowsAbout": ["Cloud Computing", "React", "TypeScript", "JavaScript", "Python", "C++", "Artificial Intelligence", "Machine Learning", "Generative AI", "NLP", "LLMs", "VR/AR"],
+        "knowsAbout": ["Cloud Computing", "DevOps", "Python", "C++", ".NET", "AI/ML", "Data Governance", "Simulation"],
         "alumniOf": {
             "@type": "EducationalOrganization",
             "name": "Concordia University"
         }
     }
     </script>
-    
-        <!-- Surface runtime errors to the page for easier debugging on static hosting -->
-        <script>
-            window.addEventListener('error', function (e) {
-                try {
-                    var pre = document.createElement('pre');
-                    pre.style.background = '#300';
-                    pre.style.color = '#fff';
-                    pre.style.padding = '8px';
-                    pre.style.margin = '0';
-                    pre.style.whiteSpace = 'pre-wrap';
-                    pre.textContent = 'Error: ' + (e.error && e.error.stack || e.message || e.toString());
-                    document.body.insertBefore(pre, document.body.firstChild);
-                } catch (_) {}
-            });
-        </script>
 
+    <!-- Set theme + js flag before paint to avoid FOUC and gate reveal animations -->
+    <script>
+        (function () {
+            try {
+                const t = localStorage.getItem('theme');
+                const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                if (t === 'dark' || (!t && prefersDark)) {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                }
+                document.documentElement.classList.add('at-top');
+                document.documentElement.classList.add('js');
+            } catch (e) {}
+        })();
+    </script>
 </head>
-<body data-hero-reveal="on">
-    <a class="skip-link" href="#main-content">Skip to main content</a>
-        <!-- Simple prerender content for crawlers and no-JS users; only visible without JS -->
-        <noscript>
-        <div id="prerender">
-            <header>
-                <h1>Diego Crisafulli — AI & Software Engineer</h1>
-                <p>Cloud, simulation, AI and full-stack engineer. 4+ years at CAE &amp; Presagis. Concordia University.</p>
-                <p>
-                    <a href="#projects">View Projects</a>
-                    ·
-                    <a href="Diego_Resume.pdf?v=2" rel="noopener" target="_blank">Download Résumé</a>
-                </p>
-            </header>
-            <main>
-                <section aria-labelledby="xp-h">
-                    <h2 id="xp-h">Experience</h2>
-                    <p>Cloud and full-stack engineer: CI/CD on Azure &amp; GitHub Actions, simulation technologies, and AI-driven solutions.</p>
-                </section>
-                <section aria-labelledby="proj-h">
-                    <h2 id="proj-h">Projects</h2>
-                    <ul>
-                        <li>Wooly - Sustainable Fashion Chrome Extension (ConUHacks X)</li>
-                        <li>VR Brain Installation with McGill neuroscience team</li>
-                        <li>The Actual Informer - AI news summarizer</li>
-                    </ul>
-                </section>
-            </main>
-        </div>
-        </noscript>
-    <!-- Root element where our React app will mount -->
-    
-    <!-- Static hero skeleton for immediate paint (improves LCP) -->
-    <section id="home" class="section">
-        <div id="hero-skeleton" class="wipe-hero" role="img" aria-label="Interactive reveal hero">
-            <picture>
-                <!-- Future modern formats; keep fallback PNG for now -->
-                <!-- <source type="image/avif" srcset="images/img_trees.avif 1920w, images/img_trees-1280.avif 1280w, images/img_trees-768.avif 768w" sizes="100vw"> -->
-                <!-- <source type="image/webp" srcset="images/img_trees.webp 1920w, images/img_trees-1280.webp 1280w, images/img_trees-768.webp 768w" sizes="100vw"> -->
-                <img id="hero-clear" class="hero-clear-img" src="images/img_trees.png" width="1920" height="1080" sizes="100vw" loading="eager" decoding="async" fetchpriority="high" alt="Background">
-            </picture>
-            <canvas id="wipeCanvas" class="wipe-hero-canvas" aria-hidden="true"></canvas>
-            <div class="hero hero-intro" style="position:relative; z-index:1">
-                <p class="hero-greeting">Hi, I'm</p>
-                <h1 class="hero-title">Diego Crisafulli</h1>
-                <p class="hero-role" id="hero-role"><span id="hero-role-text"></span><span class="typing-cursor"></span></p>
-                <p class="hero-lead">Cloud · Full-Stack · AI · Simulation</p>
-                <div class="hero-ctas">
-                    <a href="#about" class="btn btn-primary">
-                        <span>Get to Know Me</span>
-                    </a>
-                    <a href="Diego_Resume.pdf?v=2" class="btn btn-outline" target="_blank" rel="noopener">
-                        <span>Résumé</span>
-                    </a>
-                    <button type="button" class="reveal-btn" id="reveal-now" aria-label="Toggle background reveal">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/></svg>
-                    </button>
-                </div>
-                
-            </div>
-            <div class="wipe-hero-overlay">
-                <button class="down-arrow" aria-label="Scroll to content" onclick="(function(){ var el=document.getElementById('about'); if(el) el.scrollIntoView({behavior:'smooth'}); })()">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16.5c-.26 0-.51-.1-.71-.29l-6-6a1.003 1.003 0 0 1 1.42-1.42L12 13.59l5.29-5.3a1.003 1.003 0 0 1 1.42 1.42l-6 6c-.2.19-.45.29-.71.29z"/></svg>
+<body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <header class="site-nav" role="banner">
+        <div class="container nav-inner">
+            <a href="#home" class="brand" aria-label="Diego Crisafulli, home">Diego Crisafulli</a>
+            <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-nav">
+                <svg class="icon-bars" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="8" x2="20" y2="8"/><line x1="4" y1="16" x2="20" y2="16"/></svg>
+                <svg class="icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+            </button>
+            <ul class="nav-links" id="primary-nav">
+                <li><a href="#about">About</a></li>
+                <li><a href="#work">Work</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#off-screen">Off-screen</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="Diego_Resume.pdf" class="nav-resume" target="_blank" rel="noopener">Résumé</a>
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" type="button">
+                    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M5 19l1.5-1.5M17.5 6.5L19 5"/></svg>
                 </button>
             </div>
         </div>
-    </section>
+    </header>
 
-    <div id="root"></div>
-
-    <!-- React application code (deferred JSX; compiled at idle) -->
-    <script type="text/jsx" id="app-jsx">
-        /*
-         * Top navigation bar component. Renders links that scroll to sections
-         * within the page. The component sticks to the top of the viewport
-         * so it remains visible when scrolling.
-         */
-        function NavBar(props) {
-            const [menuOpen, setMenuOpen] = React.useState(false);
-            const handleLinkClick = () => setMenuOpen(false);
-            return (
-                <nav className={`navbar ${menuOpen ? 'active' : ''}`}>
-                    <a className="nav-logo" href="#home">Diego Crisafulli</a>
-                    <button
-                        className="menu-toggle"
-                        aria-label="Toggle navigation"
-                        aria-expanded={menuOpen}
-                        onClick={() => setMenuOpen(prev => !prev)}
-                    >
-                        {menuOpen ? '\u00d7' : '\u2630'}
-                    </button>
-                    <ul className="nav-links" onClick={handleLinkClick}>
-                        <li><a href="#about" className={props.currentSection==='about'?'active':''}>About</a></li>
-                        <li><a href="#experience" className={props.currentSection==='experience'?'active':''}>Experience</a></li>
-                        <li><a href="#projects" className={props.currentSection==='projects'?'active':''}>Projects</a></li>
-                        <li><a href="#quotes" className={props.currentSection==='quotes'?'active':''}>Inspiration</a></li>
-                        <li><a href="#contact" className={props.currentSection==='contact'?'active':''}>Contact</a></li>
-                    </ul>
-                    <div className="nav-actions">
-                        <a href="Diego_Resume.pdf?v=2" className="nav-resume-btn" target="_blank" rel="noopener noreferrer">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 19h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                            Resume
-                        </a>
-                        <button className="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
-                            <svg className="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-                            <svg className="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-                        </button>
+    <main id="main">
+        <!-- ───────────────── Hero ───────────────── -->
+        <section id="home" class="hero">
+            <div class="container hero-grid">
+                <div class="hero-copy">
+                    <div class="hero-meta reveal">
+                        <p class="eyebrow">Software Engineer · Montreal</p>
+                        <span class="status-pill" aria-label="Currently available">
+                            <span class="status-dot" aria-hidden="true"></span>
+                            Available Summer / Fall 2026
+                        </span>
                     </div>
-                </nav>
-            );
-        }
-
-        /*
-         * Section component used for layout. Accepts an id, title and children.
-         * Helps to keep the markup for each section clean and consistent.
-         */
-        function Section({ id, title, children }) {
-            return (
-                <section id={id} className="section">
-                    <h2>{title}</h2>
-                    <div className="section‑content">{children}</div>
-                </section>
-            );
-        }
-
-
-
-                // ── Quotes Carousel ──
-                // Fetches inspirational quotes from a free API and displays
-                // them in a rotating carousel with smooth transitions.
-                function QuotesCarousel() {
-                    const [quotes, setQuotes] = React.useState([]);
-                    const [index, setIndex] = React.useState(0);
-                    const [fade, setFade] = React.useState(true);
-                    const [loading, setLoading] = React.useState(true);
-
-                    // Curated fallback quotes (stoic / philosophical)
-                    const fallback = [
-                        { content: "You have power over your mind - not outside events. Realize this, and you will find strength.", author: "Marcus Aurelius" },
-                        { content: "We suffer more often in imagination than in reality.", author: "Seneca" },
-                        { content: "He who has a why to live can bear almost any how.", author: "Friedrich Nietzsche" },
-                        { content: "Freedom is what you do with what has been done to you.", author: "Jean-Paul Sartre" },
-                        { content: "In the depth of winter, I found there was, within me, an invincible summer.", author: "Albert Camus" },
-                        { content: "How we spend our days is, of course, how we spend our lives.", author: "Annie Dillard" },
-                        { content: "The only way to make sense out of change is to plunge into it, move with it, and join the dance.", author: "Alan Watts" },
-                        { content: "Nature does not hurry, yet everything is accomplished.", author: "Lao Tzu" },
-                        { content: "No man is free who is not master of himself.", author: "Epictetus" },
-                        { content: "You do not rise to the level of your goals. You fall to the level of your systems.", author: "James Clear" },
-                        { content: "Begin at once to live, and count each separate day as a separate life.", author: "Seneca" },
-                        { content: "It does not matter how slowly you go as long as you do not stop.", author: "Confucius" },
-                    ];
-
-                    React.useEffect(() => {
-                        let cancelled = false;
-                        async function fetchQuotes() {
-                            try {
-                                const res = await fetch('https://api.quotable.io/quotes/random?limit=20&tags=wisdom|philosophy|inspirational');
-                                if (!res.ok) throw new Error('API error');
-                                const data = await res.json();
-                                if (!cancelled && Array.isArray(data) && data.length > 0) {
-                                    setQuotes(data.map(q => ({ content: q.content, author: q.author })));
-                                } else {
-                                    throw new Error('empty');
-                                }
-                            } catch {
-                                // Try alternative API
-                                try {
-                                    const res2 = await fetch('https://zenquotes.io/api/quotes');
-                                    if (!res2.ok) throw new Error('zen error');
-                                    const data2 = await res2.json();
-                                    if (!cancelled && Array.isArray(data2) && data2.length > 0) {
-                                        setQuotes(data2.map(q => ({ content: q.q, author: q.a })));
-                                    } else {
-                                        throw new Error('empty');
-                                    }
-                                } catch {
-                                    if (!cancelled) setQuotes(fallback);
-                                }
-                            }
-                            if (!cancelled) setLoading(false);
-                        }
-                        fetchQuotes();
-                        return () => { cancelled = true; };
-                    }, []);
-
-                    // Auto-rotate every 8s
-                    React.useEffect(() => {
-                        if (quotes.length < 2) return;
-                        const id = setInterval(() => {
-                            setFade(false);
-                            setTimeout(() => {
-                                setIndex(i => (i + 1) % quotes.length);
-                                setFade(true);
-                            }, 400);
-                        }, 8000);
-                        return () => clearInterval(id);
-                    }, [quotes]);
-
-                    const goNext = () => {
-                        setFade(false);
-                        setTimeout(() => { setIndex(i => (i + 1) % quotes.length); setFade(true); }, 300);
-                    };
-                    const goPrev = () => {
-                        setFade(false);
-                        setTimeout(() => { setIndex(i => (i - 1 + quotes.length) % quotes.length); setFade(true); }, 300);
-                    };
-
-                    if (loading) {
-                        return (
-                            <div className="quotes-carousel">
-                                <div className="quote-loading">Loading quotes...</div>
-                            </div>
-                        );
-                    }
-                    if (!quotes.length) return null;
-
-                    const q = quotes[index];
-                    return (
-                        <div className="quotes-carousel">
-                            <div className={`quote-card ${fade ? 'fade-in' : 'fade-out'}`}>
-                                <svg className="quote-mark" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z" fill="currentColor" opacity="0.15"/>
-                                </svg>
-                                <blockquote className="quote-text">
-                                    {q.content}
-                                </blockquote>
-                                <cite className="quote-author">- {q.author}</cite>
-                            </div>
-                            <div className="quote-nav">
-                                <button className="quote-btn" onClick={goPrev} aria-label="Previous quote">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                                </button>
-                                <span className="quote-counter">{index + 1} / {quotes.length}</span>
-                                <button className="quote-btn" onClick={goNext} aria-label="Next quote">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                                </button>
-                            </div>
-                        </div>
-                    );
-                }
-
-                
-                // The main App component. Assembles all sections and the navigation bar.
-                function App() {
-                        
-
-                        // Track active section for nav highlight
-                        const [currentSection, setCurrentSection] = React.useState('home');
-                        React.useEffect(() => {
-                            const sections = Array.from(document.querySelectorAll('.section'));
-                            const obs = new IntersectionObserver((entries) => {
-                                entries.forEach(e => { if (e.isIntersecting && e.target.id) setCurrentSection(e.target.id); });
-                            }, { rootMargin: '-45% 0px -45% 0px', threshold: [0, 0.25, 0.5, 0.75, 1] });
-                            sections.forEach(s => obs.observe(s));
-                            return () => obs.disconnect();
-                        }, []);
-
-                        // Chatbot state — fresh each visit, no persistence
-            const [chatOpen, setChatOpen] = React.useState(false);
-            const [chatInput, setChatInput] = React.useState('');
-            const [messages, setMessages] = React.useState([
-                { from: 'bot', text: "Hi! I\'m Diego\'s assistant. Ask me about his experience, skills, projects, or how to get in touch." }
-            ]);
-            const [typing, setTyping] = React.useState(false);
-            const messagesEndRef = React.useRef(null);
-            React.useEffect(() => { if (messagesEndRef.current) messagesEndRef.current.scrollIntoView({ behavior: 'smooth' }); }, [messages]);
-
-            const assistantEngine = new (window.AssistantEngine || function(){ return { ask: async () => 'Assistant not loaded' }; })();
-
-            const handleChatSend = async () => {
-                if (chatInput.trim() === '' || typing) return;
-                const input = chatInput.trim();
-                setMessages(prev => [...prev, { from: 'user', text: input }]);
-                setChatInput('');
-                setTyping(true);
-                try {
-                    const reply = await assistantEngine.ask(input);
-                    // Simulate natural typing delay (600-1200ms)
-                    const delay = Math.min(600 + reply.length * 8, 1800);
-                    await new Promise(r => setTimeout(r, delay));
-                    setMessages(prev => [...prev, { from: 'bot', text: reply }]);
-                } finally {
-                    setTyping(false);
-                }
-            };
-
-            return (
-                <div id="main-content" role="main" tabIndex="-1">
-                    <NavBar currentSection={currentSection} />
-                    {/* Home hero moved to static skeleton for faster LCP */}
-                    
-                    
-                    {/* About Me */}
-                    <section id="about" className="section about-section">
-                        <div className="about-container">
-                            <div className="about-text reveal-on-scroll">
-                                <h2>About Me</h2>
-                                <p className="about-intro">
-                                    I'm Diego, a software engineer who loves building things. Double-majoring in Computation Arts and
-                                    Computer Science at Concordia University, I'm always looking for ways to sharpen my skills and
-                                    take on projects that push me to learn something new.
-                                </p>
-                                <p>
-                                    Over 4+ years at CAE and Presagis, I've worked across the stack — from digital twin research using ML
-                                    to improve simulation accuracy, to cloud infrastructure, CI/CD pipelines, and understanding why
-                                    unit testing and agile actually matter in production. At Presagis I focused on increasing digital twin
-                                    fidelity and exploring new approaches with ML tooling. At CAE I got hands-on with cloud architecture,
-                                    DevOps frameworks, and writing code that lives in the cloud. Outside of work, I'm building side projects,
-                                    competing in hackathons, meeting like-minded people, and traveling whenever I can.
-                                </p>
-                                <div className="about-stats">
-                                    <div className="about-stat">
-                                        <span className="about-stat-number" data-count="4">0</span>
-                                        <span className="about-stat-label">Years Experience</span>
-                                    </div>
-                                    <div className="about-stat">
-                                        <span className="about-stat-number" data-count="10">0</span>
-                                        <span className="about-stat-label">Projects</span>
-                                    </div>
-                                    <div className="about-stat">
-                                        <span className="about-stat-number" data-count="3">0</span>
-                                        <span className="about-stat-label">Companies</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="about-photos reveal-on-scroll">
-                                <div className="photo-grid">
-                                    <div className="photo-card photo-main img-skeleton">
-                                        <img src="images/IMG_4419%203.JPEG" alt="Diego Crisafulli - professional portrait" loading="lazy" onLoad={(e) => e.target.parentElement.classList.add('loaded')} />
-                                    </div>
-                                    <div className="photo-card img-skeleton">
-                                        <img src="images/IMG_5538.png" alt="Diego in Japan" loading="lazy" onLoad={(e) => e.target.parentElement.classList.add('loaded')} />
-                                        <span className="photo-caption">Exploring Japan</span>
-                                    </div>
-                                    <div className="photo-card img-skeleton">
-                                        <img src="images/IMG_0965.png" alt="Diego in winter" loading="lazy" onLoad={(e) => e.target.parentElement.classList.add('loaded')} />
-                                        <span className="photo-caption">Montreal winters</span>
-                                    </div>
-                                    <div className="photo-card img-skeleton">
-                                        <img src="images/IMG_3457.png" alt="Diego at restaurant" loading="lazy" onLoad={(e) => e.target.parentElement.classList.add('loaded')} />
-                                        <span className="photo-caption">Trying new food</span>
-                                    </div>
-                                    <div className="photo-card img-skeleton">
-                                        <img src="images/IMG_5792.JPG" alt="Diego hiking" loading="lazy" onLoad={(e) => e.target.parentElement.classList.add('loaded')} />
-                                        <span className="photo-caption">Caminito del Rey</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                    
-                    {/* Experience */}
-                    <Section id="experience" title="Experience">
-                        <div className="experience-timeline reveal-on-scroll">
-                            <div className="timeline-item">
-                                <div className="timeline-dot"></div>
-                                <div className="timeline-content">
-                                    <h3>Software Engineer Intern (Cloud)</h3>
-                                    <span className="timeline-company"><a href="https://www.cae.com" target="_blank" rel="noopener noreferrer">CAE</a></span>
-                                    <span className="timeline-date">May 2025 - Sep 2025</span>
-                                    <ul>
-                                        <li>Developed and maintained AI-assisted automation pipelines with Azure and GitHub Actions, boosting deployment efficiency by 30%.</li>
-                                        <li>Leveraged generative AI tools and GitHub Copilot to accelerate development workflows and optimize asset delivery, reducing system downtime by 25%.</li>
-                                        <li>Engineered cloud computing solutions using JavaScript and PowerShell, improving overall system reliability and scalability.</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div className="timeline-item">
-                                <div className="timeline-dot"></div>
-                                <div className="timeline-content">
-                                    <h3>IVR System Developer</h3>
-                                    <span className="timeline-company"><a href="https://www.cae.com" target="_blank" rel="noopener noreferrer">CAE</a></span>
-                                    <span className="timeline-date">Sep 2024 - May 2025</span>
-                                    <ul>
-                                        <li>Proposed continual improvements to IVR functionality and user experience, driving measurable gains in customer satisfaction.</li>
-                                        <li>Developed and optimized AI-driven automated test scripts (JavaScript, XML, JSON), boosting testing coverage and reducing defects.</li>
-                                        <li>Analyzed test outcomes, identified root causes and collaborated with cross-functional teams to enhance system reliability.</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div className="timeline-item">
-                                <div className="timeline-dot"></div>
-                                <div className="timeline-content">
-                                    <h3>Software Engineer Intern</h3>
-                                    <span className="timeline-company"><a href="https://www.cae.com" target="_blank" rel="noopener noreferrer">CAE</a></span>
-                                    <span className="timeline-date">Oct 2023 - Sep 2024</span>
-                                    <ul>
-                                        <li>Contributed to the Ondulus IR team, developing and testing AI-enhanced simulation technologies including night vision, LiDAR and infrared systems.</li>
-                                        <li>Led C++ sensor testing processes and optimized ML-based algorithms to automate testing workflows.</li>
-                                        <li>Created comprehensive test cases to validate physics-based simulation modules under diverse conditions.</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div className="timeline-item">
-                                <div className="timeline-dot"></div>
-                                <div className="timeline-content">
-                                    <h3>Simulation Developer</h3>
-                                    <span className="timeline-company"><a href="https://www.presagis.com" target="_blank" rel="noopener noreferrer">Presagis</a></span>
-                                    <span className="timeline-date">Jun 2022 - Jun 2023</span>
-                                    <ul>
-                                        <li>Built AI-powered simulations using NVIDIA Omniverse Isaac Sim, implementing machine learning models, point-cloud processing and LiDAR technology.</li>
-                                        <li>Integrated USD workflows into Velocity5D and created digital twins with 3D modelling, texturing and mapping.</li>
-                                        <li>Collaborated with developers and 3D artists; utilized Python for automation and tool development.</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div className="timeline-item">
-                                <div className="timeline-dot"></div>
-                                <div className="timeline-content">
-                                    <h3>3D Artist / Developer</h3>
-                                    <span className="timeline-company"><a href="https://www.presagis.com" target="_blank" rel="noopener noreferrer">Presagis</a></span>
-                                    <span className="timeline-date">Sep 2021 - Jun 2022</span>
-                                    <ul>
-                                        <li>Built a library of custom 3D models, textures and animations using Unreal Engine, Omniverse and Blender.</li>
-                                        <li>Employed Python scripting to streamline asset creation and optimize 3D workflows.</li>
-                                        <li>Collaborated with cross-functional teams to deliver visually engaging simulation assets.</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </Section>
-                    {/* Skills section listing grouped skills */}
-                    <Section id="skills" title="Skills">
-                        <div className="skills-grid">
-                            <div className="skill-category reveal-on-scroll">
-                                <h4>Cloud & DevOps</h4>
-                                <div className="skill-tags">
-                                    <span className="skill-tag">Azure</span>
-                                    <span className="skill-tag">AWS (EC2, S3, Lambda)</span>
-                                    <span className="skill-tag">GitHub Actions</span>
-                                    <span className="skill-tag">CI/CD</span>
-                                    <span className="skill-tag">Infrastructure as Code</span>
-                                    <span className="skill-tag">Docker</span>
-                                </div>
-                            </div>
-                            <div className="skill-category reveal-on-scroll">
-                                <h4>Programming & Web</h4>
-                                <div className="skill-tags">
-                                    <span className="skill-tag">JavaScript</span>
-                                    <span className="skill-tag">TypeScript</span>
-                                    <span className="skill-tag">Python</span>
-                                    <span className="skill-tag">C++</span>
-                                    <span className="skill-tag">PowerShell</span>
-                                    <span className="skill-tag">HTML5</span>
-                                    <span className="skill-tag">CSS3</span>
-                                    <span className="skill-tag">React</span>
-                                    <span className="skill-tag">Node.js</span>
-                                </div>
-                            </div>
-                            <div className="skill-category reveal-on-scroll">
-                                <h4>AI & Machine Learning</h4>
-                                <div className="skill-tags">
-                                    <span className="skill-tag">OpenAI API</span>
-                                    <span className="skill-tag">Claude API</span>
-                                    <span className="skill-tag">LangChain</span>
-                                    <span className="skill-tag">RAG</span>
-                                    <span className="skill-tag">Generative AI</span>
-                                    <span className="skill-tag">Machine Learning</span>
-                                    <span className="skill-tag">NLP</span>
-                                    <span className="skill-tag">Computer Vision</span>
-                                    <span className="skill-tag">Prompt Engineering</span>
-                                    <span className="skill-tag">Hugging Face</span>
-                                    <span className="skill-tag">Vector Databases</span>
-                                    <span className="skill-tag">Fine-Tuning</span>
-                                </div>
-                            </div>
-                            <div className="skill-category reveal-on-scroll">
-                                <h4>3D & Simulation</h4>
-                                <div className="skill-tags">
-                                    <span className="skill-tag">Unreal Engine</span>
-                                    <span className="skill-tag">NVIDIA Omniverse</span>
-                                    <span className="skill-tag">VR/AR</span>
-                                    <span className="skill-tag">Unity</span>
-                                    <span className="skill-tag">Blender</span>
-                                    <span className="skill-tag">USD Workflows</span>
-                                </div>
-                            </div>
-                            <div className="skill-category reveal-on-scroll">
-                                <h4>Databases & Tools</h4>
-                                <div className="skill-tags">
-                                    <span className="skill-tag">MongoDB</span>
-                                    <span className="skill-tag">SQL</span>
-                                    <span className="skill-tag">Git</span>
-                                    <span className="skill-tag">GitHub Copilot</span>
-                                    <span className="skill-tag">JIRA</span>
-                                    <span className="skill-tag">Chrome Extensions</span>
-                                </div>
-                            </div>
-                        </div>
-                    </Section>
-                    {/* Projects */}
-                    <Section id="projects" title="Projects">
-                        <div className="projects-showcase">
-                            <div className="project-card-new reveal-on-scroll" data-tilt>
-                                <span className="project-card-badge assessment">UI/UX Assessment</span>
-                                <h3>WeatherLens</h3>
-                                <p>
-                                    Glassmorphism weather web app designed for two personas: frequent travelers tracking multi-location
-                                    forecasts with time zones, and long-term planners analyzing monthly climate trends. Features a custom
-                                    glassmorphism design system, drag-and-drop city management, animated weather particles, and interactive
-                                    trend charts.
-                                </p>
-                                <div className="project-tech">
-                                    <span className="project-tech-tag">Next.js</span>
-                                    <span className="project-tech-tag">TypeScript</span>
-                                    <span className="project-tech-tag">Tailwind CSS</span>
-                                    <span className="project-tech-tag">Framer Motion</span>
-                                </div>
-                                <div className="project-links">
-                                    <a className="project-link" href="https://github.com/diegocrisafu/ai_ui" target="_blank" rel="noopener noreferrer">GitHub</a>
-                                    <a className="project-link" href="https://aiui-phi.vercel.app" target="_blank" rel="noopener noreferrer">Live Demo</a>
-                                </div>
-                            </div>
-                            <div className="project-card-new reveal-on-scroll" data-tilt>
-                                <span className="project-card-badge ai-badge">AI / NLP</span>
-                                <h3>The Actual Informer</h3>
-                                <p>
-                                    AI-powered news summarization platform. Built an NLP pipeline using OpenAI's API with custom prompt engineering
-                                    to rewrite and condense articles. Full-stack app with TypeScript, Node.js, Express, deployed on AWS.
-                                </p>
-                                <div className="project-tech">
-                                    <span className="project-tech-tag">TypeScript</span>
-                                    <span className="project-tech-tag">OpenAI</span>
-                                    <span className="project-tech-tag">Node.js</span>
-                                    <span className="project-tech-tag">Express</span>
-                                    <span className="project-tech-tag">AWS</span>
-                                </div>
-                                <div className="project-links">
-                                    <a className="project-link" href="https://github.com/aalokok/cart498final" target="_blank" rel="noopener noreferrer">GitHub</a>
-                                </div>
-                            </div>
-                            <div className="project-card-new reveal-on-scroll" data-tilt>
-                                <span className="project-card-badge research">AI Research</span>
-                                <h3>VR Brain Installation</h3>
-                                <p>
-                                    Lead AI/VR Developer with McGill University's neuroscience team. Built ML-driven pipelines to transform
-                                    neural imaging data into immersive 3D visualizations. Integrated computer vision and AI processing with
-                                    Unreal Engine for real-time rendering of brain activity.
-                                </p>
-                                <div className="project-tech">
-                                    <span className="project-tech-tag">Python</span>
-                                    <span className="project-tech-tag">Unreal Engine</span>
-                                    <span className="project-tech-tag">OpenCV</span>
-                                    <span className="project-tech-tag">VR</span>
-                                </div>
-                            </div>
-                            <div className="project-card-new reveal-on-scroll" data-tilt>
-                                <span className="project-card-badge hackathon">ConUHacks X</span>
-                                <h3>Wooly - AI Sustainable Fashion Extension</h3>
-                                <p>
-                                    Chrome extension using AI analysis and web scraping to score garment sustainability. Built at ConUHacks X (2025).
-                                    Features an AI chat mascot for fabric care advice, environmental impact scoring, and intelligent product analysis.
-                                </p>
-                                <div className="project-tech">
-                                    <span className="project-tech-tag">JavaScript</span>
-                                    <span className="project-tech-tag">Chrome API</span>
-                                    <span className="project-tech-tag">AI</span>
-                                    <span className="project-tech-tag">Web Scraping</span>
-                                </div>
-                                <div className="project-links">
-                                    <a className="project-link" href="https://github.com/leticiahuang/wooly" target="_blank" rel="noopener noreferrer">GitHub</a>
-                                    <a className="project-link" href="https://devpost.com/software/wooly-nsbg5m" target="_blank" rel="noopener noreferrer">Devpost</a>
-                                </div>
-                            </div>
-                            <div className="project-card-new reveal-on-scroll" data-tilt>
-                                <h3>Real-Time Dashboard</h3>
-                                <p>
-                                    A Python Dash application that streams and visualizes data in real time. Includes a data source selector
-                                    and update-interval slider for dynamic monitoring.
-                                </p>
-                                <div className="project-tech">
-                                    <span className="project-tech-tag">Python</span>
-                                    <span className="project-tech-tag">Dash</span>
-                                    <span className="project-tech-tag">Plotly</span>
-                                </div>
-                                <div className="project-links">
-                                    <a className="project-link" href="https://github.com/diegocrisafu/realtime-dashboard" target="_blank" rel="noopener noreferrer">GitHub</a>
-                                </div>
-                            </div>
-                            <div className="project-card-new reveal-on-scroll" data-tilt>
-                                <h3>Expense Tracker</h3>
-                                <p>
-                                    A React-based expense tracker app with local persistence, deletion and a category pie chart for
-                                    budget visualization.
-                                </p>
-                                <div className="project-tech">
-                                    <span className="project-tech-tag">React</span>
-                                    <span className="project-tech-tag">Chart.js</span>
-                                    <span className="project-tech-tag">CSS</span>
-                                </div>
-                                <div className="project-links">
-                                    <a className="project-link" href="https://github.com/diegocrisafu/expense" target="_blank" rel="noopener noreferrer">GitHub</a>
-                                    <a className="project-link" href="https://diegocrisafu.github.io/expense/" target="_blank" rel="noopener noreferrer">Live Demo</a>
-                                </div>
-                            </div>
-                        </div>
-                    </Section>
-                    {/* Education */}
-                    <Section id="education" title="Education">
-                        <div className="education-cards">
-                            <div className="edu-card reveal-on-scroll">
-                                <div className="edu-icon">🎓</div>
-                                <h3>Concordia University</h3>
-                                <span className="edu-date">2022 - Present</span>
-                                <p className="edu-program">Double Major: Computation Arts &amp; Computer Science</p>
-                                <p>Coursework spanning 3D graphics, high-performance computing, AI development and creative coding. Active in hackathons and research collaborations.</p>
-                            </div>
-                            <div className="edu-card reveal-on-scroll">
-                                <div className="edu-icon">📚</div>
-                                <h3>Marianopolis College</h3>
-                                <span className="edu-date">2020 - 2022</span>
-                                <p className="edu-program">DEC in Commerce</p>
-                                <p>Strengthened critical thinking and methodology skills with a focus on business and information systems.</p>
-                            </div>
-                        </div>
-                    </Section>
-                                        {/* Inspiration */}
-                    <Section id="quotes" title="Inspiration">
-                        <QuotesCarousel />
-                    </Section>
-                    {/* Contact section with functional form and accessibility */}
-                                        <section id="contact" aria-labelledby="contact-title">
-                                            <h2 id="contact-title">Let’s build something fast.</h2>
-                                            <p className="sub">Email is fastest — I reply within 24 hours.</p>
-
-                        <div className="cta-row">
-                                                <a
-                                                  id="email-link"
-                                                  className="btn btn-primary"
-                                                  href="#"
-                                                  rel="nofollow"
-                                                  data-email-user="diego.crisafu"
-                                                  data-email-domain="gmail.com"
-                                                >Email Diego</a>
-                                                <button className="btn" id="copy-email" type="button" aria-label="Copy email to clipboard">Copy email</button>
-                                                <button className="btn" id="open-email" type="button" aria-label="Open email client">Open email</button>
-                        </div>
-
-                        <ul className="social" aria-label="Social links">
-                            <li><a href="https://github.com/diegoc55" target="_blank" rel="me noopener noreferrer" aria-label="GitHub">GitHub</a></li>
-                            <li><a href="https://www.linkedin.com/in/diegocrisafulli212bb0256" target="_blank" rel="me noopener noreferrer" aria-label="LinkedIn">LinkedIn</a></li>
-                        </ul>
-
-                                            <form action="https://formsubmit.co/ajax/diego.crisafu@gmail.com" method="POST" id="contact-form" noValidate>
-                            <input type="hidden" name="_subject" value="Portfolio contact — diegocrisafulli.com" />
-                            <input type="hidden" name="_captcha" value="false" />
-                            <input type="hidden" name="_template" value="table" />
-                            <input type="hidden" name="_autoresponse" value="Thanks for reaching out! I'll get back to you within 24 hours. — Diego" />
-                                                <input type="hidden" name="form_started_at" id="form_started_at" />
-                            <div className="hp"><label htmlFor="hp">Leave this empty</label><input id="hp" name="_honey" autoComplete="off" /></div>
-
-                            <div className="field">
-                                <label htmlFor="name">Name</label>
-                                <input id="name" name="name" type="text" autoComplete="name" required />
-                            </div>
-                            <div className="field">
-                                <label htmlFor="email">Email</label>
-                                <input id="email" name="email" type="email" autoComplete="email" required inputMode="email" />
-                            </div>
-                            <div className="field">
-                                <label htmlFor="message">Message</label>
-                                <textarea id="message" name="message" rows="6" required></textarea>
-                            </div>
-                                                        <div className="send-row" aria-live="polite">
-                                                            <button className="btn btn-primary" type="submit" id="send-btn">Send message</button>
-                                                            <p id="form-status" className="form-status" role="status"></p>
-                                                        </div>
-                                                <p className="sub" style={{marginTop:8}}>We only use your details to respond. No tracking pixels. <a href="/privacy.html">Privacy</a>.</p>
-                                            </form>
-
-                                                                                        <div id="contact-success" className="card" hidden>
-                                                                                            <h3>Thanks — message received.</h3>
-                                                                                            <p>I’ll reply within 24 hours.</p>
-                                                                                            <div className="cta-row">
-                                                                                                <a className="btn btn-primary" href="/Diego_Resume.pdf?v=2" target="_blank" rel="noopener">Download résumé</a>
-                                                                                                <a className="btn" href="#projects">Top project</a>
-                                                                                                <a className="btn" id="email-again" href="#">Send another</a>
-                                                                                            </div>
-                                                                                        </div>
-                                            <div id="toast" role="status" aria-live="polite" hidden>Email copied</div>
-                    </section>
-                                        <footer className="footer">
-                        <div className="footer-content">
-                            <p>&copy; {new Date().getFullYear()} Diego Crisafulli</p>
-                            <div className="footer-links">
-                                <a href="https://github.com/diegoc55" target="_blank" rel="noopener noreferrer">GitHub</a>
-                                <span className="footer-dot">&middot;</span>
-                                <a href="https://www.linkedin.com/in/diegocrisafulli212bb0256" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                                <span className="footer-dot">&middot;</span>
-                                <a href="Diego_Resume.pdf?v=2" target="_blank" rel="noopener noreferrer">Resume</a>
-                            </div>
-                        </div>
-                    </footer>
-                    {/* Scroll to top */}
-                    <button className="scroll-top-btn" id="scroll-top" aria-label="Scroll to top" title="Back to top" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
-                    </button>
-                    {/* Chat widget */}
-                    <div className="chatbot-container">
-                        {!chatOpen && (
-                            <div
-                                className="chat-icon"
-                                role="button"
-                                aria-label="Open chat"
-                                tabIndex="0"
-                                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setChatOpen(true); } }}
-                                onClick={() => setChatOpen(true)}
-                            >
-                                <svg className="chat-icon-avatar" viewBox="0 0 64 64" width="36" height="36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="32" cy="32" r="30" fill="#D4A574"/>
-                                    <ellipse cx="32" cy="56" rx="20" ry="12" fill="#5C4033"/>
-                                    <circle cx="32" cy="30" r="16" fill="#D4A574"/>
-                                    <path d="M16 24c0-10 8-16 16-16s16 6 16 16c0 4-2 6-4 7l1 3c0 0-4-1-6-1h-14c-2 0-6 1-6 1l1-3c-2-1-4-3-4-7z" fill="#1a1a1a"/>
-                                    <circle cx="26" cy="30" r="2.2" fill="#1a1a1a"/>
-                                    <circle cx="38" cy="30" r="2.2" fill="#1a1a1a"/>
-                                    <path d="M28 36q4 3.5 8 0" stroke="#1a1a1a" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
-                                    <ellipse cx="26" cy="33" rx="3.5" ry="1.8" fill="#c4876e" opacity="0.35"/>
-                                    <ellipse cx="38" cy="33" rx="3.5" ry="1.8" fill="#c4876e" opacity="0.35"/>
-                                </svg>
-                            </div>
-                        )}
-                        {chatOpen && (
-                            <div className="chat-window">
-                                <div className="chat-window-header">
-                                    <div className="chat-header-left">
-                                        <svg className="chat-avatar-svg" viewBox="0 0 64 64" width="32" height="32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <circle cx="32" cy="32" r="30" fill="#D4A574"/>
-                                            <ellipse cx="32" cy="56" rx="20" ry="12" fill="#5C4033"/>
-                                            <circle cx="32" cy="30" r="16" fill="#D4A574"/>
-                                            <path d="M16 24c0-10 8-16 16-16s16 6 16 16c0 4-2 6-4 7l1 3c0 0-4-1-6-1h-14c-2 0-6 1-6 1l1-3c-2-1-4-3-4-7z" fill="#1a1a1a"/>
-                                            <circle cx="26" cy="30" r="2.2" fill="#1a1a1a"/>
-                                            <circle cx="38" cy="30" r="2.2" fill="#1a1a1a"/>
-                                            <path d="M28 36q4 3.5 8 0" stroke="#1a1a1a" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
-                                        </svg>
-                                        <div className="chat-header-info">
-                                            <span>Diego's Assistant</span>
-                                            <span className="chat-status">Online</span>
-                                        </div>
-                                    </div>
-                                    <button className="chat-close-btn" aria-label="Close" onClick={() => setChatOpen(false)}>{'\u00d7'}</button>
-                                </div>
-                                <div className="chat-messages">
-                                    {messages.map((msg, idx) => (
-                                        <div key={idx} className={`chat-msg-row ${msg.from}`}>
-                                            {msg.from === 'bot' && (
-                                                <svg className="chat-msg-avatar-svg" viewBox="0 0 64 64" width="22" height="22" fill="none">
-                                                    <circle cx="32" cy="32" r="30" fill="#D4A574"/>
-                                                    <ellipse cx="32" cy="56" rx="20" ry="12" fill="#5C4033"/>
-                                                    <circle cx="32" cy="30" r="16" fill="#D4A574"/>
-                                                    <path d="M16 24c0-10 8-16 16-16s16 6 16 16c0 4-2 6-4 7l1 3c0 0-4-1-6-1h-14c-2 0-6 1-6 1l1-3c-2-1-4-3-4-7z" fill="#1a1a1a"/>
-                                                    <circle cx="26" cy="30" r="2.2" fill="#1a1a1a"/>
-                                                    <circle cx="38" cy="30" r="2.2" fill="#1a1a1a"/>
-                                                    <path d="M28 36q4 3.5 8 0" stroke="#1a1a1a" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
-                                                </svg>
-                                            )}
-                                            <div className={`chat-message ${msg.from}`}>
-                                                <div className="chat-message-text">{msg.text}</div>
-                                            </div>
-                                        </div>
-                                    ))}
-                                    {typing && (
-                                        <div className="chat-msg-row bot">
-                                            <svg className="chat-msg-avatar-svg" viewBox="0 0 64 64" width="22" height="22" fill="none">
-                                                <circle cx="32" cy="32" r="30" fill="#D4A574"/>
-                                                <ellipse cx="32" cy="56" rx="20" ry="12" fill="#5C4033"/>
-                                                <circle cx="32" cy="30" r="16" fill="#D4A574"/>
-                                                <path d="M16 24c0-10 8-16 16-16s16 6 16 16c0 4-2 6-4 7l1 3c0 0-4-1-6-1h-14c-2 0-6 1-6 1l1-3c-2-1-4-3-4-7z" fill="#1a1a1a"/>
-                                                <circle cx="26" cy="30" r="2.2" fill="#1a1a1a"/>
-                                                <circle cx="38" cy="30" r="2.2" fill="#1a1a1a"/>
-                                                <path d="M28 36q4 3.5 8 0" stroke="#1a1a1a" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
-                                            </svg>
-                                            <div className="chat-message bot">
-                                                <span className="typing-dots"><span></span><span></span><span></span></span>
-                                            </div>
-                                        </div>
-                                    )}
-                                    <div ref={messagesEndRef} />
-                                </div>
-                                <div className="chat-input-container">
-                                    <input
-                                        className="chat-input"
-                                        type="text"
-                                        placeholder="Ask me anything about Diego..."
-                                        value={chatInput}
-                                        onChange={(e) => setChatInput(e.target.value)}
-                                        onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); handleChatSend(); } }}
-                                    />
-                                    <button className="chat-send-btn" onClick={handleChatSend}>
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                                    </button>
-                                </div>
-                            </div>
-                        )}
+                    <h1 class="hero-name reveal">
+                        <span class="hero-name-first">Diego</span>
+                        <span class="hero-name-last"><em>Crisafulli.</em></span>
+                    </h1>
+                    <p class="hero-lead reveal">
+                        I build at the intersection of
+                        <span class="cycle" aria-live="polite">
+                            <span class="cycle-word is-active">cloud</span>
+                            <span class="cycle-word">AI / ML</span>
+                            <span class="cycle-word">simulation</span>
+                            <span class="cycle-word">full-stack</span>
+                        </span>.
+                    </p>
+                    <p class="hero-sub reveal">Four years shipping production systems at CAE and Presagis. Currently at McKesson on .NET privacy tooling and Python/.NET AI integration. Open to Summer or Fall 2026 software roles.</p>
+                    <div class="hero-ctas reveal">
+                        <a class="btn btn-primary magnet" href="#work" data-magnet>
+                            <span class="btn-inner">View work <span class="arrow" aria-hidden="true">→</span></span>
+                        </a>
+                        <a class="btn" href="Diego_Resume.pdf" target="_blank" rel="noopener">Résumé</a>
+                        <a class="btn btn-ghost" href="#contact">Contact</a>
                     </div>
                 </div>
-            );
-        }
+                <div class="hero-art reveal" aria-hidden="true">
+                    <svg class="cup" viewBox="0 0 360 460" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                        <g class="cup-lines">
+                            <!-- steam wisps -->
+                            <path class="steam steam-1" d="M120 210 C108 188 132 170 116 145 C102 120 128 102 114 78 C102 58 122 42 112 26" />
+                            <path class="steam steam-2" d="M178 215 C166 195 188 175 172 148 C158 122 184 102 168 80 C156 60 178 42 168 28" />
+                            <path class="steam steam-3" d="M236 210 C224 190 244 170 228 145 C214 120 240 102 224 80 C212 60 232 42 222 28" />
+                            <!-- cup top (ellipse rim) -->
+                            <path class="draw draw-rim" d="M82 240 C82 225 156 217 180 217 C204 217 278 225 278 240 C278 250 230 257 180 257 C130 257 82 250 82 240 Z" />
+                            <!-- coffee surface line subtly inside -->
+                            <path class="draw draw-surface" d="M104 244 C130 250 230 250 256 244" opacity=".5" />
+                            <!-- cup body -->
+                            <path class="draw draw-body" d="M88 240 C88 290 100 350 122 380 C148 414 212 414 238 380 C260 350 272 290 272 240" />
+                            <!-- handle -->
+                            <path class="draw draw-handle" d="M272 268 C310 270 326 295 322 322 C318 348 296 358 270 354" />
+                            <!-- saucer -->
+                            <path class="draw draw-saucer" d="M52 408 C52 388 124 380 180 380 C236 380 308 388 308 408 C308 428 236 436 180 436 C124 436 52 428 52 408 Z" />
+                            <path class="draw draw-saucer-inner" d="M70 412 C90 425 270 425 290 412" opacity=".55" />
+                            <!-- subtle table line -->
+                            <path class="draw draw-table" d="M22 444 C100 449 260 449 338 444" opacity=".4" />
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </section>
 
-                
+        <!-- ───────────────── About ───────────────── -->
+        <section id="about">
+            <div class="container">
+                <div class="section-head reveal">
+                    <h2 class="eyebrow">About</h2>
+                </div>
+                <div class="about-grid">
+                    <div class="about-copy reveal">
+                        <p>I'm a software engineer working across cloud, AI/ML, simulation and full-stack. Four years split between CAE and Presagis, now at McKesson for the summer on data-privacy tooling and Python/.NET AI integration.</p>
+                        <p>Canadian, based in Montreal, bilingual English and French. Finishing a B.CompSc in Computer Science at Concordia this December.</p>
+                        <p>I care about code that ships, numbers that move, and systems that hold up in production. I'm looking for a Summer or Fall 2026 software role, with a soft spot for aerospace, AI/ML and fintech.</p>
+                        <div class="about-tags" aria-label="Quick facts">
+                            <span>Bilingual EN / FR</span>
+                            <span>Canadian citizen</span>
+                            <span>Open to relocation</span>
+                            <span>Available Summer / Fall 2026</span>
+                        </div>
+                    </div>
+                    <figure class="about-portrait reveal" aria-hidden="false">
+                        <img src="images/IMG_4419_opt.jpg" alt="Diego Crisafulli, portrait" width="800" height="1000" loading="lazy" decoding="async" />
+                    </figure>
+                </div>
+            </div>
+        </section>
 
-                // Render the App component into the root div
-                ReactDOM.render(<App />, document.getElementById('root'));
-        </script>
-        <!-- Compile + run JSX after load/idle to avoid blocking LCP -->
-        <script>
-            window.addEventListener('load', function(){
-                function mountApp(){
-                    try {
-                        var el = document.getElementById('app-jsx');
-                        if (!el || !window.Babel) return;
-                        var code = el.textContent || el.innerText || '';
-                        if (!code) return;
-                        var out = window.Babel.transform(code, { presets: ['env', 'react'] }).code;
-                        (0, eval)(out);
-                    } catch(e) { /* fail silently to avoid blocking */ }
-                }
-                if ('requestIdleCallback' in window) { requestIdleCallback(mountApp, { timeout: 2500 }); }
-                else { setTimeout(mountApp, 1200); }
-            }, { once: true });
-        </script>
-    
-    <!-- Initialize interactive wipe effect for Home hero -->
+        <!-- ───────────────── Selected Work ───────────────── -->
+        <section id="work">
+            <div class="container">
+                <div class="section-head reveal">
+                    <h2 class="eyebrow">Selected Work</h2>
+                    <p class="muted" style="max-width:360px;font-size:14px;">Three problems worth solving, with the numbers that came out the other side.</p>
+                </div>
+
+                <div class="work-list">
+                    <!-- Case 1 -->
+                    <article class="case reveal">
+                        <header class="case-rail">
+                            <span class="case-num">01</span>
+                            <span class="case-tag">CAE</span>
+                            <span class="case-tag">Cloud Engineer Intern</span>
+                            <span class="case-tag">Summer 2025</span>
+                        </header>
+                        <div class="case-body">
+                            <h3>Configuration-drift automation for Git-versioned virtual assets</h3>
+                            <div class="case-stack">
+                                <span>PowerShell</span><span>Git</span><span>HTML</span><span>Jira</span>
+                            </div>
+                            <p>Virtual assets at CAE evolve across environments and releases. Reviewers needed to see exactly what changed, where, and why, in a form that integrated with their Jira workflow.</p>
+                            <span class="label">What I built</span>
+                            <p>Automation that detects configuration drift by diffing Git-versioned assets across multiple environments and releases, then emits an interactive HTML report that walks the asset relationship graph and highlights the deltas. Hooked into Jira so review and approval happen where the rest of the work lives.</p>
+                            <div class="case-result">
+                                <span class="num" data-counter="35" data-prefix="+" data-suffix="%">+0%</span>
+                                <span class="num-label">drift coverage increase. Faster review cycles and tighter data governance across releases.</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Case 2 -->
+                    <article class="case reveal">
+                        <header class="case-rail">
+                            <span class="case-num">02</span>
+                            <span class="case-tag">Personal</span>
+                            <span class="case-tag">Async trading bot</span>
+                            <span class="case-tag">2025</span>
+                        </header>
+                        <div class="case-body">
+                            <h3>Roger: async pipeline running five live strategies on Polygon</h3>
+                            <div class="case-stack">
+                                <span>Python</span><span>asyncio</span><span>SQLite</span>
+                            </div>
+                            <p>Prediction markets move fast. I wanted a system that could ingest the whole market state on a tight cadence, run multiple strategies side by side, and learn from its own outcomes.</p>
+                            <span class="label">What I built</span>
+                            <p>A high-frequency asyncio ingestion pipeline that scans 100+ prediction markets every 30 seconds (automated ETL), an execution layer running five concurrent strategies on the Polygon mainnet with low-latency order placement, and a Bayesian scoring engine that learns from realized trade outcomes. State persists to SQLite with query patterns tuned for the read path.</p>
+                            <div class="case-links">
+                                <a href="https://github.com/diegocrisafu/expense" target="_blank" rel="noopener noreferrer">GitHub →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Case 3 -->
+                    <article class="case reveal">
+                        <header class="case-rail">
+                            <span class="case-num">03</span>
+                            <span class="case-tag">CAE</span>
+                            <span class="case-tag">Software Developer Intern</span>
+                            <span class="case-tag">2024 – 2025</span>
+                        </header>
+                        <div class="case-body">
+                            <h3>Test-developer productivity extension that turned 4 hours into 30 minutes</h3>
+                            <div class="case-stack">
+                                <span>C# / .NET</span><span>XML</span><span>Git</span>
+                            </div>
+                            <p>One specific test-setup task was eating four hours of every release cycle, with results that drifted from one engineer to the next.</p>
+                            <span class="label">What I built</span>
+                            <p>A reusable .NET tooling extension that automates the setup, standardizes inputs across releases, and gives test developers a consistent starting point regardless of who's running it.</p>
+                            <div class="case-result">
+                                <span class="num case-result-pair"><span class="from">4h</span> <span class="arr">→</span> <span class="to">30m</span></span>
+                                <span class="num-label">per run. Consistency across releases stopped being something to chase.</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Case 4 -->
+                    <article class="case reveal">
+                        <header class="case-rail">
+                            <span class="case-num">04</span>
+                            <span class="case-tag">Presagis</span>
+                            <span class="case-tag">Simulation Developer</span>
+                            <span class="case-tag">2022 – 2023</span>
+                        </header>
+                        <div class="case-body">
+                            <h3>NVIDIA Omniverse digital-twin pipeline with Blender and Unreal Engine</h3>
+                            <div class="case-stack">
+                                <span>Python</span><span>NVIDIA Omniverse</span><span>Blender</span><span>Unreal Engine</span>
+                            </div>
+                            <p>Digital-twin work involved a lot of manual asset shuffling between Blender, Unreal, and the Omniverse pipeline, with export defects creeping in along the way.</p>
+                            <span class="label">What I built</span>
+                            <p>An Omniverse digital-twin pipeline prototype that automates Blender and Unreal asset import and mapping with Python. Partnered with NVIDIA research on point-cloud ML workflows and delivered internal reports on the findings.</p>
+                            <div class="case-result">
+                                <span class="num"><span data-counter="-25" data-suffix="%">0%</span> <span class="arr">/</span> <span data-counter="-35" data-suffix="%">0%</span></span>
+                                <span class="num-label">manual modeling hours and export defects per asset, respectively.</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ───────────────── Experience ───────────────── -->
+        <section id="experience">
+            <div class="container">
+                <div class="section-head reveal">
+                    <h2 class="eyebrow">Experience</h2>
+                </div>
+
+                <div class="exp-groups">
+                    <article class="exp-group reveal">
+                        <header class="exp-co">
+                            <span class="exp-co-num">01</span>
+                            <h3 class="exp-co-name">McKesson</h3>
+                            <span class="exp-co-meta">Current · Healthcare tech</span>
+                        </header>
+                        <div class="role-list">
+                            <div class="role">
+                                <span class="role-date">May 2026 – Aug 2026</span>
+                                <div class="role-body">
+                                    <h4>Software Developer Intern</h4>
+                                    <ul>
+                                        <li>Building internal .NET applications that enforce data-privacy policies and securely handle sensitive information, reducing the risk of data breaches.</li>
+                                        <li>Integrating Python and .NET AI modules into production systems to enable automated decision-making.</li>
+                                        <li>Working across native mobile, backend services, and cloud storage on cross-functional projects, operating within enterprise-grade cybersecurity standards.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="exp-group reveal">
+                        <header class="exp-co">
+                            <span class="exp-co-num">02</span>
+                            <h3 class="exp-co-name">CAE</h3>
+                            <span class="exp-co-meta">2023 – 2025 · Simulation &amp; cloud</span>
+                        </header>
+                        <div class="role-list">
+                            <div class="role">
+                                <span class="role-date">May 2025 – Aug 2025</span>
+                                <div class="role-body">
+                                    <h4>Cloud Engineer Intern</h4>
+                                    <ul>
+                                        <li>Built PowerShell drift-detection automation across Git-versioned virtual assets; emitted interactive HTML reports and increased coverage by 35%.</li>
+                                        <li>Optimized simulation processes with new algorithms and integrated review workflows into Jira.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="role">
+                                <span class="role-date">Sep 2024 – May 2025</span>
+                                <div class="role-body">
+                                    <h4>Software Developer Intern</h4>
+                                    <ul>
+                                        <li>Engineered a test-developer productivity extension (TypeScript / XML) that cut a recurring four-hour task to thirty minutes and tightened release consistency.</li>
+                                        <li>Collaborated with development teams using Git to implement advanced algorithms for simulation processes.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="role">
+                                <span class="role-date">Aug 2023 – Sep 2024</span>
+                                <div class="role-body">
+                                    <h4>Software Engineer Intern (and extension)</h4>
+                                    <ul>
+                                        <li>Grew LiDAR / infrared simulation test coverage by 20% in C++ by adding and optimizing algorithms.</li>
+                                        <li>Improved platform performance up to 15% via Strategy-pattern refactors of sensor-processing modules in C++ and Python.</li>
+                                        <li>Reduced data inconsistency by 20% with validated C++ sensor stream pipelines.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="exp-group reveal">
+                        <header class="exp-co">
+                            <span class="exp-co-num">03</span>
+                            <h3 class="exp-co-name">Presagis</h3>
+                            <span class="exp-co-meta">2021 – 2023 · Digital twins &amp; ML</span>
+                        </header>
+                        <div class="role-list">
+                            <div class="role">
+                                <span class="role-date">May 2022 – Jun 2023</span>
+                                <div class="role-body">
+                                    <h4>Simulation Developer Intern (and extension)</h4>
+                                    <ul>
+                                        <li>Prototyped an NVIDIA Omniverse digital-twin pipeline; cut manual modeling hours by 25% per asset.</li>
+                                        <li>Partnered with NVIDIA research and delivered three internal reports on ML point-cloud workflows for robotics.</li>
+                                        <li>Automated Blender / Unreal asset import and mapping with Python, reducing per-asset prep time.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="role">
+                                <span class="role-date">2021 – 2022</span>
+                                <div class="role-body">
+                                    <h4>3D Digital Twin Developer</h4>
+                                    <ul>
+                                        <li>Automated Blender / Unreal asset import and mapping with Python, reducing export defects by 35% per asset.</li>
+                                        <li>Produced high-quality visual effects for 5+ projects using NVIDIA Omniverse.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="edu-row reveal">
+                    <span class="role-date">Education + certs</span>
+                    <div class="edu-list">
+                        <div class="item">
+                            <strong>Concordia University</strong>, B.CompSc, Computer Science · GPA 3.1
+                            <span class="meta">Sep 2022 – Dec 2026 (Montreal)</span>
+                        </div>
+                        <div class="item">
+                            <strong>Marianopolis College</strong>, Associate's, Business · GPA 3.5
+                            <span class="meta">Sep 2020 – Jun 2022</span>
+                        </div>
+                        <div class="item">
+                            <strong>Azure DevOps Engineer Expert (AZ-400)</strong>, Cert Prep
+                            <span class="meta">LinkedIn Learning · May 2025</span>
+                        </div>
+                        <div class="item">
+                            <strong>Pratt &amp; Whitney Micro WIL Certificate</strong>
+                            <span class="meta">Dec 2025</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ───────────────── Skills ───────────────── -->
+        <section id="skills">
+            <div class="container">
+                <div class="section-head reveal">
+                    <h2 class="eyebrow">Skills</h2>
+                </div>
+                <div class="skills-grid">
+                    <div class="skill-group reveal">
+                        <h3>Languages</h3>
+                        <ul>
+                            <li>Python</li>
+                            <li>TypeScript</li>
+                            <li>JavaScript</li>
+                            <li>C / C++</li>
+                            <li>C#</li>
+                            <li>Java</li>
+                            <li>Go</li>
+                            <li>Rust</li>
+                            <li>Swift</li>
+                            <li>Scala</li>
+                            <li>SQL</li>
+                        </ul>
+                    </div>
+                    <div class="skill-group reveal">
+                        <h3>Engineering</h3>
+                        <ul>
+                            <li>.NET</li>
+                            <li>AI / ML</li>
+                            <li>Algorithms &amp; data structures</li>
+                            <li>Object-oriented design</li>
+                            <li>Data governance &amp; quality</li>
+                            <li>Security &amp; cyber threat intel</li>
+                            <li>Web stacks</li>
+                            <li>iOS</li>
+                        </ul>
+                    </div>
+                    <div class="skill-group reveal">
+                        <h3>Cloud &amp; tools</h3>
+                        <ul>
+                            <li>AWS</li>
+                            <li>Azure DevOps</li>
+                            <li>CI / CD</li>
+                            <li>PowerShell</li>
+                            <li>Bash</li>
+                            <li>Git &amp; version control</li>
+                            <li>Jira</li>
+                            <li>HTML / CSS</li>
+                            <li>SQL / NoSQL</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ───────────────── Off-screen (photo gallery) ───────────────── -->
+        <section id="off-screen" class="gallery-section">
+            <div class="container">
+                <div class="section-head reveal">
+                    <h2 class="eyebrow">Off-screen</h2>
+                    <p class="muted" style="max-width:380px;font-size:14px;">Travel, weather, food, the parts of the year that aren't a compiler.</p>
+                </div>
+                <div class="gallery">
+                    <figure class="gallery-item reveal">
+                        <div class="gallery-frame">
+                            <img src="images/IMG_5538.jpg" alt="Diego in Japan" loading="lazy" decoding="async" width="800" height="1000" />
+                        </div>
+                        <figcaption><span class="cap-name">Exploring Japan</span><span class="cap-num">01</span></figcaption>
+                    </figure>
+                    <figure class="gallery-item reveal">
+                        <div class="gallery-frame">
+                            <img src="images/IMG_0965.jpg" alt="Diego in a Montreal winter" loading="lazy" decoding="async" width="800" height="1000" />
+                        </div>
+                        <figcaption><span class="cap-name">Montreal winters</span><span class="cap-num">02</span></figcaption>
+                    </figure>
+                    <figure class="gallery-item reveal">
+                        <div class="gallery-frame">
+                            <img src="images/IMG_3457.jpg" alt="Diego at a restaurant" loading="lazy" decoding="async" width="800" height="1000" />
+                        </div>
+                        <figcaption><span class="cap-name">Trying new food</span><span class="cap-num">03</span></figcaption>
+                    </figure>
+                    <figure class="gallery-item reveal">
+                        <div class="gallery-frame">
+                            <img src="images/IMG_5792_opt.jpg" alt="Diego hiking the Caminito del Rey" loading="lazy" decoding="async" width="800" height="1000" />
+                        </div>
+                        <figcaption><span class="cap-name">Caminito del Rey</span><span class="cap-num">04</span></figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- ───────────────── Marquee ───────────────── -->
+        <div class="marquee" aria-hidden="true">
+            <div class="marquee-track">
+                <span>Open to Summer / Fall 2026</span>
+                <span>Montreal, QC</span>
+                <span>English / Français</span>
+                <span>Cloud · AI/ML · Simulation · Full-stack</span>
+                <span>Open to relocation</span>
+                <span>Currently at McKesson</span>
+                <!-- duplicate for seamless loop -->
+                <span>Open to Summer / Fall 2026</span>
+                <span>Montreal, QC</span>
+                <span>English / Français</span>
+                <span>Cloud · AI/ML · Simulation · Full-stack</span>
+                <span>Open to relocation</span>
+                <span>Currently at McKesson</span>
+            </div>
+        </div>
+
+        <!-- ───────────────── Contact ───────────────── -->
+        <section id="contact">
+            <div class="container">
+                <div class="section-head reveal">
+                    <h2 class="eyebrow">Contact</h2>
+                </div>
+                <div class="contact-grid">
+                    <div class="contact-copy reveal">
+                        <h3 class="contact-h">Let's build something good.</h3>
+                        <p>Email's fastest. I read everything and reply within a day or two.</p>
+                        <div class="contact-direct">
+                            <a id="email-link" href="#" data-email-user="diego.crisafu" data-email-domain="gmail.com" rel="nofollow">diego.crisafu (at) gmail.com</a>
+                            <a href="Diego_Resume.pdf" target="_blank" rel="noopener">Download résumé (PDF)</a>
+                        </div>
+                        <div class="contact-socials">
+                            <!-- TODO: brief lists github.com/diegocrisafu; existing site used diegoc55 (please confirm canonical handle) -->
+                            <a href="https://github.com/diegocrisafu" target="_blank" rel="me noopener noreferrer">GitHub</a>
+                            <a href="https://www.linkedin.com/in/diegocrisafulli212bb0256" target="_blank" rel="me noopener noreferrer">LinkedIn</a>
+                        </div>
+                    </div>
+                    <div class="contact-form-wrap reveal">
+                        <form action="https://formsubmit.co/ajax/diego.crisafu@gmail.com" method="POST" id="contact-form" novalidate>
+                            <input type="hidden" name="_subject" value="Portfolio contact (diegocrisafulli)" />
+                            <input type="hidden" name="_captcha" value="false" />
+                            <input type="hidden" name="_template" value="table" />
+                            <input type="hidden" name="_autoresponse" value="Thanks for reaching out. I'll get back to you within a day or two. Cheers, Diego" />
+                            <input type="hidden" name="form_started_at" id="form_started_at" />
+                            <div class="hp"><label for="hp">Leave this empty</label><input id="hp" name="_honey" autocomplete="off" tabindex="-1" /></div>
+
+                            <div class="field">
+                                <label for="name">Name</label>
+                                <input id="name" name="name" type="text" autocomplete="name" required />
+                            </div>
+                            <div class="field">
+                                <label for="email">Email</label>
+                                <input id="email" name="email" type="email" autocomplete="email" required inputmode="email" />
+                            </div>
+                            <div class="field">
+                                <label for="message">Message</label>
+                                <textarea id="message" name="message" rows="6" required></textarea>
+                            </div>
+                            <div class="send-row" aria-live="polite">
+                                <button class="btn btn-primary" type="submit" id="send-btn">Send message</button>
+                                <p id="form-status" class="form-status" role="status"></p>
+                            </div>
+                        </form>
+                        <div id="contact-success" class="contact-success" hidden>
+                            <h4>Thanks, message received.</h4>
+                            <p class="muted">I'll reply within a day or two.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p class="footer-closer reveal" aria-hidden="true">
+                <span>Diego.</span><span class="ital">Crisafulli.</span>
+            </p>
+            <div class="footer-inner">
+                <p>© <span id="year"></span> Diego Crisafulli. Built in Montreal.</p>
+                <div class="footer-links">
+                    <a href="https://github.com/diegocrisafu" target="_blank" rel="noopener noreferrer">GitHub</a>
+                    <a href="https://www.linkedin.com/in/diegocrisafulli212bb0256" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                    <a href="Diego_Resume.pdf" target="_blank" rel="noopener">Résumé</a>
+                    <a href="mailto:diego.crisafu@gmail.com">Email</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+    <button class="scroll-top" id="scroll-top" aria-label="Back to top" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>
+    </button>
+    <div id="toast" role="status" aria-live="polite"></div>
+
+    <!-- ───────────────── Behaviour (small, no framework) ───────────────── -->
     <script>
-        (function(){
-            
-            function initWipe(){
-                const rootFlag = (document.body && document.body.getAttribute('data-hero-reveal')) || 'on';
-                if (rootFlag !== 'on') return; // kill-switch
-
-                const canvas = document.getElementById('wipeCanvas');
-                const revealBtn = document.getElementById('reveal-now');
-                if(!canvas) return;
-                const ctx = canvas.getContext('2d');
-                const DPR = Math.max(1, Math.min(window.devicePixelRatio || 1, 2));
-                const overlay = new Image();
-                overlay.src = 'images/Golden Trunks and Blue Sky.png';
-                overlay.onerror = () => { /* fail open */ revealInstant(); };
-                let brushRadius = Math.max(50, Math.min(90, Math.floor((window.innerWidth||800) * 0.05))); // responsive brush
-                let paused = false;
-                let revealed = false; // false = overlay visible; true = clear image
-
-                // Reduced motion: skip scratching and crossfade
-                const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-                function sizeCanvas(){
-                    const rect = canvas.getBoundingClientRect();
-                    const w = rect.width || window.innerWidth;
-                    const h = rect.height || window.innerHeight;
-                    canvas.style.width = w + 'px';
-                    canvas.style.height = h + 'px';
-                    canvas.width = Math.floor(w * DPR);
-                    canvas.height = Math.floor(h * DPR);
-                    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-                }
-
-                function drawOverlay(){
-                    ctx.globalCompositeOperation = 'source-over';
-                    ctx.clearRect(0,0,canvas.width,canvas.height);
-                    // soft blur for the overlay to create contrast with underlay
-                    ctx.filter = 'blur(10px)';
-                    const cw = canvas.width / DPR;
-                    const ch = canvas.height / DPR;
-                    const iw = overlay.naturalWidth || overlay.width;
-                    const ih = overlay.naturalHeight || overlay.height;
-                    if (iw && ih) {
-                        const scale = Math.max(cw / iw, ch / ih);
-                        const dw = iw * scale;
-                        const dh = ih * scale;
-                        const dx = (cw - dw) / 2;
-                        const dy = (ch - dh) / 2;
-                        // feather: draw with a slight bleed to avoid edge seams after blur
-                        const pad = 24; // CSS px
-                        ctx.drawImage(overlay, dx - pad, dy - pad, dw + pad*2, dh + pad*2);
-                    } else {
-                        ctx.drawImage(overlay, 0, 0, cw, ch);
-                    }
-                    ctx.filter = 'none';
-                }
-
-                function eraseAt(x,y){
-                    const r = brushRadius;
-                    ctx.save();
-                    ctx.globalCompositeOperation = 'destination-out';
-                    const g = ctx.createRadialGradient(x,y, r*0.5, x,y, r);
-                    g.addColorStop(0,'rgba(0,0,0,0.9)');
-                    g.addColorStop(1,'rgba(0,0,0,0)');
-                    ctx.fillStyle = g;
-                    ctx.beginPath();
-                    ctx.arc(x,y,r,0,Math.PI*2);
-                    ctx.fill();
-                    ctx.restore();
-                }
-
-                function getXY(e){
-                    const rect = canvas.getBoundingClientRect();
-                    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
-                }
-
-                // Progress estimation using downscaled alpha sampling
-                const sampleCanvas = document.createElement('canvas');
-                const sampleCtx = sampleCanvas.getContext('2d', { willReadFrequently: true });
-                sampleCanvas.width = 64; sampleCanvas.height = 64;
-                let lastSampleTs = 0;
-                function estimateCleared(){
-                    const now = performance.now();
-                    if (now - lastSampleTs < 300) return 0; // throttle
-                    lastSampleTs = now;
-                    sampleCtx.clearRect(0,0,64,64);
-                    sampleCtx.drawImage(canvas, 0, 0, 64, 64);
-                    const data = sampleCtx.getImageData(0,0,64,64).data;
-                    let cleared = 0, total = 64*64;
-                    for (let i=3; i<data.length; i+=4){ // alpha channel
-                        if (data[i] < 16) cleared++;
-                    }
-                    return cleared / total;
-                }
-
-                function revealInstant(){
-                    if (revealed) return;
-                    revealed = true;
-                    canvas.hidden = true;
-                    canvas.style.opacity = '0';
-                    canvas.style.pointerEvents = 'none';
-                }
-
-                function showOverlay(){
-                    if (!revealed) return;
-                    revealed = false;
-                    canvas.hidden = false;
-                    canvas.style.opacity = '1';
-                    canvas.style.pointerEvents = paused ? 'none' : 'auto';
-                    if (overlay && (overlay.complete || overlay.naturalWidth)) { drawOverlay(); }
-                }
-
-                // Pointer handling
-                let down = false;
-                function onDown(e){ if (paused || revealed) return; down = true; const p=getXY(e); eraseAt(p.x,p.y); checkProgress(true); }
-                function onMove(e){ if (paused || revealed || !down) return; const p=getXY(e); eraseAt(p.x,p.y); checkProgress(false); }
-                function onUp(){ down = false; }
-                function onCancel(){ down = false; }
-
-                function checkProgress(force){
-                    if (!force && paused) return;
-                    const ratio = estimateCleared();
-                    if (ratio >= 0.6) revealInstant();
-                }
-
-                // Pause work when hero is offscreen
-                const io = new IntersectionObserver((entries)=>{
-                    const entry = entries[0];
-                    paused = !entry.isIntersecting;
-                    canvas.style.pointerEvents = paused ? 'none' : (revealed ? 'none' : 'auto');
-                }, { threshold: 0.05 });
-                const hero = canvas.closest('.wipe-hero');
-                if (hero) io.observe(hero);
-
-                // Wire listeners
-                canvas.addEventListener('pointerdown', onDown);
-                canvas.addEventListener('pointermove', onMove);
-                window.addEventListener('pointerup', onUp);
-                window.addEventListener('pointercancel', onCancel);
-                window.addEventListener('resize', ()=>{ sizeCanvas(); if (overlay.complete) drawOverlay(); brushRadius = Math.max(50, Math.min(90, Math.floor((window.innerWidth||800) * 0.05))); });
-                if (revealBtn) revealBtn.addEventListener('click', ()=>{ revealed ? showOverlay() : revealInstant(); });
-
-                overlay.onload = () => {
-                    sizeCanvas();
-                    drawOverlay();
-                    if (prefersReduced) {
-                        // Respect reduced motion preference
-                        requestAnimationFrame(revealInstant);
-                    }
-                };
-
-                // If image already cached
-                if (overlay.complete) {
-                    sizeCanvas();
-                    drawOverlay();
-                    if (prefersReduced) requestAnimationFrame(revealInstant);
-                }
-            }
-            // Initialize after load/idle to avoid contending with LCP
-            function schedule(){
-                if ('requestIdleCallback' in window) {
-                    requestIdleCallback(()=> initWipe(), { timeout: 1500 });
-                } else {
-                    setTimeout(initWipe, 600);
-                }
-            }
-            window.addEventListener('load', schedule, { once: true });
-        })();
-    </script>
-    
-    <script>
-            // Register service worker for basic offline support
-            if ('serviceWorker' in navigator) {
-                window.addEventListener('load', () => {
-                    navigator.serviceWorker.register('./sw.js').catch(() => {});
-                });
-            }
-        </script>
-    <script>
-        // Toggle minimal transparent navbar at top of the page
-        (function(){
-            function onScroll(){
-                const atTop = window.scrollY < 8; // small threshold
-                document.documentElement.classList.toggle('at-top', atTop);
-            }
-            window.addEventListener('scroll', onScroll, { passive: true });
-            window.addEventListener('DOMContentLoaded', onScroll);
-        })();
-    </script>
-
-    <!-- Dark mode toggle logic (runs early to prevent flash) -->
-    <script>
-        (function(){
-            const saved = localStorage.getItem('theme');
-            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-            if (saved === 'dark' || (!saved && prefersDark)) {
-                document.documentElement.setAttribute('data-theme', 'dark');
-            }
-            // Listen for toggle
-            document.addEventListener('click', function(e){
-                const btn = e.target.closest('#theme-toggle');
-                if (!btn) return;
-                const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-                if (isDark) {
-                    document.documentElement.removeAttribute('data-theme');
-                    localStorage.setItem('theme', 'light');
-                } else {
-                    document.documentElement.setAttribute('data-theme', 'dark');
-                    localStorage.setItem('theme', 'dark');
-                }
+        // Dark mode toggle (theme is set pre-paint in <head>)
+        (function () {
+            const btn = document.getElementById('theme-toggle');
+            if (!btn) return;
+            btn.addEventListener('click', function () {
+                const root = document.documentElement;
+                const dark = root.getAttribute('data-theme') === 'dark';
+                if (dark) { root.removeAttribute('data-theme'); localStorage.setItem('theme', 'light'); }
+                else { root.setAttribute('data-theme', 'dark'); localStorage.setItem('theme', 'dark'); }
             });
         })();
-    </script>
 
-    <!-- Scroll-to-top visibility -->
-    <script>
-        (function(){
-            function updateScrollTop(){
-                var btn = document.getElementById('scroll-top');
-                if (!btn) return;
-                if (window.scrollY > 400) btn.classList.add('visible');
-                else btn.classList.remove('visible');
+        // Year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Mobile menu toggle (with ESC close + body scroll lock + icon flip)
+        (function () {
+            const btn = document.querySelector('.menu-toggle');
+            const nav = document.getElementById('primary-nav');
+            if (!btn || !nav) return;
+            function setOpen(open) {
+                nav.classList.toggle('open', open);
+                btn.setAttribute('aria-expanded', String(open));
+                document.body.style.overflow = open ? 'hidden' : '';
             }
-            window.addEventListener('scroll', updateScrollTop, { passive: true });
-            window.addEventListener('load', updateScrollTop);
+            btn.addEventListener('click', function () {
+                setOpen(!nav.classList.contains('open'));
+            });
+            nav.addEventListener('click', function (e) {
+                if (e.target.closest('a')) setOpen(false);
+            });
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && nav.classList.contains('open')) setOpen(false);
+            });
         })();
-    </script>
 
-    <!-- Hero role typing animation -->
-    <script>
-        (function(){
-            var text = 'AI & Software Engineer';
-            var el = document.getElementById('hero-role-text');
-            if (!el) return;
-            var i = 0;
-            function type(){
-                if (i <= text.length) {
-                    el.textContent = text.slice(0, i);
-                    i++;
-                    setTimeout(type, 60 + Math.random() * 40);
-                }
-            }
-            // Start after hero animations finish (~0.5s)
-            setTimeout(type, 600);
-        })();
-    </script>
-
-    <!-- Scroll progress bar -->
-    <div class="scroll-progress" id="scroll-progress" style="width:0"></div>
-
-    <script>
-        // Scroll progress indicator
-        (function(){
+        // Scroll: progress bar, top button, at-top class, nav active highlight
+        (function () {
             const bar = document.getElementById('scroll-progress');
-            if (!bar) return;
-            function updateProgress(){
-                const scrollTop = window.scrollY;
-                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-                const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-                bar.style.width = pct + '%';
+            const topBtn = document.getElementById('scroll-top');
+            const sections = Array.prototype.slice.call(document.querySelectorAll('main > section[id]'));
+            const navLinks = Array.prototype.slice.call(document.querySelectorAll('.nav-links a'));
+
+            function onScroll() {
+                const y = window.scrollY;
+                const docH = document.documentElement.scrollHeight - window.innerHeight;
+                if (bar) bar.style.width = (docH > 0 ? (y / docH) * 100 : 0) + '%';
+                if (topBtn) topBtn.classList.toggle('visible', y > 480);
+                document.documentElement.classList.toggle('at-top', y < 8);
             }
-            window.addEventListener('scroll', updateProgress, { passive: true });
-            updateProgress();
+            window.addEventListener('scroll', onScroll, { passive: true });
+            onScroll();
+
+            if (topBtn) topBtn.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+
+            // Active section in nav
+            if ('IntersectionObserver' in window && sections.length) {
+                const io = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (!entry.isIntersecting) return;
+                        const id = entry.target.id;
+                        navLinks.forEach(function (a) {
+                            a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+                        });
+                    });
+                }, { rootMargin: '-50% 0px -45% 0px', threshold: 0 });
+                sections.forEach(function (s) { io.observe(s); });
+            }
         })();
 
-        // Scroll-triggered reveal animations
-        (function(){
-            function initReveals(){
-                const els = document.querySelectorAll('.reveal-on-scroll');
-                if (!els.length) return;
-                const obs = new IntersectionObserver((entries) => {
-                    entries.forEach((entry, i) => {
-                        if (entry.isIntersecting) {
-                            // Stagger animation for siblings
-                            const parent = entry.target.parentElement;
-                            const siblings = parent ? Array.from(parent.querySelectorAll('.reveal-on-scroll')) : [];
-                            const idx = siblings.indexOf(entry.target);
-                            const delay = idx >= 0 ? idx * 80 : 0;
-                            setTimeout(() => {
-                                entry.target.classList.add('revealed');
-                            }, delay);
-                            obs.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-                els.forEach(el => obs.observe(el));
+        // Reveal-on-scroll (progressive enhancement)
+        (function () {
+            if (!('IntersectionObserver' in window)) {
+                document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
+                return;
             }
-            // Run after React mounts
-            function schedule(){
-                if ('requestIdleCallback' in window) requestIdleCallback(initReveals, { timeout: 3000 });
-                else setTimeout(initReveals, 2000);
-            }
-            window.addEventListener('load', schedule, { once: true });
-        })();
-
-        // Animated number counters for hero stats
-        (function(){
-            function animateCounters(){
-                const counters = document.querySelectorAll('.stat-number[data-count], .about-stat-number[data-count]');
-                if (!counters.length) return;
-                const obs = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const el = entry.target;
-                            const target = parseInt(el.getAttribute('data-count'), 10);
-                            if (isNaN(target)) return;
-                            let current = 0;
-                            const duration = 1500;
-                            const steps = 40;
-                            const increment = target / steps;
-                            const stepMs = duration / steps;
-                            const timer = setInterval(() => {
-                                current += increment;
-                                if (current >= target) {
-                                    el.textContent = target + '+';
-                                    clearInterval(timer);
-                                } else {
-                                    el.textContent = Math.floor(current) + '+';
-                                }
-                            }, stepMs);
-                            obs.unobserve(el);
-                        }
-                    });
-                }, { threshold: 0.5 });
-                counters.forEach(c => obs.observe(c));
-            }
-            window.addEventListener('load', () => setTimeout(animateCounters, 500), { once: true });
-        })();
-
-        // Tilt effect on project cards
-        (function(){
-            function initTilt(){
-                const cards = document.querySelectorAll('[data-tilt]');
-                cards.forEach(card => {
-                    card.addEventListener('mousemove', (e) => {
-                        const rect = card.getBoundingClientRect();
-                        const x = e.clientX - rect.left;
-                        const y = e.clientY - rect.top;
-                        const centerX = rect.width / 2;
-                        const centerY = rect.height / 2;
-                        const rotateX = ((y - centerY) / centerY) * -4;
-                        const rotateY = ((x - centerX) / centerX) * 4;
-                        const pullX = ((x - centerX) / centerX) * 3;
-                        const pullY = ((y - centerY) / centerY) * 3;
-                        card.style.transform = 'perspective(800px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translate(' + pullX + 'px, ' + pullY + 'px)';
-                    });
-                    card.addEventListener('mouseleave', () => {
-                        card.style.transform = '';
-                    });
+            const io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry, i) {
+                    if (!entry.isIntersecting) return;
+                    const parent = entry.target.parentElement;
+                    const siblings = parent ? Array.prototype.slice.call(parent.querySelectorAll('.reveal')) : [];
+                    const idx = siblings.indexOf(entry.target);
+                    setTimeout(function () { entry.target.classList.add('in'); }, idx >= 0 ? Math.min(idx, 6) * 70 : 0);
+                    io.unobserve(entry.target);
                 });
-            }
-            window.addEventListener('load', () => setTimeout(initTilt, 2500), { once: true });
+            }, { threshold: 0.08, rootMargin: '0px 0px -10% 0px' });
+            document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
         })();
 
-        // Sticky-scroll card stack for projects
-        (function(){
-            function initStack(){
-                if (window.innerWidth <= 768) return;
-                const cards = document.querySelectorAll('.project-card-new');
-                if (!cards.length) return;
-                cards.forEach((card, i) => {
-                    card.style.zIndex = i + 1;
-                    card.style.top = (80 + i * 10) + 'px';
-                });
-                const obs = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        const ratio = entry.intersectionRatio;
-                        if (ratio < 0.5) {
-                            entry.target.style.transform = 'scale(0.95)';
-                            entry.target.style.opacity = '0.6';
-                        } else {
-                            entry.target.style.transform = '';
-                            entry.target.style.opacity = '';
-                        }
-                    });
-                }, { threshold: [0, 0.25, 0.5, 0.75, 1], rootMargin: '-80px 0px 0px 0px' });
-                cards.forEach(c => obs.observe(c));
-            }
-            window.addEventListener('load', () => setTimeout(initStack, 2600), { once: true });
-        })();
-    </script>
-    
-    <script>
-        // Contact section functionality with validation, rate limit, and inline success
-        document.addEventListener('DOMContentLoaded', function() {
-            const emailLink = document.getElementById('email-link');
-            const copyBtn = document.getElementById('copy-email');
-            const openBtn = document.getElementById('open-email');
+        // Email obfuscation, copy, toast
+        (function () {
+            const link = document.getElementById('email-link');
             const toast = document.getElementById('toast');
-            const contactForm = document.getElementById('contact-form');
-            const formStatus = document.getElementById('form-status');
-            const sendBtn = document.getElementById('send-btn');
-            const successCard = document.getElementById('contact-success');
-            const emailAgain = document.getElementById('email-again');
-            const startTs = document.getElementById('form_started_at');
-
-            // Reconstruct email address from obfuscated parts
-            let realEmail = '';
-            if (emailLink && emailLink.dataset.emailUser && emailLink.dataset.emailDomain) {
-                realEmail = emailLink.dataset.emailUser + '@' + emailLink.dataset.emailDomain;
-                emailLink.href = 'mailto:' + realEmail;
-            }
-
-            // Copy utility with toast and fallback
-            function showToast(msg){
+            if (!link) return;
+            const email = (link.dataset.emailUser || '') + '@' + (link.dataset.emailDomain || '');
+            link.href = 'mailto:' + email;
+            link.addEventListener('click', function (e) {
+                // Allow default mailto; also copy in background.
+                if (navigator.clipboard) navigator.clipboard.writeText(email).catch(function () {});
+            });
+            function showToast(msg) {
                 if (!toast) return;
                 toast.textContent = msg;
-                toast.hidden = false;
                 toast.classList.add('show');
-                setTimeout(()=>{ toast.hidden=true; toast.classList.remove('show'); }, 2500);
+                setTimeout(function () { toast.classList.remove('show'); }, 2200);
             }
-            async function copyText(text){
-                try { await navigator.clipboard.writeText(text); return true; }
-                catch {
-                    const el = document.createElement('input');
-                    el.value = text; document.body.appendChild(el); el.select();
-                    try { document.execCommand('copy'); } catch { document.body.removeChild(el); return false; }
-                    document.body.removeChild(el); return true;
-                }
-            }
-            if (copyBtn) {
-                copyBtn.addEventListener('click', async () => {
-                    const ok = await copyText(realEmail || '');
-                    showToast(ok ? 'Email copied' : 'Copy failed — use the email button');
-                });
-            }
-            if (openBtn) {
-                openBtn.addEventListener('click', () => {
-                    const subject = encodeURIComponent('Portfolio inquiry');
-                    const body = encodeURIComponent('Hi Diego,\n\n');
-                    const href = `mailto:${realEmail}?subject=${subject}&body=${body}`;
-                    window.location.href = href;
-                });
-            }
+            // Expose for form
+            window.__showToast = showToast;
+        })();
 
-            if (emailAgain) {
-                emailAgain.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    if (successCard) successCard.hidden = true;
-                    if (contactForm) {
-                        contactForm.reset();
-                        contactForm.hidden = false;
-                        const name = document.getElementById('name');
-                        if (name) name.focus();
-                    }
-                });
-            }
+        // Contact form
+        (function () {
+            const form = document.getElementById('contact-form');
+            if (!form) return;
+            const startTs = document.getElementById('form_started_at');
+            const status = document.getElementById('form-status');
+            const sendBtn = document.getElementById('send-btn');
+            const success = document.getElementById('contact-success');
+            if (startTs) startTs.value = String(Date.now());
 
-            // Inline success if URL has ?success=1
-            if (location.search.includes('success=1')) {
-                if (contactForm) contactForm.hidden = true;
-                if (successCard) successCard.hidden = false;
-            }
-
-            // Initialize honeypot timestamp
-            if (startTs) startTs.value = Date.now();
-
-            function setError(input, msg){
+            function setError(input, msg) {
                 if (!input) return;
-                input.setAttribute('aria-invalid','true');
+                input.setAttribute('aria-invalid', 'true');
                 const id = input.id + '-err';
                 let p = document.getElementById(id);
-                if (!p) { p = document.createElement('p'); p.id = id; p.className = 'err'; p.setAttribute('role','alert'); input.parentNode.appendChild(p); }
+                if (!p) {
+                    p = document.createElement('p');
+                    p.id = id;
+                    p.className = 'err';
+                    p.setAttribute('role', 'alert');
+                    input.parentNode.appendChild(p);
+                }
                 p.textContent = msg;
-                const describedby = (input.getAttribute('aria-describedby')||'').split(' ').filter(Boolean);
-                if (!describedby.includes(id)) { describedby.push(id); input.setAttribute('aria-describedby', describedby.join(' ')); }
             }
-            function clearError(input){
+            function clearError(input) {
                 if (!input) return;
                 input.removeAttribute('aria-invalid');
-                const id = input.id + '-err';
-                const p = document.getElementById(id);
+                const p = document.getElementById(input.id + '-err');
                 if (p) p.remove();
-                const describedby = (input.getAttribute('aria-describedby')||'').split(' ').filter(t=>t && t!==id);
-                if (describedby.length) input.setAttribute('aria-describedby', describedby.join(' ')); else input.removeAttribute('aria-describedby');
             }
-
-            function validate(){
+            function validate() {
                 const name = document.getElementById('name');
                 const email = document.getElementById('email');
-                const message = document.getElementById('message');
-                let firstInvalid = null;
-                // name
-                if (!name.value || name.value.trim().length < 2) { setError(name,'Please enter at least 2 characters.'); firstInvalid = firstInvalid || name; } else clearError(name);
-                // email RFC-5322-light
-                const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
-                if (!emailOk) { setError(email,'Enter a valid email address.'); firstInvalid = firstInvalid || email; } else clearError(email);
-                // message length
-                const len = (message.value||'').trim().length;
-                if (len < 20 || len > 2000) { setError(message,'Message must be 20–2000 characters.'); firstInvalid = firstInvalid || message; } else clearError(message);
-                return firstInvalid;
+                const msg = document.getElementById('message');
+                let firstBad = null;
+                if (!name.value || name.value.trim().length < 2) { setError(name, 'Please enter at least 2 characters.'); firstBad = firstBad || name; } else clearError(name);
+                const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
+                if (!ok) { setError(email, 'Enter a valid email address.'); firstBad = firstBad || email; } else clearError(email);
+                const len = (msg.value || '').trim().length;
+                if (len < 20 || len > 2000) { setError(msg, 'Message must be 20 to 2000 characters.'); firstBad = firstBad || msg; } else clearError(msg);
+                return firstBad;
             }
 
-            let busy = false; let lastSent = 0; let countdownTimer = null;
-            function startCooldown(){
-                const total = 30; let left = total;
-                function tick(){
-                    if (!sendBtn) return; left -= 1;
-                    if (left <= 0){ sendBtn.disabled=false; sendBtn.textContent='Send message'; clearInterval(countdownTimer); countdownTimer=null; }
-                    else { sendBtn.textContent = `Wait ${left}s…`; }
+            let busy = false;
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                if (busy) return;
+                const firstBad = validate();
+                if (firstBad) { firstBad.focus(); return; }
+                // Honeypot
+                const started = Number(startTs && startTs.value || 0);
+                if (!started || (Date.now() - started) < 2500) {
+                    status.textContent = 'Hang on a second, then try again.';
+                    return;
                 }
-                sendBtn.disabled = true; sendBtn.textContent = `Wait ${left}s…`;
-                countdownTimer = setInterval(tick, 1000);
-            }
-
-            if (contactForm) {
-                contactForm.addEventListener('submit', async function(e) {
-                    e.preventDefault();
-                    if (busy) return;
-
-                    const firstInvalid = validate();
-                    if (firstInvalid) { firstInvalid.focus(); return; }
-
-                    // Honeypot time threshold
-                    const started = Number(startTs && startTs.value || 0);
-                    if (!started || (Date.now() - started) < 3000){
-                        formStatus.textContent = 'Please take a moment to complete the form.';
-                        return;
-                    }
-
-                    busy = true; sendBtn.disabled = true; sendBtn.textContent = 'Sending…'; formStatus.textContent = '';
-
-                    try {
-                        const resp = await fetch(contactForm.action, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                            body: JSON.stringify(Object.fromEntries(new FormData(contactForm)))
-                        });
-                        const data = await resp.json();
-                        if (data.success) {
-                            contactForm.hidden = true; if (successCard) successCard.hidden = false; lastSent = Date.now();
-                            startCooldown();
-                        } else {
-                            formStatus.textContent = data.message || 'Something went wrong — try emailing me directly.';
-                            sendBtn.disabled = false; sendBtn.textContent = 'Send message';
-                        }
-                    } catch (err) {
-                        formStatus.textContent = 'Network error — try again or email me directly.';
+                busy = true; sendBtn.disabled = true; sendBtn.textContent = 'Sending…'; status.textContent = '';
+                const data = Object.fromEntries(new FormData(form));
+                fetch(form.action, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify(data)
+                })
+                .then(function (r) { return r.json(); })
+                .then(function (res) {
+                    if (res && res.success) {
+                        form.hidden = true;
+                        if (success) success.hidden = false;
+                    } else {
+                        status.textContent = (res && res.message) || 'Something went wrong. Try emailing me directly.';
                         sendBtn.disabled = false; sendBtn.textContent = 'Send message';
-                    } finally { busy = false; }
-                });
-            }
+                    }
+                })
+                .catch(function () {
+                    status.textContent = 'Network error. Try again, or email me directly.';
+                    sendBtn.disabled = false; sendBtn.textContent = 'Send message';
+                })
+                .finally(function () { busy = false; });
+            });
+        })();
 
-            if (emailAgain) {
-                emailAgain.addEventListener('click', (e)=>{
-                    e.preventDefault();
-                    if (successCard) successCard.hidden = true; if (contactForm) contactForm.hidden = false; contactForm.reset(); clearError(document.getElementById('name')); clearError(document.getElementById('email')); clearError(document.getElementById('message')); if (startTs) startTs.value = Date.now();
-                });
+        // Cycling keyword in hero
+        (function () {
+            const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (reduced) return;
+            const cycle = document.querySelector('.cycle');
+            if (!cycle) return;
+            const words = Array.prototype.slice.call(cycle.querySelectorAll('.cycle-word'));
+            if (words.length < 2) return;
+            let i = 0;
+            setInterval(function () {
+                words[i].classList.remove('is-active');
+                words[i].classList.add('is-out');
+                setTimeout(function () { words[i].classList.remove('is-out'); }, 700);
+                i = (i + 1) % words.length;
+                words[i].classList.add('is-active');
+            }, 2600);
+        })();
+
+        // Counter animation on case metrics
+        (function () {
+            if (!('IntersectionObserver' in window)) return;
+            const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            function animateCounter(el) {
+                const target = parseFloat(el.getAttribute('data-counter'));
+                const prefix = el.getAttribute('data-prefix') || '';
+                const suffix = el.getAttribute('data-suffix') || '';
+                if (isNaN(target)) return;
+                if (reduced) {
+                    el.textContent = prefix + target + suffix;
+                    return;
+                }
+                const duration = 1100;
+                let start = null;
+                const negative = target < 0;
+                const absTarget = Math.abs(target);
+                function tick(ts) {
+                    if (!start) start = ts;
+                    const p = Math.min((ts - start) / duration, 1);
+                    const eased = 1 - Math.pow(1 - p, 3);
+                    const current = Math.round(absTarget * eased);
+                    el.textContent = prefix + (negative ? '−' : '') + current + suffix;
+                    if (p < 1) requestAnimationFrame(tick);
+                }
+                requestAnimationFrame(tick);
             }
-        });
+            const io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        animateCounter(entry.target);
+                        io.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.4 });
+            document.querySelectorAll('[data-counter]').forEach(function (el) { io.observe(el); });
+        })();
+
+        // Magnetic primary CTA (desktop only, no reduced-motion)
+        (function () {
+            const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const coarse = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+            if (reduced || coarse) return;
+            const els = document.querySelectorAll('[data-magnet]');
+            els.forEach(function (el) {
+                const inner = el.querySelector('.btn-inner') || el;
+                el.addEventListener('mousemove', function (e) {
+                    const rect = el.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    el.style.transform = 'translate(' + (x * 0.18) + 'px,' + (y * 0.24) + 'px)';
+                    inner.style.transform = 'translate(' + (x * 0.08) + 'px,' + (y * 0.12) + 'px)';
+                });
+                el.addEventListener('mouseleave', function () {
+                    el.style.transform = '';
+                    inner.style.transform = '';
+                });
+            });
+        })();
+
+        // Service worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+                navigator.serviceWorker.register('./sw.js').catch(function () {});
+            });
+        }
     </script>
-    
-        
-    
 </body>
 </html>
