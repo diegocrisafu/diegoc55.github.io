@@ -321,37 +321,43 @@ section + section { border-top: 1px solid var(--border-2); }
     50%      { transform: translateY(-4px); }
 }
 
-/* Coffee surface line — slow breathing shimmer */
+/* Coffee surface line — draw-on + slow breathing shimmer (composed) */
 .cup .draw-surface {
-    animation: coffee-shimmer 9s ease-in-out infinite;
-    animation-delay: 2.4s;
+    animation:
+        cup-draw-in 1.5s cubic-bezier(.65, .05, .35, 1) 1.05s forwards,
+        coffee-shimmer 9s ease-in-out 2.6s infinite;
 }
 @keyframes coffee-shimmer {
     0%, 100% { opacity: 0.5; }
     50%      { opacity: 0.24; }
 }
 @media (prefers-reduced-motion: reduce) {
-    .cup .draw-surface { animation: none; opacity: .5; }
+    .cup .draw-surface { animation: none; opacity: .5; stroke-dashoffset: 0; }
 }
 @media (max-width: 900px) {
     .hero-grid { grid-template-columns: 1fr; }
     .hero-art { display: none; }
 }
 
-/* Cup outline: draw-on when hero reveals */
+/* Cup outline: animated draw-on at page load (no IO dependency) */
 .cup .draw {
     stroke-dasharray: 800;
     stroke-dashoffset: 800;
-    transition: stroke-dashoffset 1.5s cubic-bezier(.65, .05, .35, 1);
+    animation: cup-draw-in 1.5s cubic-bezier(.65, .05, .35, 1) forwards;
 }
-.js .hero-art.in .cup .draw           { stroke-dashoffset: 0; }
-.js .hero-art.in .cup .draw-saucer    { transition-delay: .05s; }
-.js .hero-art.in .cup .draw-table     { transition-delay: .10s; }
-.js .hero-art.in .cup .draw-body      { transition-delay: .35s; }
-.js .hero-art.in .cup .draw-rim       { transition-delay: .75s; }
-.js .hero-art.in .cup .draw-surface   { transition-delay: 1.05s; }
-.js .hero-art.in .cup .draw-handle    { transition-delay: .95s; }
-.js .hero-art.in .cup .draw-saucer-inner { transition-delay: 1.20s; }
+.cup .draw-saucer       { animation-delay: .05s; }
+.cup .draw-table        { animation-delay: .10s; }
+.cup .draw-body         { animation-delay: .35s; }
+.cup .draw-rim          { animation-delay: .75s; }
+.cup .draw-handle       { animation-delay: .95s; }
+.cup .draw-surface      { animation-delay: 1.05s; }
+.cup .draw-saucer-inner { animation-delay: 1.20s; }
+@keyframes cup-draw-in {
+    to { stroke-dashoffset: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .cup .draw { animation: none; stroke-dasharray: none; stroke-dashoffset: 0; }
+}
 
 /* Steam rises continuously — period synced with cup-float (3.5s = half float cycle) */
 .steam {
