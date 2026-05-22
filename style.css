@@ -868,17 +868,157 @@ section + section { border-top: 1px solid var(--border-2); }
     text-transform: uppercase;
     color: var(--muted);
     font-weight: 500;
-    margin-bottom: 14px;
+    margin-bottom: 18px;
     line-height: 1.4;
 }
-.skill-group ul { list-style: none; }
-.skill-group li {
-    font-size: 1.0625rem;
-    color: var(--ink-soft);
-    padding: 6px 0;
-    border-bottom: 1px solid var(--border-2);
+.skill-chips {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 0;
 }
-.skill-group li:last-child { border-bottom: none; }
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: .02em;
+    color: var(--ink-soft);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 6px 12px;
+    border-radius: 999px;
+    cursor: default;
+    transition: background .25s var(--ease), border-color .25s var(--ease), color .25s var(--ease), transform .25s var(--ease);
+}
+.chip:hover {
+    background: color-mix(in srgb, var(--accent) 8%, var(--surface));
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-1px);
+}
+.chip.is-primary::before {
+    content: '';
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex: 0 0 auto;
+}
+.skills-legend {
+    margin-top: clamp(28px, 4vw, 48px);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: .04em;
+    color: var(--muted);
+}
+.legend-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex: 0 0 auto;
+}
+
+/* ───────────────── Projects ───────────────── */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(20px, 2.5vw, 32px);
+}
+.project-card {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: clamp(24px, 3vw, 36px);
+    border: 1px solid var(--border-2);
+    border-radius: 6px;
+    background: var(--surface);
+    position: relative;
+    transition: border-color .35s var(--ease), transform .35s var(--ease), box-shadow .35s var(--ease);
+}
+.project-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 30px -12px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+.project-year {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+.project-title {
+    font-family: var(--serif);
+    font-size: clamp(1.5rem, 2.4vw, 1.875rem);
+    line-height: 1.1;
+    letter-spacing: -.015em;
+    color: var(--ink);
+    font-weight: 400;
+    margin: 0;
+}
+.project-card:hover .project-title { color: var(--accent); }
+.project-card .project-tagline {
+    color: var(--ink-soft);
+    font-size: 0.9875rem;
+    line-height: 1.55;
+    max-width: 56ch;
+}
+.project-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 4px;
+}
+.project-stack span {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 3px 9px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--muted);
+    background: transparent;
+    letter-spacing: .02em;
+}
+.project-meta {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+    margin-top: auto;
+    padding-top: 10px;
+}
+.project-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+.project-link {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: .04em;
+    color: var(--ink);
+    padding-bottom: 2px;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 100% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: color .2s var(--ease), background-size .35s var(--ease);
+}
+.project-link:hover {
+    color: var(--accent);
+    background-size: 0% 1px;
+    animation: link-redraw .65s var(--ease) .2s forwards;
+}
+@media (max-width: 720px) {
+    .projects-grid { grid-template-columns: 1fr; }
+}
 
 /* ───────────────── Contact ───────────────── */
 .contact-grid {
