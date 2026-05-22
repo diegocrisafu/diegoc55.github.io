@@ -94,6 +94,7 @@
                 <li><a href="#work">Work</a></li>
                 <li><a href="#experience">Experience</a></li>
                 <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
                 <li><a href="#off-screen">Off-screen</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
@@ -430,47 +431,113 @@
                 <div class="skills-grid">
                     <div class="skill-group reveal">
                         <h3>Languages</h3>
-                        <ul>
-                            <li>Python</li>
-                            <li>TypeScript</li>
-                            <li>JavaScript</li>
-                            <li>C / C++</li>
-                            <li>C#</li>
-                            <li>Java</li>
-                            <li>Go</li>
-                            <li>Rust</li>
-                            <li>Swift</li>
-                            <li>Scala</li>
-                            <li>SQL</li>
+                        <ul class="skill-chips">
+                            <li class="chip is-primary">Python</li>
+                            <li class="chip is-primary">TypeScript</li>
+                            <li class="chip is-primary">JavaScript</li>
+                            <li class="chip is-primary">C / C++</li>
+                            <li class="chip">C#</li>
+                            <li class="chip">Java</li>
+                            <li class="chip">Go</li>
+                            <li class="chip">Rust</li>
+                            <li class="chip">Swift</li>
+                            <li class="chip">Scala</li>
+                            <li class="chip is-primary">SQL</li>
                         </ul>
                     </div>
                     <div class="skill-group reveal">
                         <h3>Engineering</h3>
-                        <ul>
-                            <li>.NET</li>
-                            <li>AI / ML</li>
-                            <li>Algorithms &amp; data structures</li>
-                            <li>Object-oriented design</li>
-                            <li>Data governance &amp; quality</li>
-                            <li>Security &amp; cyber threat intel</li>
-                            <li>Web stacks</li>
-                            <li>iOS</li>
+                        <ul class="skill-chips">
+                            <li class="chip is-primary">.NET</li>
+                            <li class="chip is-primary">AI / ML</li>
+                            <li class="chip is-primary">Algorithms &amp; data structures</li>
+                            <li class="chip">Object-oriented design</li>
+                            <li class="chip">Data governance &amp; quality</li>
+                            <li class="chip">Security &amp; cyber threat intel</li>
+                            <li class="chip">Web stacks</li>
+                            <li class="chip">iOS</li>
                         </ul>
                     </div>
                     <div class="skill-group reveal">
                         <h3>Cloud &amp; tools</h3>
-                        <ul>
-                            <li>AWS</li>
-                            <li>Azure DevOps</li>
-                            <li>CI / CD</li>
-                            <li>PowerShell</li>
-                            <li>Bash</li>
-                            <li>Git &amp; version control</li>
-                            <li>Jira</li>
-                            <li>HTML / CSS</li>
-                            <li>SQL / NoSQL</li>
+                        <ul class="skill-chips">
+                            <li class="chip is-primary">AWS</li>
+                            <li class="chip is-primary">Azure DevOps</li>
+                            <li class="chip is-primary">CI / CD</li>
+                            <li class="chip is-primary">PowerShell</li>
+                            <li class="chip">Bash</li>
+                            <li class="chip is-primary">Git &amp; version control</li>
+                            <li class="chip">Jira</li>
+                            <li class="chip">HTML / CSS</li>
+                            <li class="chip">SQL / NoSQL</li>
                         </ul>
                     </div>
+                </div>
+                <p class="skills-legend reveal">
+                    <span class="legend-dot" aria-hidden="true"></span>
+                    Primary stack — used most often across recent work
+                </p>
+            </div>
+        </section>
+
+        <!-- ───────────────── Projects ───────────────── -->
+        <section id="projects">
+            <div class="container">
+                <div class="section-head reveal">
+                    <h2 class="eyebrow">Projects</h2>
+                    <p class="muted" style="max-width:380px;font-size:14px;">Smaller side projects, hackathon work, and collaborations beyond the case studies.</p>
+                </div>
+
+                <div class="projects-grid">
+                    <article class="project-card reveal">
+                        <span class="project-year">2024 – 2025</span>
+                        <h3 class="project-title">Neural Narratives</h3>
+                        <p class="project-tagline">VR + AI app translating neuroimaging data from McGill's neuroscience team into an immersive 3D experience.</p>
+                        <div class="project-stack">
+                            <span>Unreal Engine</span><span>C++</span><span>Blender</span><span>Digital twins</span>
+                        </div>
+                        <div class="project-meta">
+                            <span class="project-tag">VR · Research</span>
+                        </div>
+                    </article>
+
+                    <article class="project-card reveal">
+                        <span class="project-year">2024 – 2025</span>
+                        <h3 class="project-title">WeatherLens</h3>
+                        <p class="project-tagline">Multi-persona weather app with a custom glassmorphism design system, drag-and-drop city management, and interactive monthly trend charts.</p>
+                        <div class="project-stack">
+                            <span>Next.js</span><span>TypeScript</span><span>Tailwind CSS</span><span>Framer Motion</span>
+                        </div>
+                        <div class="project-meta">
+                            <a class="project-link" href="https://aiui-phi.vercel.app" target="_blank" rel="noopener noreferrer">Live demo <span aria-hidden="true">↗</span></a>
+                            <a class="project-link" href="https://github.com/diegocrisafu/ai_ui" target="_blank" rel="noopener noreferrer">GitHub</a>
+                        </div>
+                    </article>
+
+                    <article class="project-card reveal">
+                        <span class="project-year">2024</span>
+                        <h3 class="project-title">The Actual Informer</h3>
+                        <p class="project-tagline">AI news summarization platform with a custom NLP pipeline built on the OpenAI API, deployed on AWS.</p>
+                        <div class="project-stack">
+                            <span>TypeScript</span><span>OpenAI</span><span>Node.js</span><span>Express</span><span>AWS</span>
+                        </div>
+                        <div class="project-meta">
+                            <a class="project-link" href="https://github.com/aalokok/cart498final" target="_blank" rel="noopener noreferrer">GitHub</a>
+                        </div>
+                    </article>
+
+                    <article class="project-card reveal">
+                        <span class="project-year">2025 · ConUHacks X</span>
+                        <h3 class="project-title">Wooly</h3>
+                        <p class="project-tagline">Chrome extension that scores garment sustainability via AI analysis and web scraping. Built in 24 hours.</p>
+                        <div class="project-stack">
+                            <span>JavaScript</span><span>Chrome API</span><span>AI</span><span>Web Scraping</span>
+                        </div>
+                        <div class="project-meta">
+                            <a class="project-link" href="https://github.com/leticiahuang/wooly" target="_blank" rel="noopener noreferrer">GitHub</a>
+                            <a class="project-link" href="https://devpost.com/software/wooly-nsbg5m" target="_blank" rel="noopener noreferrer">Devpost</a>
+                        </div>
+                    </article>
                 </div>
             </div>
         </section>
