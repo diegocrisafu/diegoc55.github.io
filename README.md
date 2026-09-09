@@ -22,7 +22,7 @@ The downloadable résumé is generated from `resume.json`. Install ReportLab in 
 python3 scripts/build_resume.py
 ```
 
-This updates `Diego_Resume.pdf`. Keep its education, dates, contact links, and work descriptions consistent with `index.html`. The generator embeds the bundled Liberation Sans fonts and preserves selectable text and clickable links. Review the resulting PDF before publishing it.
+This updates `Diego_Resume.pdf`. Keep its education, dates, contact links, and work descriptions consistent with `index.html`. The generator follows the original classic serif layout: centered contact header, black section rules, compact role headings, and experience before education. It embeds the bundled Portfolio Resume Serif fonts and preserves selectable text and clickable links. Review the resulting PDF before publishing it.
 
 ## Publish
 
@@ -47,4 +47,4 @@ The `server/` and `server-worker/` directories and the older `assistant.js`, `ch
 
 ## License
 
-MIT for site code. Bundled Liberation Sans fonts use the SIL Open Font License in `assets/fonts/LICENSE`.
+MIT for site code. Bundled fonts use the SIL Open Font License in `assets/fonts/LICENSE`.

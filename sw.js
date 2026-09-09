@@ -1,9 +1,9 @@
-const CACHE = 'portfolio-20260909';
+const CACHE = 'portfolio-20260909-r2';
 const CORE = [
   './',
   './index.html',
-  './style.css?v=20260909',
-  './behavior.js?v=20260909',
+  './style.css?v=20260909-r2',
+  './behavior.js?v=20260909-r2',
   './Diego_Resume.pdf',
   './favicon.svg',
   './manifest.webmanifest',

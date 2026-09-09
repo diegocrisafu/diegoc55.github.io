@@ -11,13 +11,13 @@
   "education": [
     {
       "school": "Concordia University",
-      "detail": "Computer Science",
-      "date": "Expected December 2026"
+      "detail": "Bachelor's, Computer Science",
+      "date": "Expected Dec 2026"
     },
     {
-      "school": "McGill University",
-      "detail": "Incoming master's studies in Data Management",
-      "date": "January 2027"
+      "school": "Marianopolis College",
+      "detail": "Business",
+      "date": "Sep 2020 to Jun 2022"
     }
   ],
   "experience": [
@@ -34,7 +34,7 @@
     {
       "company": "McKesson",
       "title": "Software Developer Intern",
-      "date": "May to Aug 2026",
+      "date": "May 2026 to Aug 2026",
       "bullets": [
         "Automated routine approval steps in production decision workflows with Python and .NET AI modules.",
         "Built internal iOS applications in Swift that enforced data privacy rules for sensitive business information."
@@ -43,10 +43,11 @@
     {
       "company": "CAE",
       "title": "Cloud Engineer Intern",
-      "date": "May to Aug 2025",
+      "date": "May 2025 to Aug 2025",
       "bullets": [
         "Built PowerShell automation to compare Git versioned virtual assets across environments, increasing data governance coverage by 35%.",
-        "Generated an interactive HTML report that traces asset relationships and highlights configuration differences for reviewers."
+        "Generated an interactive HTML report that traces asset relationships and highlights configuration differences for reviewers.",
+        "Developed C++ simulation algorithms that removed manual recalculation steps for operators."
       ]
     },
     {
@@ -72,11 +73,20 @@
       "date": "May 2022 to Jun 2023",
       "bullets": [
         "Prototyped an NVIDIA Omniverse pipeline that automated asset preparation and reduced manual modeling time by 25%.",
-        "Produced three internal reports on ML workflows for robotics point clouds and demonstrated prototypes to stakeholders."
+        "Produced three internal reports on ML workflows for robotics point clouds and demonstrated prototypes to stakeholders.",
+        "Automated Blender and Unreal Engine asset import and mapping in Python to reduce per asset preparation work."
       ]
     }
   ],
   "projects": [
+    {
+      "name": "Neural Narratives",
+      "stack": "Unreal Engine, C++, Blender",
+      "date": "Sep 2024 to May 2025",
+      "bullets": [
+        "Built a pipeline that transforms neuroimaging datasets into scene graphs for VR exploration, with C++ components for streaming updates."
+      ]
+    },
     {
       "name": "Roger",
       "stack": "Python, asyncio, SQLite",
@@ -86,14 +96,6 @@
         "Built an asynchronous pipeline that scans more than 100 prediction markets every 30 seconds and persists market data in SQLite.",
         "Implemented five strategies with paper execution, configurable live order support, risk checks, and Bayesian scoring updated from trade outcomes."
       ]
-    },
-    {
-      "name": "Neural Narratives",
-      "stack": "Unreal Engine, C++, Blender",
-      "date": "Sep 2024 to May 2025",
-      "bullets": [
-        "Built a pipeline that transforms neuroimaging datasets into scene graphs for VR exploration, with C++ components for streaming updates."
-      ]
     }
   ],
   "skills": {
@@ -102,5 +104,10 @@
     "Databases": ["SQLite", "MongoDB"],
     "Tools and platforms": ["Git", "Jira", "Unreal Engine", "Blender", "NVIDIA Omniverse"],
     "Web": ["HTML", "CSS"]
-  }
+  },
+  "summary": "Backend and full stack developer with experience at McKesson, CAE, and Presagis building data pipelines, internal tools, and simulation systems. Concordia Computer Science, graduating December 2026. Fluent in English and French.",
+  "development": [
+    "Introduction to DevOps and Microsoft Development Platforms, LinkedIn Learning course completion, May 2025.",
+    "Pratt & Whitney Micro WIL, Certificate of Completion, December 2025."
+  ]
 }
