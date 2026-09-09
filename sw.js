@@ -1,51 +1,89 @@
-const PRECACHE = 'static-v20';
+const CACHE = 'portfolio-20260909';
 const CORE = [
   './',
   './index.html',
-  './style.css',
+  './style.css?v=20260909',
+  './behavior.js?v=20260909',
+  './Diego_Resume.pdf',
   './favicon.svg',
   './manifest.webmanifest',
-  './social-card.svg'
 ];
 
-self.addEventListener('install', (e) => {
-  e.waitUntil((async () => {
-    const cache = await caches.open(PRECACHE);
-    await cache.addAll(CORE);
-    await self.skipWaiting();
-  })());
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    (async () => {
+      const cache = await caches.open(CACHE);
+      await cache.addAll(CORE);
+      await self.skipWaiting();
+    })()
+  );
 });
-
-self.addEventListener('activate', (e) => {
-  e.waitUntil((async () => {
-    const keys = await caches.keys();
-    await Promise.all(keys.map(k => k !== PRECACHE ? caches.delete(k) : null));
-    await self.clients.claim();
-  })());
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    (async () => {
+      const keys = await caches.keys();
+      await Promise.all(
+        keys
+          .filter(
+            (key) => key !== CACHE && (key.startsWith('static-v') || key.startsWith('portfolio-'))
+          )
+          .map((key) => caches.delete(key))
+      );
+      await self.clients.claim();
+    })()
+  );
 });
-
-// Navigation: cache-first fallback to cached shell when offline
 self.addEventListener('fetch', (event) => {
-  const req = event.request;
-  const url = new URL(req.url);
-  if (url.origin !== location.origin) return; // ignore cross-origin
-
-  if (req.mode === 'navigate') {
-    event.respondWith((async () => {
-      try { return await fetch(req); } catch {
-        const cache = await caches.open(PRECACHE);
-        return (await cache.match('./index.html')) || Response.error();
-      }
-    })());
+  const request = event.request;
+  const url = new URL(request.url);
+  if (request.method !== 'GET' || url.origin !== self.location.origin) return;
+  if (request.mode === 'navigate') {
+    event.respondWith(
+      (async () => {
+        const cache = await caches.open(CACHE);
+        try {
+          const response = await fetch(request);
+          if (response.ok) await cache.put(request, response.clone());
+          return response;
+        } catch (_) {
+          const exact = await cache.match(request);
+          if (exact) return exact;
+          const index = new URL('./index.html', self.registration.scope);
+          if (url.pathname === index.pathname || url.pathname === new URL('./', index).pathname) {
+            return (await cache.match('./index.html')) || Response.error();
+          }
+          return Response.error();
+        }
+      })()
+    );
     return;
   }
-
-  if (req.destination === 'style' || req.destination === 'script' || req.destination === 'image') {
-    event.respondWith((async () => {
-      const cache = await caches.open(PRECACHE);
-      const cached = await cache.match(req);
-      const fetchAndPut = fetch(req).then(res => { if (res.ok) cache.put(req, res.clone()); return res; }).catch(() => null);
-      return cached || fetchAndPut || fetch(req);
-    })());
+  if (['style', 'script', 'image'].includes(request.destination)) {
+    const refresh = (async () => {
+      const response = await fetch(request);
+      if (response.ok) {
+        const cache = await caches.open(CACHE);
+        await cache.put(request, response.clone());
+      }
+      return response;
+    })();
+    event.waitUntil(
+      refresh.then(
+        () => {},
+        () => {}
+      )
+    );
+    event.respondWith(
+      (async () => {
+        const cache = await caches.open(CACHE);
+        const cached = await cache.match(request);
+        if (cached) return cached;
+        try {
+          return await refresh;
+        } catch (_) {
+          return Response.error();
+        }
+      })()
+    );
   }
 });

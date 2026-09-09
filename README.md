@@ -1,48 +1,50 @@
 # Diego Crisafulli · Portfolio
 
-Single-page portfolio. Plain semantic HTML, one stylesheet, a small inline behaviour script. No build step, no framework, no runtime transpilation. Designed for GitHub Pages.
+Personal software engineering portfolio, hosted on [GitHub Pages](https://diegocrisafu.github.io/diegoc55.github.io/).
 
-## Run locally
+The site uses semantic HTML, CSS, and a small JavaScript file. It has no framework or application build step. Main content, metrics, email links, and navigation work without JavaScript; JavaScript adds disclosure navigation, theme preferences, form feedback, and offline caching.
 
-```bash
+## Edit and preview
+
+Edit `index.html`, `style.css`, and `behavior.js`. Any static HTTP server can serve the repository root. For example:
+
+```sh
 python3 -m http.server 8000
-# open http://localhost:8000
 ```
 
-Or any other static server (`npx serve`, `caddy file-server`, etc.).
+The site includes responsive WebP image variants, explicit image dimensions, keyboard accessible navigation, and light/dark themes. Legacy page URLs redirect to the corresponding sections of the current site.
 
-## Build
+## Rebuild the résumé
 
-There isn't one. Edit `index.html` and `style.css` directly.
+The downloadable résumé is generated from `resume.json`. Install ReportLab in your Python environment, then run:
 
-## Deploy
+```sh
+python3 scripts/build_resume.py
+```
 
-Static hosting (GitHub Pages):
+This updates `Diego_Resume.pdf`. Keep its education, dates, contact links, and work descriptions consistent with `index.html`. The generator embeds the bundled Liberation Sans fonts and preserves selectable text and clickable links. Review the resulting PDF before publishing it.
 
-1. Push to the repo. GitHub Pages will serve `index.html` from the root.
-2. Currently served from `https://diegocrisafu.github.io/diegoc55.github.io/` because the repo is named `diegoc55.github.io`.
+## Publish
 
-To serve from a clean root URL, pick one:
+Push the site files and generated PDF to `main`; the repository's GitHub Pages deployment publishes the root directory. The repository name makes the current site a project site under `/diegoc55.github.io/`.
 
-- **Rename the repo** to `diegocrisafulli.github.io` (matches the GitHub username). Pages will then serve at `https://diegocrisafulli.github.io/` with no nested path.
-- **Custom domain:** add a `CNAME` file at the repo root containing the apex/subdomain (e.g. `diegocrisafulli.com`), configure DNS, then enable the custom domain in Pages settings.
+When changing CSS or JavaScript, update their query versions in `index.html`, the matching `CORE` entries in `sw.js`, and the service worker cache name together. Navigation uses the network when available, with cached documents for offline use.
 
-All internal links in `index.html` are path-agnostic (relative or hash-only), so moving the site to a different root won't break them.
+## Main files
 
-## File layout
+| File                                     | Purpose                                    |
+| ---------------------------------------- | ------------------------------------------ |
+| `index.html`                             | Portfolio content and metadata             |
+| `style.css`                              | Layout, themes, and responsive styles      |
+| `behavior.js`                            | Navigation, themes, and contact validation |
+| `resume.json`                            | Editable public résumé content             |
+| `scripts/build_resume.py`                | PDF generator                              |
+| `Diego_Resume.pdf`                       | Downloadable résumé                        |
+| `sw.js`                                  | Offline document and asset caching         |
+| `images/*_480.webp`, `images/*_960.webp` | Responsive photos                          |
 
-| File | Purpose |
-|------|---------|
-| `index.html` | The page |
-| `style.css` | All styles |
-| `sw.js` | Service worker (offline shell) |
-| `manifest.webmanifest` | PWA manifest |
-| `favicon.svg`, `social-card.svg` | Icons / OG card |
-| `Diego_Resume.pdf` | Résumé download |
-| `images/` | Portrait + photos |
-
-`assistant.js`, `chat-config.js`, `script.js`, `about.html`, `blogs.html`, `home.html`, `projects.html`, and `index.refactor.broken.html` are orphans from earlier iterations and are not referenced by the current page. Safe to delete when you're ready.
+The `server/` and `server-worker/` directories and the older `assistant.js`, `chat-config.js`, and `script.js` belong to earlier experiments and are not loaded by the current homepage.
 
 ## License
 
-MIT.
+MIT for site code. Bundled Liberation Sans fonts use the SIL Open Font License in `assets/fonts/LICENSE`.
