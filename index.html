@@ -55,7 +55,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap"
     />
-    <link rel="stylesheet" href="style.css?v=20260909-r2" />
+    <link rel="stylesheet" href="style.css?v=20260909-r3" />
 
     <!-- JSON-LD -->
     <script type="application/ld+json">
@@ -153,12 +153,14 @@
         </button>
         <nav class="primary-navigation" id="primary-nav" aria-label="Main navigation">
           <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
             <li><a href="#work">Work</a></li>
             <li><a href="#experience">Experience</a></li>
             <li><a href="#projects">Projects</a></li>
             <li><a href="#skills">Skills</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
+            <li><a href="#off-screen">Personal</a></li>
           </ul>
         </nav>
         <div class="nav-actions">
@@ -199,10 +201,25 @@
           </button>
         </div>
       </div>
+      <div class="container page-index" id="page-index" hidden>
+        <p class="page-position">
+          <span id="page-number">01 / 12</span><span id="page-label">Home</span>
+        </p>
+        <nav class="page-steps" aria-label="Portfolio pages">
+          <a id="previous-page" href="#home" hidden><span aria-hidden="true">↑</span> Previous</a>
+          <a id="next-page" href="#work-drift">Next <span aria-hidden="true">↓</span></a>
+        </nav>
+      </div>
     </header>
 
     <main id="main" tabindex="-1">
-      <section id="home" tabindex="-1" class="hero">
+      <section
+        id="home"
+        tabindex="-1"
+        class="portfolio-page hero"
+        data-nav="home"
+        data-page-label="Home"
+      >
         <div class="container hero-grid">
           <div class="hero-copy">
             <div class="hero-meta reveal">
@@ -292,10 +309,19 @@
         </div>
       </section>
 
-      <section id="work" tabindex="-1">
-        <div class="container">
-          <div class="section-head"><h2 class="eyebrow">Selected work</h2></div>
-          <div class="work-list">
+      <div id="work" class="page-group" tabindex="-1">
+        <section
+          id="work-drift"
+          class="portfolio-page"
+          data-nav="work"
+          data-page-label="Selected work · Configuration drift"
+          tabindex="-1"
+        >
+          <div class="container">
+            <div class="section-head">
+              <h2 class="eyebrow">Selected work</h2>
+              <span class="page-part">01 / 03</span>
+            </div>
             <article class="case">
               <header class="case-rail">
                 <span class="case-num">01</span><span class="case-tag">CAE</span
@@ -323,6 +349,20 @@
                 </div>
               </div>
             </article>
+          </div>
+        </section>
+        <section
+          id="work-tooling"
+          class="portfolio-page"
+          data-nav="work"
+          data-page-label="Selected work · Developer tooling"
+          tabindex="-1"
+        >
+          <div class="container">
+            <div class="section-head">
+              <h2 class="eyebrow">Selected work</h2>
+              <span class="page-part">02 / 03</span>
+            </div>
             <article class="case">
               <header class="case-rail">
                 <span class="case-num">02</span><span class="case-tag">CAE</span
@@ -346,6 +386,20 @@
                 </div>
               </div>
             </article>
+          </div>
+        </section>
+        <section
+          id="work-roger"
+          class="portfolio-page"
+          data-nav="work"
+          data-page-label="Selected work · Roger"
+          tabindex="-1"
+        >
+          <div class="container">
+            <div class="section-head">
+              <h2 class="eyebrow">Selected work</h2>
+              <span class="page-part">03 / 03</span>
+            </div>
             <article class="case">
               <header class="case-rail">
                 <span class="case-num">03</span><span class="case-tag">Personal project</span
@@ -383,13 +437,22 @@
               </div>
             </article>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
-      <section id="experience" tabindex="-1">
-        <div class="container">
-          <div class="section-head"><h2 class="eyebrow">Experience</h2></div>
-          <div class="exp-groups">
+      <div id="experience" class="page-group" tabindex="-1">
+        <section
+          id="experience-mckesson"
+          class="portfolio-page"
+          data-nav="experience"
+          data-page-label="Experience · McKesson"
+          tabindex="-1"
+        >
+          <div class="container">
+            <div class="section-head">
+              <h2 class="eyebrow">Experience</h2>
+              <span class="page-part">01 / 03</span>
+            </div>
             <article class="exp-group">
               <header class="exp-co">
                 <span class="exp-co-num">01</span>
@@ -432,6 +495,20 @@
                 </div>
               </div>
             </article>
+          </div>
+        </section>
+        <section
+          id="experience-cae"
+          class="portfolio-page"
+          data-nav="experience"
+          data-page-label="Experience · CAE"
+          tabindex="-1"
+        >
+          <div class="container">
+            <div class="section-head">
+              <h2 class="eyebrow">Experience</h2>
+              <span class="page-part">02 / 03</span>
+            </div>
             <article class="exp-group">
               <header class="exp-co">
                 <span class="exp-co-num">02</span>
@@ -484,6 +561,20 @@
                 </div>
               </div>
             </article>
+          </div>
+        </section>
+        <section
+          id="experience-presagis"
+          class="portfolio-page"
+          data-nav="experience"
+          data-page-label="Experience · Presagis"
+          tabindex="-1"
+        >
+          <div class="container">
+            <div class="section-head">
+              <h2 class="eyebrow">Experience</h2>
+              <span class="page-part">03 / 03</span>
+            </div>
             <article class="exp-group">
               <header class="exp-co">
                 <span class="exp-co-num">03</span>
@@ -510,10 +601,16 @@
               </div>
             </article>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
-      <section id="projects" tabindex="-1">
+      <section
+        id="projects"
+        tabindex="-1"
+        class="portfolio-page"
+        data-nav="projects"
+        data-page-label="Projects"
+      >
         <div class="container">
           <div class="section-head"><h2 class="eyebrow">Projects</h2></div>
           <div class="projects-grid">
@@ -617,7 +714,13 @@
         </div>
       </section>
 
-      <section id="skills" tabindex="-1">
+      <section
+        id="skills"
+        tabindex="-1"
+        class="portfolio-page"
+        data-nav="skills"
+        data-page-label="Skills"
+      >
         <div class="container">
           <div class="section-head"><h2 class="eyebrow">Technical skills</h2></div>
           <div class="skills-grid">
@@ -670,7 +773,13 @@
         </div>
       </section>
 
-      <section id="about" tabindex="-1">
+      <section
+        id="about"
+        tabindex="-1"
+        class="portfolio-page"
+        data-nav="about"
+        data-page-label="About"
+      >
         <div class="container">
           <div class="section-head"><h2 class="eyebrow">About</h2></div>
           <div class="about-grid">
@@ -721,7 +830,13 @@
         </div>
       </section>
 
-      <section id="contact" tabindex="-1">
+      <section
+        id="contact"
+        tabindex="-1"
+        class="portfolio-page"
+        data-nav="contact"
+        data-page-label="Contact"
+      >
         <div class="container">
           <div class="section-head reveal">
             <h2 class="eyebrow">Contact</h2>
@@ -821,7 +936,13 @@
         </div>
       </section>
 
-      <section id="off-screen" tabindex="-1" class="gallery-section">
+      <section
+        id="off-screen"
+        tabindex="-1"
+        class="portfolio-page gallery-section"
+        data-nav="off-screen"
+        data-page-label="Personal"
+      >
         <div class="container">
           <div class="section-head reveal">
             <h2 class="eyebrow">Away from the keyboard</h2>
@@ -900,32 +1021,31 @@
             </figure>
           </div>
         </div>
+        <footer class="site-footer">
+          <div class="container">
+            <p class="footer-closer reveal" aria-hidden="true">
+              <span>Diego.</span><span class="ital">Crisafulli.</span>
+            </p>
+            <div class="footer-inner">
+              <p>© <span id="year"></span> Diego Crisafulli. Built in Montreal.</p>
+              <div class="footer-links">
+                <a href="https://github.com/diegocrisafu" target="_blank" rel="noopener noreferrer"
+                  >GitHub</a
+                >
+                <a
+                  href="https://www.linkedin.com/in/diego-crisafulli-212bb0256/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >LinkedIn</a
+                >
+                <a href="Diego_Resume.pdf" target="_blank" rel="noopener">Résumé</a>
+                <a href="mailto:diego.crisafu@gmail.com">Email</a>
+              </div>
+            </div>
+          </div>
+        </footer>
       </section>
     </main>
-
-    <footer class="site-footer">
-      <div class="container">
-        <p class="footer-closer reveal" aria-hidden="true">
-          <span>Diego.</span><span class="ital">Crisafulli.</span>
-        </p>
-        <div class="footer-inner">
-          <p>© <span id="year"></span> Diego Crisafulli. Built in Montreal.</p>
-          <div class="footer-links">
-            <a href="https://github.com/diegocrisafu" target="_blank" rel="noopener noreferrer"
-              >GitHub</a
-            >
-            <a
-              href="https://www.linkedin.com/in/diego-crisafulli-212bb0256/"
-              target="_blank"
-              rel="noopener noreferrer"
-              >LinkedIn</a
-            >
-            <a href="Diego_Resume.pdf" target="_blank" rel="noopener">Résumé</a>
-            <a href="mailto:diego.crisafu@gmail.com">Email</a>
-          </div>
-        </div>
-      </div>
-    </footer>
 
     <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
     <button class="scroll-top" id="scroll-top" hidden aria-label="Back to top" type="button">
@@ -942,6 +1062,6 @@
       </svg>
     </button>
 
-    <script src="behavior.js?v=20260909-r2" defer></script>
+    <script src="behavior.js?v=20260909-r3" defer></script>
   </body>
 </html>

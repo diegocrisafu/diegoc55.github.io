@@ -55,13 +55,58 @@
   document.addEventListener('focusin', (event) => {
     if (menuOpen && !header.contains(event.target)) setMenu(false);
   });
-  navigation.addEventListener('click', (event) => {
+  function focusPageTarget(event) {
     const link = event.target.closest('a[href^="#"]');
     if (!link) return;
     setMenu(false);
     const target = document.getElementById(link.hash.slice(1));
     if (target) target.focus({ preventScroll: true });
-  });
+  }
+  navigation.addEventListener('click', focusPageTarget);
+
+  const pages = [...document.querySelectorAll('.portfolio-page')];
+  const navLinks = [...navigation.querySelectorAll('a')];
+  const pageIndex = document.getElementById('page-index');
+  const pageNumber = document.getElementById('page-number');
+  const pageLabel = document.getElementById('page-label');
+  const previousPage = document.getElementById('previous-page');
+  const nextPage = document.getElementById('next-page');
+  pageIndex.hidden = false;
+  pageIndex.addEventListener('click', focusPageTarget);
+  let activePage = -1;
+  let headerHeight = 108;
+
+  function updatePageIndex() {
+    // A point inside the reading area also works for pages taller than the viewport.
+    const readingLine = headerHeight + Math.max(0, window.innerHeight - headerHeight) * 0.35;
+    let current = 0;
+    for (let index = 0; index < pages.length; index++) {
+      if (pages[index].getBoundingClientRect().top <= readingLine) current = index;
+      else break;
+    }
+    if (current === activePage) return;
+    activePage = current;
+    const page = pages[current];
+    pageNumber.textContent = `${String(current + 1).padStart(2, '0')} / ${String(pages.length).padStart(2, '0')}`;
+    pageLabel.textContent = page.dataset.pageLabel;
+    for (const link of navLinks) {
+      const active = link.hash === `#${page.dataset.nav}`;
+      link.classList.toggle('active', active);
+      if (active) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    }
+    for (const [link, index, direction] of [
+      [previousPage, current - 1, 'Previous'],
+      [nextPage, current + 1, 'Next'],
+    ]) {
+      const destination = pages[index];
+      link.hidden = !destination;
+      if (destination) {
+        link.href = `#${destination.id}`;
+        link.setAttribute('aria-label', `${direction} page: ${destination.dataset.pageLabel}`);
+      }
+    }
+  }
 
   const progress = document.getElementById('scroll-progress');
   const topButton = document.getElementById('scroll-top');
@@ -73,34 +118,38 @@
     if (show || document.activeElement !== topButton) topButton.hidden = !show;
     topButton.classList.toggle('visible', show);
     root.classList.toggle('at-top', window.scrollY < 8);
+    updatePageIndex();
   }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll);
-  onScroll();
+  let scrollFrame = 0;
+  window.addEventListener(
+    'scroll',
+    () => {
+      if (scrollFrame) return;
+      scrollFrame = requestAnimationFrame(() => {
+        scrollFrame = 0;
+        onScroll();
+      });
+    },
+    { passive: true }
+  );
+  function measureHeader() {
+    const height = header.getBoundingClientRect().height;
+    if (height > 0) {
+      headerHeight = height;
+      root.style.setProperty('--header-height', `${height}px`);
+    }
+    onScroll();
+  }
+  window.addEventListener('resize', measureHeader);
+  window.addEventListener('hashchange', onScroll);
+  if ('ResizeObserver' in window) new ResizeObserver(measureHeader).observe(header);
+  measureHeader();
   topButton.addEventListener('click', () => {
     document.querySelector('.brand').focus({ preventScroll: true });
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' });
     onScroll();
   });
-  if ('IntersectionObserver' in window) {
-    const navLinks = [...navigation.querySelectorAll('a')];
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (!entry.isIntersecting) continue;
-          for (const link of navLinks) {
-            const active = link.hash === `#${entry.target.id}`;
-            link.classList.toggle('active', active);
-            if (active) link.setAttribute('aria-current', 'location');
-            else link.removeAttribute('aria-current');
-          }
-        }
-      },
-      { rootMargin: '-20% 0px -60% 0px', threshold: 0 }
-    );
-    document.querySelectorAll('main > section[id]').forEach((section) => observer.observe(section));
-  }
 
   const form = document.getElementById('contact-form');
   const status = document.getElementById('form-status');

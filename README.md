@@ -14,6 +14,8 @@ python3 -m http.server 8000
 
 The site includes responsive WebP image variants, explicit image dimensions, keyboard accessible navigation, and light/dark themes. Legacy page URLs redirect to the corresponding sections of the current site.
 
+The portfolio uses native vertical scroll snapping. Each page has a minimum height equal to the viewport minus the measured sticky header. Work projects and employers have individual pages. Oversized content stays in normal document flow so smaller screens and zoom do not clip text. The top index tracks all pages, with section highlighting and previous/next links. Reduced motion preferences use proximity snapping and instant anchor navigation.
+
 ## Rebuild the résumé
 
 The downloadable résumé is generated from `resume.json`. Install ReportLab in your Python environment, then run:

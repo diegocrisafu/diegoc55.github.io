@@ -20,6 +20,7 @@
   --max-wide: 1120px;
   --max-pad: clamp(20px, 4.5vw, 56px);
   --section-y: clamp(40px, 4.5vw, 60px);
+  --header-height: 108px;
   --serif: 'Instrument Serif', 'EB Garamond', Georgia, 'Times New Roman', serif;
   --sans: 'Geist', 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
   --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -51,22 +52,25 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 88px;
+  scroll-padding-top: var(--header-height);
+  scroll-snap-type: y mandatory;
 }
 [hidden] {
   display: none !important;
 }
 section:focus,
-main:focus {
+main:focus,
+.page-group:focus {
   outline: none;
 }
 section {
-  scroll-margin-top: 8px;
+  scroll-margin-top: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+    scroll-snap-type: y proximity;
   }
   *,
   *::before,
@@ -82,7 +86,7 @@ body {
   background: var(--bg);
   color: var(--ink);
   font-family: var(--sans);
-  font-size: 17px;
+  font-size: 16px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -163,8 +167,8 @@ html:not(.at-top) .site-nav {
   display: flex;
   align-items: center;
   gap: 24px;
-  padding-top: 16px;
-  padding-bottom: 16px;
+  padding-top: 12px;
+  padding-bottom: 12px;
 }
 
 .brand {
@@ -189,7 +193,8 @@ html:not(.at-top) .site-nav {
 }
 .nav-links a:hover,
 .nav-links a.active {
-  color: var(--ink);
+  color: var(--accent);
+  font-weight: 600;
 }
 .nav-links a.active::after {
   content: '';
@@ -198,7 +203,7 @@ html:not(.at-top) .site-nav {
   right: 0;
   bottom: -6px;
   height: 1px;
-  background: var(--ink);
+  background: var(--accent);
 }
 
 .nav-actions {
@@ -266,7 +271,7 @@ html:not(.at-top) .site-nav {
 }
 .nav-links {
   margin-left: 0;
-  gap: 20px;
+  gap: 16px;
 }
 .nav-actions {
   flex-shrink: 0;
@@ -296,7 +301,7 @@ html:not(.at-top) .site-nav {
     top: 100%;
     left: 0;
     margin: 0;
-    max-height: calc(100dvh - 80px);
+    max-height: calc(100dvh - var(--header-height));
     overflow-y: auto;
     background: var(--bg);
     padding: 12px var(--max-pad) 20px;
@@ -408,8 +413,91 @@ p {
 section {
   padding: var(--section-y) 0;
 }
-section + section {
-  border-top: 1px solid var(--border-2);
+.portfolio-page {
+  min-height: calc(100vh - var(--header-height));
+  min-height: calc(100dvh - var(--header-height));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  overflow: visible;
+}
+.page-index {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding-top: 4px;
+  padding-bottom: 12px;
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 1.5;
+}
+.page-position {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+#page-number {
+  color: var(--accent);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+#page-label {
+  color: var(--muted);
+}
+.page-steps {
+  display: flex;
+  gap: 20px;
+  flex-shrink: 0;
+}
+.page-steps a {
+  padding: 6px 0;
+}
+.page-steps a:hover {
+  color: var(--accent);
+}
+.page-part {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+}
+.portfolio-page .case {
+  padding: 0;
+  border: 0;
+}
+.portfolio-page .case:hover {
+  background: transparent;
+}
+.portfolio-page .exp-co {
+  position: static;
+}
+.gallery-section {
+  padding-bottom: 0;
+}
+.gallery-section .site-footer {
+  margin-top: 36px;
+  border-top: 0;
+  padding: 0 0 24px;
+}
+.gallery-section .footer-closer {
+  display: none;
+}
+@media (max-width: 520px) {
+  .page-index {
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .page-position {
+    gap: 4px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .page-steps {
+    gap: 16px;
+  }
 }
 
 .section-head {
@@ -655,7 +743,7 @@ section + section {
 }
 
 .hero-name {
-  font-size: clamp(3.5rem, 7.2vw, 5.15rem);
+  font-size: clamp(3.25rem, 6.5vw, 4.6rem);
   margin-bottom: 24px;
 }
 .hero-name-first {
