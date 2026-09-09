@@ -1376,7 +1376,7 @@ section {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding: 24px;
+  padding: 20px;
   border: 1px solid var(--border-2);
   border-radius: 6px;
   background: var(--surface);
