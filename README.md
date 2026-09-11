@@ -34,19 +34,24 @@ When changing CSS or JavaScript, update their query versions in `index.html`, th
 
 ## Main files
 
-| File                                     | Purpose                                    |
-| ---------------------------------------- | ------------------------------------------ |
-| `index.html`                             | Portfolio content and metadata             |
-| `style.css`                              | Layout, themes, and responsive styles      |
-| `behavior.js`                            | Navigation, themes, and contact validation |
-| `resume.json`                            | Editable public résumé content             |
-| `scripts/build_resume.py`                | PDF generator                              |
-| `Diego_Resume.pdf`                       | Downloadable résumé                        |
-| `sw.js`                                  | Offline document and asset caching         |
-| `images/*_480.webp`, `images/*_960.webp` | Responsive photos                          |
+| File                                         | Purpose                                    |
+| -------------------------------------------- | ------------------------------------------ |
+| `index.html`                                 | Portfolio content and metadata             |
+| `style.css`                                  | Layout, themes, and responsive styles      |
+| `behavior.js`                                | Navigation, themes, and contact validation |
+| `resume.json`                                | Editable public résumé content             |
+| `scripts/build_resume.py`                    | PDF generator                              |
+| `Diego_Resume.pdf`                           | Downloadable résumé                        |
+| `sw.js`                                      | Offline document and asset caching         |
+| `images/*_480.webp`, `images/*_960.webp`     | Responsive photos                          |
+| `privacy.html`, `terms.html`, `cookies.html` | Privacy, terms, and cookie policies        |
 
-The `server/` and `server-worker/` directories and the older `assistant.js`, `chat-config.js`, and `script.js` belong to earlier experiments and are not loaded by the current homepage.
+The `server/` and `server-worker/` directories and the older `script.js` belong to earlier experiments and are not loaded by the current homepage.
+
+## Privacy and third parties
+
+Pages load no third-party resources. Fonts are self-hosted in `assets/fonts/web/`, and the only external service is FormSubmit, which receives the contact form after the visitor consents. `privacy.html` and `cookies.html` say so, so update them before adding analytics, embeds, external fonts, or other services, and add a consent step first if a new service sets cookies or tracks visitors.
 
 ## License
 
-MIT for site code. Bundled fonts use the SIL Open Font License in `assets/fonts/LICENSE`.
+MIT for site code. Bundled fonts use the SIL Open Font License: see `assets/fonts/LICENSE` for the résumé fonts and `assets/fonts/web/` for the web fonts.

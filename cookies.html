@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en" class="legal">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Cookie Policy · Diego Crisafulli</title>
+    <meta
+      name="description"
+      content="Diego Crisafulli's portfolio doesn't use cookies. This page lists what little it stores in your browser, and why there's no cookie banner."
+    />
+    <link rel="canonical" href="https://diegocrisafu.github.io/diegoc55.github.io/cookies.html" />
+    <meta name="theme-color" content="#faf8f5" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#14130f" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="style.css?v=20260911-legal" />
+    <!-- Apply the saved theme before paint. This page reads the preference but never stores anything. -->
+    <script>
+      (function () {
+        try {
+          const t = localStorage.getItem('theme');
+          const prefersDark =
+            window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (t === 'dark' || (!t && prefersDark)) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <header class="legal-header">
+      <div class="container legal-header-inner">
+        <a href="index.html" class="brand">Diego Crisafulli</a>
+        <a href="index.html" class="legal-back"
+          ><span aria-hidden="true">←</span> Back to portfolio</a
+        >
+      </div>
+    </header>
+
+    <main id="main" class="legal-main" tabindex="-1">
+      <article class="container legal-doc">
+        <p class="eyebrow">Legal</p>
+        <h1>Cookie Policy</h1>
+        <p class="legal-updated">
+          Last updated <time datetime="2026-09-11">September 11, 2026</time>
+        </p>
+
+        <div class="legal-summary">
+          <h2>In short</h2>
+          <ul>
+            <li>This site doesn't use cookies.</li>
+            <li>
+              It has no analytics, no advertising, and no content from other companies that could
+              set cookies.
+            </li>
+            <li>That's why there's no cookie banner.</li>
+          </ul>
+        </div>
+
+        <h2 id="storage">What the site stores in your browser</h2>
+        <p>
+          The site uses two browser storage features. Neither is a cookie, neither identifies you,
+          and nothing in them is sent to me or anyone else.
+        </p>
+        <div class="storage-list">
+          <div class="storage-item">
+            <h3><code>theme</code></h3>
+            <dl>
+              <div>
+                <dt>Type</dt>
+                <dd>Local storage</dd>
+              </div>
+              <div>
+                <dt>Purpose</dt>
+                <dd>Remembers whether you chose light or dark mode.</dd>
+              </div>
+              <div>
+                <dt>When it's created</dt>
+                <dd>Only when you click the dark mode button on the portfolio page.</dd>
+              </div>
+              <div>
+                <dt>How long it stays</dt>
+                <dd>Until you clear your browser's site data.</dd>
+              </div>
+            </dl>
+          </div>
+          <div class="storage-item">
+            <h3><code>portfolio-</code> plus a version number</h3>
+            <dl>
+              <div>
+                <dt>Type</dt>
+                <dd>Cache storage, used by the site's service worker</dd>
+              </div>
+              <div>
+                <dt>Purpose</dt>
+                <dd>
+                  Keeps a copy of the site's own files, such as pages, styles, fonts, and the
+                  résumé, so they load faster and work offline.
+                </dd>
+              </div>
+              <div>
+                <dt>When it's created</dt>
+                <dd>When you first open the portfolio page, if your browser supports it.</dd>
+              </div>
+              <div>
+                <dt>How long it stays</dt>
+                <dd>
+                  Replaced when the site updates, and removed when you clear your browser's site
+                  data.
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+
+        <h2 id="third-parties">Third parties</h2>
+        <ul>
+          <li>
+            Every font, image, style sheet, and script loads from this site. No request goes to
+            Google Fonts, analytics providers, or advertisers.
+          </li>
+          <li>
+            GitHub, which hosts the site, logs IP addresses on its servers for security. That
+            happens on GitHub's side and doesn't use cookies. The
+            <a href="privacy.html">Privacy Policy</a> has details.
+          </li>
+          <li>
+            The contact form sends your message to FormSubmit only when you submit it, and the
+            request is made without cookies.
+          </li>
+        </ul>
+
+        <h2 id="clear">How to clear it</h2>
+        <p>
+          You can delete this storage at any time in your browser's settings, usually under "Site
+          data" or "Cookies and site data". Clearing it resets the theme to your system setting and
+          removes the offline copy.
+        </p>
+
+        <h2 id="changes">If this changes</h2>
+        <p>
+          If I ever add analytics or other tools that use cookies or track visits, I'll update this
+          policy first and ask for your consent where the law requires it.
+        </p>
+
+        <h2 id="contact">Contact</h2>
+        <p>
+          Questions about this policy:
+          <a href="mailto:diego.crisafu@gmail.com">diego.crisafu@gmail.com</a>.
+        </p>
+      </article>
+    </main>
+
+    <footer class="site-footer legal-footer">
+      <div class="container">
+        <div class="footer-inner">
+          <p>© 2026 Diego Crisafulli · Montreal, Quebec, Canada</p>
+          <nav class="footer-links" aria-label="Legal">
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms of Use</a>
+            <a href="cookies.html" aria-current="page">Cookie Policy</a>
+            <a href="index.html">Portfolio</a>
+          </nav>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

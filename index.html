@@ -43,19 +43,22 @@
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <link rel="manifest" href="manifest.webmanifest" />
 
-    <!-- Fonts: Instrument Serif (display) + Geist (body) + JetBrains Mono (UI/meta) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Fonts: Instrument Serif (display) + Geist (body) + JetBrains Mono (UI/meta), self-hosted -->
     <link
       rel="preload"
-      as="style"
-      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap"
+      href="assets/fonts/web/geist-normal-400-600-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
     />
     <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="preload"
+      href="assets/fonts/web/instrument-serif-normal-400-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
     />
-    <link rel="stylesheet" href="style.css?v=20260909-r3a" />
+    <link rel="stylesheet" href="style.css?v=20260911-legal" />
 
     <!-- JSON-LD -->
     <script type="application/ld+json">
@@ -168,7 +171,8 @@
           <button
             class="theme-toggle"
             id="theme-toggle"
-            aria-label="Toggle dark mode"
+            aria-label="Dark mode"
+            aria-pressed="false"
             type="button"
           >
             <svg
@@ -793,7 +797,7 @@
                 I’m based in Montreal, speak English and French, and am interested in graduate
                 software engineering and data roles.
               </p>
-              <div class="about-tags" aria-label="Quick facts">
+              <div class="about-tags" role="group" aria-label="Quick facts">
                 <span>English and French</span><span>Canadian citizen</span
                 ><span>Open to relocation</span>
               </div>
@@ -882,12 +886,13 @@
                   name="_autoresponse"
                   value="Thanks for reaching out. I'll get back to you within a day or two. Cheers, Diego"
                 />
-                <input type="hidden" name="form_started_at" id="form_started_at" />
+                <input type="hidden" id="form_started_at" />
                 <div class="hp" hidden aria-hidden="true">
                   <label for="hp">Leave this empty</label
                   ><input id="hp" name="_honey" autocomplete="off" tabindex="-1" />
                 </div>
 
+                <p class="form-note">All fields are required.</p>
                 <div class="field">
                   <label for="name">Name</label>
                   <input
@@ -922,7 +927,23 @@
                     required
                   ></textarea>
                 </div>
-                <div class="send-row" aria-live="polite">
+                <div class="field field-consent">
+                  <input
+                    id="consent"
+                    name="consent"
+                    type="checkbox"
+                    value="Agreed to the Privacy Policy dated September 11, 2026"
+                    required
+                  />
+                  <label for="consent"
+                    >I agree to have my name, email address, and message sent through FormSubmit so
+                    Diego can reply, as described in the
+                    <a href="privacy.html" target="_blank" rel="noopener"
+                      >Privacy Policy<span class="visually-hidden"> (opens in a new tab)</span></a
+                    >.</label
+                  >
+                </div>
+                <div class="send-row">
                   <button class="btn btn-primary" type="submit" id="send-btn">Send message</button>
                   <p id="form-status" class="form-status" role="status"></p>
                 </div>
@@ -1027,7 +1048,7 @@
               <span>Diego.</span><span class="ital">Crisafulli.</span>
             </p>
             <div class="footer-inner">
-              <p>© <span id="year"></span> Diego Crisafulli. Built in Montreal.</p>
+              <p>© <span id="year">2026</span> Diego Crisafulli · Montreal, Quebec, Canada</p>
               <div class="footer-links">
                 <a href="https://github.com/diegocrisafu" target="_blank" rel="noopener noreferrer"
                   >GitHub</a
@@ -1042,6 +1063,11 @@
                 <a href="mailto:diego.crisafu@gmail.com">Email</a>
               </div>
             </div>
+            <nav class="footer-legal" aria-label="Legal">
+              <a href="privacy.html">Privacy Policy</a>
+              <a href="terms.html">Terms of Use</a>
+              <a href="cookies.html">Cookie Policy</a>
+            </nav>
           </div>
         </footer>
       </section>
@@ -1062,6 +1088,6 @@
       </svg>
     </button>
 
-    <script src="behavior.js?v=20260909-r3a" defer></script>
+    <script src="behavior.js?v=20260911-legal" defer></script>
   </body>
 </html>

@@ -2,12 +2,11 @@
 (() => {
   const root = document.documentElement;
   const themeButton = document.getElementById('theme-toggle');
-  const syncThemeLabel = () => {
-    const dark = root.getAttribute('data-theme') === 'dark';
-    themeButton.setAttribute('aria-label', dark ? 'Use light mode' : 'Use dark mode');
-    themeButton.setAttribute('aria-pressed', String(dark));
+  // The accessible name stays "Dark mode"; aria-pressed announces whether it is on.
+  const syncThemeState = () => {
+    themeButton.setAttribute('aria-pressed', String(root.getAttribute('data-theme') === 'dark'));
   };
-  syncThemeLabel();
+  syncThemeState();
   themeButton.addEventListener('click', () => {
     const dark = root.getAttribute('data-theme') !== 'dark';
     if (dark) root.setAttribute('data-theme', 'dark');
@@ -17,7 +16,7 @@
     } catch (_) {
       /* Optional preference. */
     }
-    syncThemeLabel();
+    syncThemeState();
   });
 
   document.getElementById('year').textContent = new Date().getFullYear();
@@ -176,7 +175,12 @@
     document.getElementById(`${input.id}-err`)?.remove();
   }
   function validate() {
-    const fields = [form.elements.name, form.elements.email, form.elements.message];
+    const fields = [
+      form.elements.name,
+      form.elements.email,
+      form.elements.message,
+      form.elements.consent,
+    ];
     const messages = [
       fields[0].value.trim().length >= 2 && fields[0].value.trim().length <= 120
         ? ''
@@ -187,6 +191,7 @@
       fields[2].value.trim().length >= 20 && fields[2].value.trim().length <= 2000
         ? ''
         : 'Enter a message between 20 and 2000 characters.',
+      fields[3].checked ? '' : 'Check the box to agree before sending your message.',
     ];
     let firstInvalid;
     fields.forEach((input, index) => {

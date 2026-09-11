@@ -1,9 +1,9 @@
-const CACHE = 'portfolio-20260909-r3a';
+const CACHE = 'portfolio-20260911-legal';
 const CORE = [
   './',
   './index.html',
-  './style.css?v=20260909-r3a',
-  './behavior.js?v=20260909-r3a',
+  './style.css?v=20260911-legal',
+  './behavior.js?v=20260911-legal',
   './Diego_Resume.pdf',
   './favicon.svg',
   './manifest.webmanifest',
@@ -58,7 +58,7 @@ self.addEventListener('fetch', (event) => {
     );
     return;
   }
-  if (['style', 'script', 'image'].includes(request.destination)) {
+  if (['style', 'script', 'image', 'font'].includes(request.destination)) {
     const refresh = (async () => {
       const response = await fetch(request);
       if (response.ok) {
