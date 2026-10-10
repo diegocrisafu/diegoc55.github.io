@@ -34,7 +34,7 @@ Before publishing, inspect all six sections at desktop, tablet and phone widths;
 
 ## Résumé source and maintenance
 
-The public `Diego_Resume.pdf` is a reviewed one-page revision. It omits optional GPA, describes Roger as a paper-trading research system, includes SceneBreaker, and states that degree requirements were completed in September 2026 while formal conferral is pending. The October 7 source PDF remains unchanged in Diego's Downloads folder.
+The current `Diego_Resume.pdf` is the exact one-page PDF supplied by Diego on October 7, 2026: `DIEGO CRISAFULLI_Data Engineer Intern_20261007.pdf`. SHA-256: `b3123bb12baabd8f410f2880d860fa625b62c15afb4f51cfeeb128ce42e1d988`. The original download was not modified.
 
 `resume.json` and the generator are retained as legacy editing sources; they are **not** the source of the currently published download. Do not run the generator over the supplied PDF without an explicit request. For a separately requested generated revision, install ReportLab and run:
 
@@ -42,7 +42,7 @@ The public `Diego_Resume.pdf` is a reviewed one-page revision. It omits optional
 python3 scripts/build_resume.py
 ```
 
-This replaces `Diego_Resume.pdf`. The generator follows a classic serif layout and embeds the bundled Portfolio Resume Serif fonts. `resume.json` supplies the website's structured résumé data and is not the source for the downloadable PDF. Review any generated revision before publishing it.
+This replaces `Diego_Resume.pdf`. Back up the supplied PDF first. The generator follows a separate classic serif layout and embeds the bundled Portfolio Resume Serif fonts. Review any generated revision before publishing it. The website’s current skill grouping and personal language priorities come from Diego’s October 8 feedback; the supplied PDF is deliberately kept unchanged.
 
 ## Publish
 
