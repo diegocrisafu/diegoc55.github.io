@@ -14,17 +14,35 @@ python3 -m http.server 8000
 
 The site includes responsive WebP image variants, explicit image dimensions, keyboard accessible navigation, and light/dark themes. Legacy page URLs redirect to the corresponding sections of the current site.
 
-The portfolio uses native vertical scroll snapping. Each page has a minimum height equal to the viewport minus the measured sticky header. Work projects and employers have individual pages. Oversized content stays in normal document flow so smaller screens and zoom do not clip text. The top index tracks all pages, with section highlighting and previous/next links. Reduced motion preferences use proximity snapping and instant anchor navigation.
+The portfolio uses normal document scrolling in six sections: Home, Experience, Projects, Skills, About me, and Contact. Only the opening fills the viewport. The sticky navigation follows the active section. Native disclosures keep employer details and personal photos available without turning the page into a second résumé. Older work anchors still open their containing disclosure. Reduced motion preferences use instant anchor navigation.
 
-## Rebuild the résumé
+The design retains the cream background and coffee illustration, with self-hosted Uncut Sans replacing the previous type pairing. The type scale advances by 1.25; reading text and headings use 1.5 leading. Hero and project layouts use 12 desktop, 8 tablet and 4 phone columns. Experience connects each employer to labeled technology icons and a short contribution. It stacks below 900px; no essential information depends on hover.
 
-The downloadable résumé is generated from `resume.json`. Install ReportLab in your Python environment, then run:
+SceneBreaker appears only in Projects, not on the opening screen. Every project has an actual capture, original identity asset, or explicitly labeled system sketch. See `images/PROVENANCE.md` and `assets/icons/README.md`. The SceneBreaker source link targets its implementation branch; update it after verifying a merge.
+
+## Verify changes
+
+Run the dependency-free regression checks:
+
+```sh
+node --test tests/portfolio.test.mjs
+node --check behavior.js
+node --check sw.js
+```
+
+Before publishing, inspect all six sections at desktop, tablet and phone widths; verify direct navigation, employer disclosures, mobile-menu Escape/focus restoration, theme changes without scroll jumps, and contact hints. Do not send a real contact message as a smoke test. Verify the demo/source links and keep SceneBreaker’s manual tracing, approximate 3D collision boxes and non-safety limitation explicit.
+
+## Résumé source and maintenance
+
+The public `Diego_Resume.pdf` is a reviewed one-page revision. It omits optional GPA, describes Roger as a paper-trading research system, includes SceneBreaker, and states that degree requirements were completed in September 2026 while formal conferral is pending. The October 7 source PDF remains unchanged in Diego's Downloads folder.
+
+`resume.json` and the generator are retained as legacy editing sources; they are **not** the source of the currently published download. Do not run the generator over the supplied PDF without an explicit request. For a separately requested generated revision, install ReportLab and run:
 
 ```sh
 python3 scripts/build_resume.py
 ```
 
-This updates `Diego_Resume.pdf`. Keep its education, dates, contact links, and work descriptions consistent with `index.html`. The generator follows the original classic serif layout: centered contact header, black section rules, compact role headings, and experience before education. It embeds the bundled Portfolio Resume Serif fonts and preserves selectable text and clickable links. Review the resulting PDF before publishing it.
+This replaces `Diego_Resume.pdf`. The generator follows a classic serif layout and embeds the bundled Portfolio Resume Serif fonts. `resume.json` supplies the website's structured résumé data and is not the source for the downloadable PDF. Review any generated revision before publishing it.
 
 ## Publish
 
@@ -50,8 +68,8 @@ The `server/` and `server-worker/` directories and the older `script.js` belong 
 
 ## Privacy and third parties
 
-Pages load no third-party resources. Fonts are self-hosted in `assets/fonts/web/`, and the only external service is FormSubmit, which receives the contact form after the visitor consents. `privacy.html` and `cookies.html` say so, so update them before adding analytics, embeds, external fonts, or other services, and add a consent step first if a new service sets cookies or tracks visitors.
+Pages load no third-party resources. The current web font is self-hosted in `assets/fonts/uncut/`; icons and project previews are local. FormSubmit receives the contact form only after the visitor consents and sends it. `privacy.html` and `cookies.html` describe this behavior. Update them before adding analytics, embeds, external fonts, or other services.
 
 ## License
 
-MIT for site code. Bundled fonts use the SIL Open Font License: see `assets/fonts/LICENSE` for the résumé fonts and `assets/fonts/web/` for the web fonts.
+MIT for site code. Bundled fonts use the SIL Open Font License: see `assets/fonts/LICENSE` for the résumé fonts and `assets/fonts/uncut/LICENSE.txt` for the current web font. Legacy fonts remain in `assets/fonts/web/`. Icon libraries have separate notices in `assets/icons/`; brand marks remain their owners’ trademarks.

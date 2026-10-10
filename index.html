@@ -6,7 +6,7 @@
     <title>Diego Crisafulli · Software Engineer</title>
     <meta
       name="description"
-      content="Backend systems, data pipelines, and developer tools. Concordia Computer Science, graduating December 2026. Experience at McKesson, CAE, and Presagis. Montreal; English and French."
+      content="Backend systems, data pipelines, and developer tools. Concordia Computer Science and Computational Arts requirements completed September 2026; formal degree conferral pending. Experience at McKesson, CAE, and Presagis. Montreal; English and French."
     />
     <meta name="author" content="Diego Crisafulli" />
     <meta name="robots" content="index,follow" />
@@ -19,7 +19,7 @@
     <meta property="og:title" content="Diego Crisafulli · Software Engineer" />
     <meta
       property="og:description"
-      content="Backend systems, data pipelines, and developer tools. Concordia Computer Science, graduating December 2026. Experience at McKesson, CAE, and Presagis. Montreal; English and French."
+      content="Backend systems, data pipelines, and developer tools. Concordia Computer Science and Computational Arts requirements completed September 2026; formal degree conferral pending. Experience at McKesson, CAE, and Presagis. Montreal; English and French."
     />
     <meta property="og:url" content="https://diegocrisafu.github.io/diegoc55.github.io/" />
     <meta
@@ -33,7 +33,7 @@
     <meta name="twitter:title" content="Diego Crisafulli · Software Engineer" />
     <meta
       name="twitter:description"
-      content="Backend systems, data pipelines, and developer tools. Concordia Computer Science, graduating December 2026. Experience at McKesson, CAE, and Presagis. Montreal; English and French."
+      content="Backend systems, data pipelines, and developer tools. Concordia Computer Science and Computational Arts requirements completed September 2026; formal degree conferral pending. Experience at McKesson, CAE, and Presagis. Montreal; English and French."
     />
     <meta
       name="twitter:image"
@@ -43,22 +43,9 @@
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <link rel="manifest" href="manifest.webmanifest" />
 
-    <!-- Fonts: Instrument Serif (display) + Geist (body) + JetBrains Mono (UI/meta), self-hosted -->
-    <link
-      rel="preload"
-      href="assets/fonts/web/geist-normal-400-600-latin.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      href="assets/fonts/web/instrument-serif-normal-400-latin.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link rel="stylesheet" href="style.css?v=20260911-legal" />
+    <!-- Uncut Sans by Kasper Nordkvist, self-hosted under the SIL Open Font License. -->
+    <link rel="preload" href="assets/fonts/uncut/UncutSans-Variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="style.css?v=20261008-connected-experience-07" />
 
     <!-- JSON-LD -->
     <script type="application/ld+json">
@@ -156,18 +143,15 @@
         </button>
         <nav class="primary-navigation" id="primary-nav" aria-label="Main navigation">
           <ul class="nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#work">Work</a></li>
             <li><a href="#experience">Experience</a></li>
             <li><a href="#projects">Projects</a></li>
             <li><a href="#skills">Skills</a></li>
-            <li><a href="#about">About</a></li>
+            <li><a href="#about">About me</a></li>
             <li><a href="#contact">Contact</a></li>
-            <li><a href="#off-screen">Personal</a></li>
           </ul>
         </nav>
         <div class="nav-actions">
-          <a href="Diego_Resume.pdf" class="nav-resume" target="_blank" rel="noopener">Résumé</a>
+          <a href="Diego_Resume.pdf?v=20261007" class="nav-resume" target="_blank" rel="noopener">Résumé</a>
           <button
             class="theme-toggle"
             id="theme-toggle"
@@ -205,15 +189,6 @@
           </button>
         </div>
       </div>
-      <div class="container page-index" id="page-index" hidden>
-        <p class="page-position">
-          <span id="page-number">01 / 12</span><span id="page-label">Home</span>
-        </p>
-        <nav class="page-steps" aria-label="Portfolio pages">
-          <a id="previous-page" href="#home" hidden><span aria-hidden="true">↑</span> Previous</a>
-          <a id="next-page" href="#work-drift">Next <span aria-hidden="true">↓</span></a>
-        </nav>
-      </div>
     </header>
 
     <main id="main" tabindex="-1">
@@ -226,29 +201,31 @@
       >
         <div class="container hero-grid">
           <div class="hero-copy">
-            <div class="hero-meta reveal">
-              <p class="eyebrow">Software Engineer · Montreal</p>
-              <span class="status-pill">Seeking graduate engineering roles</span>
-            </div>
             <h1 class="hero-name reveal">
               <span class="hero-name-first">Diego</span>
-              <span class="hero-name-last"><em>Crisafulli.</em></span>
+              <span class="hero-name-last">Crisafulli.</span>
             </h1>
+            <div class="hero-meta reveal">
+              <p>Software engineer · Montreal</p>
+              <p>Seeking graduate engineering roles</p>
+            </div>
             <p class="hero-lead">I build backend systems, data pipelines, and developer tools.</p>
             <p class="hero-sub">
-              Final year Computer Science student at Concordia, graduating in December 2026.
-              Software development experience at McKesson, CAE, and Presagis. Based in Montreal.
-              Fluent in English and French.
+              Concordia Computer Science and Computational Arts requirements completed in September 2026;
+              formal degree conferral pending. Experience at McKesson, CAE, and Presagis. I work in English and French.
             </p>
             <div class="hero-ctas reveal">
-              <a class="btn btn-primary magnet" href="#work" data-magnet>
+              <a class="btn btn-primary magnet" href="#projects" data-magnet>
                 <span class="btn-inner"
-                  >View work <span class="arrow" aria-hidden="true">→</span></span
+                  >Explore projects <span class="arrow" aria-hidden="true">→</span></span
                 >
               </a>
-              <a class="btn" href="Diego_Resume.pdf" target="_blank" rel="noopener">Résumé</a>
+              <a class="btn" href="Diego_Resume.pdf?v=20261007" target="_blank" rel="noopener">Résumé</a>
               <a class="btn btn-ghost" href="#contact">Contact</a>
             </div>
+            <p class="hero-projects">
+              <a href="#experience">Explore my experience <span aria-hidden="true">↓</span></a>
+            </p>
           </div>
           <div class="hero-art reveal" aria-hidden="true">
             <svg
@@ -313,300 +290,70 @@
         </div>
       </section>
 
-      <div id="work" class="page-group" tabindex="-1">
-        <section
-          id="work-drift"
-          class="portfolio-page"
-          data-nav="work"
-          data-page-label="Selected work · Configuration drift"
-          tabindex="-1"
-        >
-          <div class="container">
-            <div class="section-head">
-              <h2 class="eyebrow">Selected work</h2>
-              <span class="page-part">01 / 03</span>
-            </div>
-            <article class="case">
-              <header class="case-rail">
-                <span class="case-num">01</span><span class="case-tag">CAE</span
-                ><span class="case-tag">Cloud Engineer Intern</span
-                ><span class="case-tag">May to August 2025</span>
-              </header>
-              <div class="case-body">
-                <h3>Configuration drift automation across environments</h3>
-                <div class="case-stack">
-                  <span>PowerShell</span><span>Git</span><span>HTML</span>
+      <span id="work" class="anchor-alias" aria-hidden="true"></span>
+      <section id="experience" class="portfolio-page experience-section" data-nav="experience" data-page-label="Experience" tabindex="-1" aria-labelledby="experience-title">
+        <div class="container">
+          <div class="section-head"><h2 id="experience-title">Experience</h2><p class="section-intro">The teams, tools, and work behind the résumé.</p></div>
+          <div class="experience-network">
+            <article class="experience-company" id="experience-mckesson" aria-labelledby="mckesson-title" tabindex="-1">
+              <header class="company-heading"><h3 id="mckesson-title">McKesson</h3><p class="company-dates">2026–present · Healthcare technology</p><p class="company-contribution">Python and .NET tools for healthcare teams.</p></header>
+              <ul class="technology-branches" style="--tech-count: 5" aria-label="Technologies used at McKesson">
+                <li class="technology" style="--tool-color: #3776AB"><img src="assets/icons/color/python.svg" width="40" height="40" alt="" loading="lazy" decoding="async" /><span>Python</span></li>
+                <li class="technology" style="--tool-color: #512BD4"><img src="assets/icons/color/dotnet.svg" width="40" height="40" alt="" loading="lazy" decoding="async" /><span>.NET</span></li>
+                <li class="technology" style="--tool-color: #3879BD"><img src="assets/icons/color/cloud.svg" width="40" height="40" alt="" loading="lazy" decoding="async" /><span>Cloud</span></li>
+                <li class="technology" style="--tool-color: #D97757"><img src="assets/icons/color/claude.svg" width="40" height="40" alt="" loading="lazy" decoding="async" /><span>Claude</span></li>
+                <li class="technology" style="--tool-color: #C69324"><img src="assets/icons/color/brain-circuit.svg" width="40" height="40" alt="" loading="lazy" decoding="async" /><span>AI</span></li>
+              </ul>
+              <details class="experience-details">
+                <summary>View experience<span class="visually-hidden"> at McKesson</span></summary>
+                <div class="experience-detail-body">
+                  <p class="role-heading">AI Engineer · previously Software Developer Intern</p>
+                  <p class="role-note">Internship: May–August 2026 · GenAI team: August 2026–present</p>
+                  <p>I build Python and .NET tools for healthcare teams, from routine approvals to finding answers in past meeting discussions. Working across four-plus projects has shown me how a large company connects its workflows, privacy requirements, and delivery.</p>
+                  <p>After my internship, I joined the GenAI team, working with the lead data scientist for Canada on LLM-powered internal tools.</p>
                 </div>
-                <p>
-                  Reviewers needed to compare virtual asset configurations across environments and
-                  releases, including changes to related assets.
-                </p>
-                <span class="label">What I built</span>
-                <p>
-                  I built PowerShell automation to compare Git versioned assets and generate an
-                  interactive HTML report that traces relationships and highlights configuration
-                  differences.
-                </p>
-                <div class="case-result">
-                  <span class="num">+35%</span
-                  ><span class="num-label">increase in data governance coverage.</span>
+              </details>
+            </article>
+            <article class="experience-company" id="experience-cae" aria-labelledby="cae-title" tabindex="-1">
+              <header class="company-heading"><h3 id="cae-title">CAE</h3><p class="company-dates">2023–2025 · Simulation &amp; automation</p><p class="company-contribution">Making simulation systems easier to test.</p></header>
+              <ul class="technology-branches" style="--tech-count: 5" aria-label="Technologies used at CAE">
+                <li class="technology" style="--tool-color: #5391FE"><img src="assets/icons/color/powershell.svg" width="40" height="40" alt="" loading="lazy" decoding="async" /><span>PowerShell</span></li>
+                <li class="technology" style="--tool-color: #00599C"><img src="assets/icons/color/cplusplus.svg" width="40" height="40" alt="" loading="lazy" decoding="async" /><span>C++</span></li>
+                <li class="technology technology-neutral" style="--tool-color: #181717"><img src="assets/icons/color/github.svg" width="40" height="40" alt="" loading="lazy" decoding="async" /><span>GitHub</span></li>
+                <li class="technology" style="--tool-color: #0052CC"><img src="assets/icons/color/jira.svg" width="40" height="40" alt="" loading="lazy" decoding="async" /><span>Jira</span></li>
+                <li class="technology technology-neutral" style="--tool-color: #000000"><img src="assets/icons/color/githubcopilot.svg" width="40" height="40" alt="" loading="lazy" decoding="async" /><span>GitHub Copilot</span></li>
+              </ul>
+              <details class="experience-details">
+                <summary>View experience<span class="visually-hidden"> at CAE</span></summary>
+                <div class="experience-detail-body">
+                  <p class="role-heading">Software &amp; Cloud Engineering Internships</p>
+                  <p class="role-note">Three placements · August 2023–August 2025</p>
+                  <p id="work-drift">From C++ sensor pipelines to PowerShell configuration reports, I worked on the tools engineers use to test and maintain simulation systems.</p>
+                  <p id="work-tooling">One XML utility cut a recurring task from four hours to 30 minutes. The focus was repeatability: clearer checks, less manual setup, and tools another engineer can maintain.</p>
                 </div>
-              </div>
+              </details>
+            </article>
+            <article class="experience-company" id="experience-presagis" aria-labelledby="presagis-title" tabindex="-1">
+              <header class="company-heading"><h3 id="presagis-title">Presagis</h3><p class="company-dates">2022–2023 · Digital twins</p><p class="company-contribution">Preparing 3D assets for digital twins.</p></header>
+              <ul class="technology-branches" style="--tech-count: 4" aria-label="Technologies used at Presagis">
+                <li class="technology" style="--tool-color: #76B900"><img src="assets/icons/color/nvidia.svg" width="40" height="40" alt="" loading="lazy" decoding="async" /><span>Omniverse</span></li>
+                <li class="technology" style="--tool-color: #E87D0D"><img src="assets/icons/color/blender.svg" width="40" height="40" alt="" loading="lazy" decoding="async" /><span>Blender</span></li>
+                <li class="technology" style="--tool-color: #678541"><img src="assets/icons/color/network.svg" width="40" height="40" alt="" loading="lazy" decoding="async" /><span>Machine learning</span></li>
+                <li class="technology technology-neutral" style="--tool-color: #0E1128"><img src="assets/icons/color/unrealengine.svg" width="40" height="40" alt="" loading="lazy" decoding="async" /><span>Unreal Engine</span></li>
+              </ul>
+              <details class="experience-details">
+                <summary>View experience<span class="visually-hidden"> at Presagis</span></summary>
+                <div class="experience-detail-body">
+                  <p class="role-heading">Simulation Developer Intern, with extension</p>
+                  <p class="role-note">May 2022–June 2023</p>
+                  <p>I explored how to turn 3D assets into usable simulation content, connecting Omniverse, Blender, and Unreal Engine with Python. One preparation pipeline reduced manual modeling hours by 25%.</p>
+                  <p>The work also included machine-learning experiments with point-cloud data and prototype demonstrations—a connection between visual computing and practical data processing.</p>
+                </div>
+              </details>
             </article>
           </div>
-        </section>
-        <section
-          id="work-tooling"
-          class="portfolio-page"
-          data-nav="work"
-          data-page-label="Selected work · Developer tooling"
-          tabindex="-1"
-        >
-          <div class="container">
-            <div class="section-head">
-              <h2 class="eyebrow">Selected work</h2>
-              <span class="page-part">02 / 03</span>
-            </div>
-            <article class="case">
-              <header class="case-rail">
-                <span class="case-num">02</span><span class="case-tag">CAE</span
-                ><span class="case-tag">Software Developer Intern</span
-                ><span class="case-tag">September 2024 to May 2025</span>
-              </header>
-              <div class="case-body">
-                <h3>A recurring setup task, from 4 hours to 30 minutes</h3>
-                <div class="case-stack">
-                  <span>XML</span><span>Developer tooling</span><span>Git</span>
-                </div>
-                <p>A recurring test developer task required four hours of manual work.</p>
-                <span class="label">What I built</span>
-                <p>
-                  I built a productivity extension with reusable utilities to standardize the task
-                  across releases and give test developers a consistent starting point.
-                </p>
-                <div class="case-result">
-                  <span class="num">4h → 30m</span
-                  ><span class="num-label">for one recurring task.</span>
-                </div>
-              </div>
-            </article>
-          </div>
-        </section>
-        <section
-          id="work-roger"
-          class="portfolio-page"
-          data-nav="work"
-          data-page-label="Selected work · Roger"
-          tabindex="-1"
-        >
-          <div class="container">
-            <div class="section-head">
-              <h2 class="eyebrow">Selected work</h2>
-              <span class="page-part">03 / 03</span>
-            </div>
-            <article class="case">
-              <header class="case-rail">
-                <span class="case-num">03</span><span class="case-tag">Personal project</span
-                ><span class="case-tag">Roger</span
-                ><span class="case-tag">January 2026 to Present</span>
-              </header>
-              <div class="case-body">
-                <h3>Asynchronous market ingestion and strategy evaluation</h3>
-                <div class="case-stack">
-                  <span>Python</span><span>asyncio</span><span>SQLite</span>
-                </div>
-                <p>
-                  I wanted to compare prediction market strategies using a shared stream of market
-                  data and persistent execution records.
-                </p>
-                <span class="label">What I built</span>
-                <p>
-                  I built an asynchronous pipeline that scans more than 100 markets every 30
-                  seconds, with five strategy implementations and Bayesian scoring stored in SQLite.
-                  The system supports paper execution, configurable live orders, and risk checks
-                  before order placement.
-                </p>
-                <p class="case-note">
-                  The default runner uses paper trading. The repository documents the execution
-                  model, accounting fixes, and evaluation limitations.
-                </p>
-                <div class="case-links">
-                  <a
-                    href="https://github.com/diegocrisafu/expense"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    >Explore Roger on GitHub <span aria-hidden="true">↗</span></a
-                  >
-                </div>
-              </div>
-            </article>
-          </div>
-        </section>
-      </div>
-
-      <div id="experience" class="page-group" tabindex="-1">
-        <section
-          id="experience-mckesson"
-          class="portfolio-page"
-          data-nav="experience"
-          data-page-label="Experience · McKesson"
-          tabindex="-1"
-        >
-          <div class="container">
-            <div class="section-head">
-              <h2 class="eyebrow">Experience</h2>
-              <span class="page-part">01 / 03</span>
-            </div>
-            <article class="exp-group">
-              <header class="exp-co">
-                <span class="exp-co-num">01</span>
-                <h3 class="exp-co-name">McKesson</h3>
-                <span class="exp-co-meta">Current · Healthcare technology</span>
-              </header>
-              <div class="role-list">
-                <div class="role">
-                  <span class="role-date">August 2026 to Present</span>
-                  <div class="role-body">
-                    <h4>Software Developer, contract extension</h4>
-                    <p class="role-note">Contract scheduled through December 2026.</p>
-                    <ul>
-                      <li>
-                        Building a Python and .NET agent that converts recorded meetings into
-                        structured transcripts, keyframes, and summaries.
-                      </li>
-                      <li>
-                        Developing retrieval over the meeting corpus to answer questions using
-                        context from past calls.
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="role">
-                  <span class="role-date">May to August 2026</span>
-                  <div class="role-body">
-                    <h4>Software Developer Intern</h4>
-                    <ul>
-                      <li>
-                        Automated routine approval steps in production decision workflows with
-                        Python and .NET AI modules.
-                      </li>
-                      <li>
-                        Built internal iOS applications in Swift that enforced data privacy rules
-                        for sensitive business information.
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </article>
-          </div>
-        </section>
-        <section
-          id="experience-cae"
-          class="portfolio-page"
-          data-nav="experience"
-          data-page-label="Experience · CAE"
-          tabindex="-1"
-        >
-          <div class="container">
-            <div class="section-head">
-              <h2 class="eyebrow">Experience</h2>
-              <span class="page-part">02 / 03</span>
-            </div>
-            <article class="exp-group">
-              <header class="exp-co">
-                <span class="exp-co-num">02</span>
-                <h3 class="exp-co-name">CAE</h3>
-                <span class="exp-co-meta">2023 to 2025 · Simulation and automation</span>
-              </header>
-              <div class="role-list">
-                <div class="role">
-                  <span class="role-date">May to August 2025</span>
-                  <div class="role-body">
-                    <h4>Cloud Engineer Intern</h4>
-                    <ul>
-                      <li>
-                        Built configuration drift automation and interactive HTML reports for
-                        reviewing virtual asset changes.
-                      </li>
-                      <li>
-                        Implemented C++ simulation algorithms that replaced manual operator
-                        recalculation.
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="role">
-                  <span class="role-date">September 2024 to May 2025</span>
-                  <div class="role-body">
-                    <h4>Software Developer Intern</h4>
-                    <ul>
-                      <li>
-                        Built an XML based productivity extension that reduced one recurring task
-                        from 4 hours to 30 minutes.
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="role">
-                  <span class="role-date">August 2023 to September 2024</span>
-                  <div class="role-body">
-                    <h4>Software Engineer Intern, with extension</h4>
-                    <ul>
-                      <li>
-                        Developed C++ and Python components for LiDAR and infrared simulation.
-                      </li>
-                      <li>
-                        Built sensor stream pipelines with validation and automated tests, reducing
-                        data inconsistencies by 20%.
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </article>
-          </div>
-        </section>
-        <section
-          id="experience-presagis"
-          class="portfolio-page"
-          data-nav="experience"
-          data-page-label="Experience · Presagis"
-          tabindex="-1"
-        >
-          <div class="container">
-            <div class="section-head">
-              <h2 class="eyebrow">Experience</h2>
-              <span class="page-part">03 / 03</span>
-            </div>
-            <article class="exp-group">
-              <header class="exp-co">
-                <span class="exp-co-num">03</span>
-                <h3 class="exp-co-name">Presagis</h3>
-                <span class="exp-co-meta">2022 to 2023 · Digital twins</span>
-              </header>
-              <div class="role-list">
-                <div class="role">
-                  <span class="role-date">May 2022 to June 2023</span>
-                  <div class="role-body">
-                    <h4>Simulation Developer Intern, with extension</h4>
-                    <ul>
-                      <li>
-                        Prototyped an NVIDIA Omniverse pipeline that automated asset preparation and
-                        reduced manual modeling time by 25%.
-                      </li>
-                      <li>
-                        Produced three internal reports on ML workflows for robotics point clouds
-                        and demonstrated prototypes to stakeholders.
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </article>
-          </div>
-        </section>
-      </div>
+        </div>
+      </section>
 
       <section
         id="projects"
@@ -616,10 +363,121 @@
         data-page-label="Projects"
       >
         <div class="container">
-          <div class="section-head"><h2 class="eyebrow">Projects</h2></div>
+          <div class="section-head"><h2>Projects</h2><p class="section-intro">Interactive tools, experiments, and the code behind them.</p></div>
           <div class="projects-grid">
+            <article id="scenebreaker" class="project-card project-card-featured project-scenebreaker" aria-labelledby="scenebreaker-title" tabindex="-1">
+              <div class="project-feature-visual">
+                <img class="project-preview" src="images/scenebreaker.webp" width="1200" height="656"
+                  alt="SceneBreaker laboratory showing a mobile robot, crossing cart, editable room geometry and route replay controls."
+                  loading="lazy" decoding="async" />
+                <p class="project-caption">A real experiment in the browser. Edit the scene, then replay the result.</p>
+              </div>
+              <div class="project-feature-copy">
+                <h3 class="project-title" id="scenebreaker-title">SceneBreaker</h3>
+                <p class="project-tagline">A robot’s route works once. Will it still work when the world changes?</p>
+                <div class="project-meta">
+                  <a class="project-link" href="https://diegocrisafu.github.io/ai_ui/" target="_blank" rel="noopener noreferrer" aria-label="Try SceneBreaker (opens in a new tab)">Try SceneBreaker</a>
+                  <a class="project-link" href="https://github.com/diegocrisafu/ai_ui/tree/codex/scenebreaker-pages" target="_blank" rel="noopener noreferrer" aria-label="Source code for SceneBreaker (opens in a new tab)">Source code</a>
+                </div>
+                <p>Build your scene, edit the route and vary robot speed or obstacle timing. Search for collisions, replay the exact conditions, and compare changes.</p>
+                <ul class="project-features">
+                  <li>Bring a 2D floorplan to trace manually, or review approximate collision boxes from a 3D GLB/glTF model.</li>
+                  <li>Test speed and timing combinations in a Web Worker, then replay any result.</li>
+                  <li>Save and reopen experiments as JSON. Files stay on your device.</li>
+                </ul>
+                <p class="project-limit">A deterministic 2D model with a 3D view—not a physics simulator or real-world safety validation.</p>
+                <div class="project-stack"><span>TypeScript</span><span>React</span><span>Three.js</span><span>Web Workers</span></div>
+              </div>
+            </article>
+            <article class="project-card project-card-featured" aria-labelledby="roomfit-title">
+              <img
+                class="project-preview"
+                src="images/roomfit.jpg"
+                width="1274"
+                height="717"
+                alt="RoomFit editor showing a furnished 3D room, furniture list, dimension controls, and fit checks."
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="project-year">Personal project · 3D room planner</span>
+              <h3 class="project-title" id="roomfit-title">RoomFit</h3>
+              <div class="project-meta">
+                <a
+                  class="project-link"
+                  href="https://diegocrisafu.github.io/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Try RoomFit (opens in new tab)"
+                  >Try RoomFit <span aria-hidden="true">↗</span></a
+                >
+                <a
+                  class="project-link"
+                  href="https://github.com/diegocrisafu/me-lazy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Source code for RoomFit on GitHub (opens in new tab)"
+                  >Source code <span aria-hidden="true">↗</span></a
+                >
+              </div>
+              <p class="project-tagline">
+                Arrange furniture in 3D. Spot overlaps and blocked doorways before moving anything.
+              </p>
+              <ul class="project-features">
+                <li>Move, rotate, and resize furniture in 3D.</li>
+                <li>Check collisions, door clearance, and room boundaries.</li>
+                <li>Save locally, import/export JSON layouts, and undo or redo edits.</li>
+              </ul>
+              <div class="project-stack">
+                <span>React</span><span>TypeScript</span><span>Three.js</span>
+              </div>
+
+            </article>
+            <article class="project-card project-card-featured" aria-labelledby="crowdflow-title">
+              <img
+                class="project-preview"
+                src="images/crowdflow.jpg"
+                width="1280"
+                height="720"
+                alt="CrowdFlow simulator showing people moving around exhibition hall obstacles, exits, and venue controls."
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="project-year">Personal project · Educational simulator</span>
+              <h3 class="project-title" id="crowdflow-title">CrowdFlow</h3>
+              <div class="project-meta">
+                <a
+                  class="project-link"
+                  href="https://diegocrisafu.github.io/diego_ux-ui/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Try CrowdFlow (opens in new tab)"
+                  >Try CrowdFlow <span aria-hidden="true">↗</span></a
+                >
+                <a
+                  class="project-link"
+                  href="https://github.com/diegocrisafu/diego_ux-ui"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Source code for CrowdFlow on GitHub (opens in new tab)"
+                  >Source code <span aria-hidden="true">↗</span></a
+                >
+              </div>
+              <p class="project-tagline">
+                Change a venue’s exits and obstacles. Compare how quickly the same crowd gets out.
+              </p>
+              <ul class="project-features">
+                <li>Edit venue obstacles and exits.</li>
+                <li>Run repeatable comparisons with the same crowd.</li>
+                <li>Run simulations in a Web Worker and export results as CSV.</li>
+              </ul>
+              <div class="project-stack">
+                <span>React</span><span>TypeScript</span><span>Web Workers</span>
+              </div>
+
+            </article>
             <article class="project-card">
               <span class="project-year">2024 to 2025 · McGill collaboration</span>
+              <img class="project-preview " src="images/neural-narratives.webp" width="1000" height="562" alt="Frame from the Neural Narratives VR prototype: brain models seated inside a virtual cinema." loading="lazy" decoding="async" />
               <h3 class="project-title">Neural Narratives</h3>
               <p class="project-tagline">
                 I built a pipeline that converts neuroimaging datasets into Unreal Engine scene
@@ -643,6 +501,7 @@
             </article>
             <article class="project-card">
               <span class="project-year">Personal project</span>
+              <img class="project-preview" src="images/weatherlens.webp" width="1000" height="563" alt="WeatherLens application showing the forecast for Montreal." loading="lazy" decoding="async" />
               <h3 class="project-title">WeatherLens</h3>
               <p class="project-tagline">
                 A Next.js and TypeScript application for comparing weather across saved cities.
@@ -662,7 +521,7 @@
                   >Live demo</a
                 ><a
                   class="project-link"
-                  href="https://github.com/diegocrisafu/ai_ui"
+                  href="https://github.com/diegocrisafu/ai_ui/tree/c4bca5f582d56982bc5569df62e68455cc5ef810"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="WeatherLens: GitHub"
@@ -672,6 +531,7 @@
             </article>
             <article class="project-card">
               <span class="project-year">Team project</span>
+              <figure class="project-identity informer-identity"><img class="project-preview identity-mark" src="images/actual-informer-logo.svg" width="180" height="180" alt="The Actual Informer original project identity." loading="lazy" decoding="async" /><figcaption>Original project identity</figcaption></figure>
               <h3 class="project-title">The Actual Informer</h3>
               <p class="project-tagline">
                 A satirical news application that uses generative AI to turn real articles into
@@ -694,6 +554,7 @@
             </article>
             <article class="project-card">
               <span class="project-year">2026 · ConUHacks X</span>
+              <figure class="project-identity wooly-identity"><img class="project-preview identity-mark" src="images/wooly-mascot.svg" width="128" height="128" alt="Wooly’s original sheep mascot." loading="lazy" decoding="async" /><figcaption>Chrome extension · Original mascot</figcaption></figure>
               <h3 class="project-title">Wooly</h3>
               <p class="project-tagline">
                 A Chrome extension built in 24 hours that extracts clothing product information and
@@ -714,6 +575,17 @@
                 >
               </div>
             </article>
+            <article class="project-card" id="work-roger" aria-labelledby="roger-title" tabindex="-1">
+              <figure class="project-system-visual" aria-label="Roger system sketch: market feed flows through asynchronous strategy workers into SQLite records.">
+                <span>Market feed</span><span class="system-connector" aria-hidden="true"></span><span>Strategy workers</span><span class="system-connector" aria-hidden="true"></span><span>SQLite records</span>
+                <figcaption>Roger · System sketch</figcaption>
+              </figure>
+              <h3 class="project-title" id="roger-title">Roger</h3>
+              <p class="project-tagline">An asynchronous pipeline for comparing prediction-market strategies against shared data.</p>
+              <div class="project-meta"><a class="project-link" href="https://github.com/diegocrisafu/expense" target="_blank" rel="noopener noreferrer" aria-label="Roger: source code (opens in a new tab)">Source code ↗</a></div>
+              <details class="project-details"><summary>How it works</summary><p>Python workers scan markets, evaluate five strategies, and store execution records and Bayesian scores in SQLite. The default runner uses paper trading; live execution is configurable and includes risk checks.</p><p>See the repository for accounting fixes and evaluation limitations. This is not a claim of profitable trading.</p></details>
+              <div class="project-stack"><span>Python</span><span>asyncio</span><span>SQLite</span></div>
+            </article>
           </div>
         </div>
       </section>
@@ -726,52 +598,36 @@
         data-page-label="Skills"
       >
         <div class="container">
-          <div class="section-head"><h2 class="eyebrow">Technical skills</h2></div>
+          <div class="section-head"><h2>Skills</h2></div>
           <div class="skills-grid">
-            <div class="skill-group">
+            <div class="skill-group skill-group-primary">
               <h3>Languages</h3>
-              <ul class="skill-chips">
-                <li class="chip">Python</li>
-                <li class="chip">C++</li>
-                <li class="chip">TypeScript</li>
-                <li class="chip">JavaScript</li>
-                <li class="chip">SQL</li>
-                <li class="chip">PowerShell</li>
-                <li class="chip">Swift</li>
-              </ul>
-            </div>
-            <div class="skill-group">
-              <h3>Frameworks and runtimes</h3>
-              <ul class="skill-chips">
-                <li class="chip">.NET</li>
-                <li class="chip">Node.js</li>
-                <li class="chip">Express</li>
-                <li class="chip">Next.js</li>
-              </ul>
-            </div>
-            <div class="skill-group">
-              <h3>Databases</h3>
-              <ul class="skill-chips">
-                <li class="chip">SQLite</li>
-                <li class="chip">MongoDB</li>
-              </ul>
-            </div>
-            <div class="skill-group">
-              <h3>Tools and platforms</h3>
-              <ul class="skill-chips">
-                <li class="chip">Git</li>
-                <li class="chip">Jira</li>
-                <li class="chip">Unreal Engine</li>
-                <li class="chip">Blender</li>
-                <li class="chip">NVIDIA Omniverse</li>
-              </ul>
+              <ul class="skill-chips skill-primary-languages" aria-label="Primary programming languages, in order of strength"><li class="chip">Python</li><li class="chip">Java</li><li class="chip">C++</li></ul>
+              <p class="skill-secondary">Also: C# (working knowledge) and Swift.</p>
             </div>
             <div class="skill-group">
               <h3>Web</h3>
-              <ul class="skill-chips">
-                <li class="chip">HTML</li>
-                <li class="chip">CSS</li>
-              </ul>
+              <ul class="skill-chips"><li class="chip">React</li><li class="chip">JavaScript</li><li class="chip">TypeScript</li><li class="chip">Next.js</li><li class="chip">HTML</li><li class="chip">CSS</li></ul>
+            </div>
+            <div class="skill-group">
+              <h3>Backend &amp; APIs</h3>
+              <ul class="skill-chips"><li class="chip">.NET</li><li class="chip">Node.js</li><li class="chip">Express</li><li class="chip">API integration</li><li class="chip">LLM APIs</li></ul>
+            </div>
+            <div class="skill-group">
+              <h3>Data</h3>
+              <ul class="skill-chips"><li class="chip">SQL</li><li class="chip">SQLite</li><li class="chip">MongoDB</li></ul>
+            </div>
+            <div class="skill-group">
+              <h3>Cloud &amp; infrastructure</h3>
+              <ul class="skill-chips"><li class="chip">AWS</li><li class="chip">Azure</li><li class="chip">Google Cloud</li><li class="chip">Terraform</li><li class="chip">Docker</li></ul>
+            </div>
+            <div class="skill-group">
+              <h3>Engineering tools</h3>
+              <ul class="skill-chips"><li class="chip">Git</li><li class="chip">CI/CD</li><li class="chip">PowerShell</li><li class="chip">Bash</li><li class="chip">Jira</li></ul>
+            </div>
+            <div class="skill-group">
+              <h3>Simulation &amp; 3D</h3>
+              <ul class="skill-chips"><li class="chip">Unreal Engine</li><li class="chip">Blender</li><li class="chip">NVIDIA Omniverse</li></ul>
             </div>
           </div>
         </div>
@@ -785,7 +641,7 @@
         data-page-label="About"
       >
         <div class="container">
-          <div class="section-head"><h2 class="eyebrow">About</h2></div>
+          <div class="section-head"><h2>About me</h2></div>
           <div class="about-grid">
             <div class="about-copy">
               <p>
@@ -804,8 +660,8 @@
               <div class="education-list">
                 <h3>Education</h3>
                 <p>
-                  <strong>Concordia University</strong><br />Computer Science · Expected graduation:
-                  December 2026
+                  <strong>Concordia University</strong><br />Joint Major in Computer Science and
+                  Computational Arts · Requirements completed September 2026; conferral pending
                 </p>
                 <p><strong>Marianopolis College</strong><br />Business · 2020 to 2022</p>
               </div>
@@ -831,146 +687,7 @@
               />
             </figure>
           </div>
-        </div>
-      </section>
-
-      <section
-        id="contact"
-        tabindex="-1"
-        class="portfolio-page"
-        data-nav="contact"
-        data-page-label="Contact"
-      >
-        <div class="container">
-          <div class="section-head reveal">
-            <h2 class="eyebrow">Contact</h2>
-          </div>
-          <div class="contact-grid">
-            <div class="contact-copy reveal">
-              <h3 class="contact-h">Contact me about engineering roles.</h3>
-              <p>
-                Email is the easiest way to reach me about graduate software engineering and data
-                opportunities.
-              </p>
-              <div class="contact-direct">
-                <a id="email-link" href="mailto:diego.crisafu@gmail.com">diego.crisafu@gmail.com</a>
-                <a href="Diego_Resume.pdf" target="_blank" rel="noopener">Download résumé (PDF)</a>
-              </div>
-              <div class="contact-socials">
-                <a
-                  href="https://github.com/diegocrisafu"
-                  target="_blank"
-                  rel="me noopener noreferrer"
-                  >GitHub</a
-                >
-                <a
-                  href="https://www.linkedin.com/in/diego-crisafulli-212bb0256/"
-                  target="_blank"
-                  rel="me noopener noreferrer"
-                  >LinkedIn</a
-                >
-              </div>
-            </div>
-            <div class="contact-form-wrap reveal">
-              <form
-                action="https://formsubmit.co/ajax/diego.crisafu@gmail.com"
-                method="POST"
-                id="contact-form"
-                novalidate
-              >
-                <input type="hidden" name="_subject" value="Portfolio contact (diegocrisafulli)" />
-                <input type="hidden" name="_captcha" value="false" />
-                <input type="hidden" name="_template" value="table" />
-                <input
-                  type="hidden"
-                  name="_autoresponse"
-                  value="Thanks for reaching out. I'll get back to you within a day or two. Cheers, Diego"
-                />
-                <input type="hidden" id="form_started_at" />
-                <div class="hp" hidden aria-hidden="true">
-                  <label for="hp">Leave this empty</label
-                  ><input id="hp" name="_honey" autocomplete="off" tabindex="-1" />
-                </div>
-
-                <p class="form-note">All fields are required.</p>
-                <div class="field">
-                  <label for="name">Name</label>
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    autocomplete="name"
-                    minlength="2"
-                    maxlength="120"
-                    required
-                  />
-                </div>
-                <div class="field">
-                  <label for="email">Email</label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    autocomplete="email"
-                    required
-                    inputmode="email"
-                  />
-                </div>
-                <div class="field">
-                  <label for="message">Message</label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    rows="6"
-                    minlength="20"
-                    maxlength="2000"
-                    required
-                  ></textarea>
-                </div>
-                <div class="field field-consent">
-                  <input
-                    id="consent"
-                    name="consent"
-                    type="checkbox"
-                    value="Agreed to the Privacy Policy dated September 11, 2026"
-                    required
-                  />
-                  <label for="consent"
-                    >I agree to have my name, email address, and message sent through FormSubmit so
-                    Diego can reply, as described in the
-                    <a href="privacy.html" target="_blank" rel="noopener"
-                      >Privacy Policy<span class="visually-hidden"> (opens in a new tab)</span></a
-                    >.</label
-                  >
-                </div>
-                <div class="send-row">
-                  <button class="btn btn-primary" type="submit" id="send-btn">Send message</button>
-                  <p id="form-status" class="form-status" role="status"></p>
-                </div>
-              </form>
-              <div id="contact-success" class="contact-success" hidden>
-                <h4>Thanks, message received.</h4>
-                <p class="muted">I'll reply within a day or two.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section
-        id="off-screen"
-        tabindex="-1"
-        class="portfolio-page gallery-section"
-        data-nav="off-screen"
-        data-page-label="Personal"
-      >
-        <div class="container">
-          <div class="section-head reveal">
-            <h2 class="eyebrow">Away from the keyboard</h2>
-            <p class="muted" style="max-width: 380px; font-size: 14px">
-              Travel and life in Montreal.
-            </p>
-          </div>
+          <details id="off-screen" class="personal-gallery"><summary>Away from the keyboard</summary><p class="personal-intro">Travel and life in Montreal.</p>
           <div class="gallery">
             <figure class="gallery-item reveal">
               <div class="gallery-frame">
@@ -1041,12 +758,139 @@
               </figcaption>
             </figure>
           </div>
+          </details>
         </div>
+      </section>
+
+      <section
+        id="contact"
+        tabindex="-1"
+        class="portfolio-page"
+        data-nav="contact"
+        data-page-label="Contact"
+      >
+        <div class="container">
+          <div class="section-head reveal">
+            <h2>Message me here</h2>
+          </div>
+          <div class="contact-grid">
+            <div class="contact-copy reveal">
+              <h3 class="contact-h">Contact me about engineering roles.</h3>
+              <p>
+                Email is the easiest way to reach me about graduate software engineering and data
+                opportunities.
+              </p>
+              <div class="contact-direct">
+                <a id="email-link" href="mailto:diego.crisafu@gmail.com">diego.crisafu@gmail.com</a>
+                <a href="Diego_Resume.pdf?v=20261007" target="_blank" rel="noopener">Download résumé (PDF)</a>
+              </div>
+              <div class="contact-socials">
+                <a
+                  href="https://github.com/diegocrisafu"
+                  target="_blank"
+                  rel="me noopener noreferrer"
+                  >GitHub</a
+                >
+                <a
+                  href="https://www.linkedin.com/in/diego-crisafulli-212bb0256/"
+                  target="_blank"
+                  rel="me noopener noreferrer"
+                  >LinkedIn</a
+                >
+              </div>
+            </div>
+            <div class="contact-form-wrap reveal">
+              <form
+                action="https://formsubmit.co/ajax/diego.crisafu@gmail.com"
+                method="POST"
+                id="contact-form"
+              >
+                <input type="hidden" name="_subject" value="Portfolio contact (diegocrisafulli)" />
+                <input type="hidden" name="_captcha" value="false" />
+                <input type="hidden" name="_template" value="table" />
+                <input
+                  type="hidden"
+                  name="_autoresponse"
+                  value="Thanks for reaching out. I'll get back to you within a day or two. Cheers, Diego"
+                />
+                <input type="hidden" id="form_started_at" />
+                <div class="hp" hidden aria-hidden="true">
+                  <label for="hp">Leave this empty</label
+                  ><input id="hp" name="_honey" autocomplete="off" tabindex="-1" />
+                </div>
+
+                <p class="form-note">All fields are required.</p>
+                <div class="field">
+                  <label for="name">Name</label>
+                  <p class="field-hint" id="name-hint">2–120 characters.</p>
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    autocomplete="name"
+                    minlength="2"
+                    maxlength="120"
+                    aria-describedby="name-hint"
+                    required
+                  />
+                </div>
+                <div class="field">
+                  <label for="email">Email</label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    autocomplete="email"
+                    required
+                    inputmode="email"
+                  />
+                </div>
+                <div class="field">
+                  <label for="message">Message</label>
+                  <p class="field-hint" id="message-hint">20–2,000 characters. A little context helps me reply.</p>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows="6"
+                    minlength="20"
+                    maxlength="2000"
+                    aria-describedby="message-hint"
+                    required
+                  ></textarea>
+                </div>
+                <div class="field field-consent">
+                  <input
+                    id="consent"
+                    name="consent"
+                    type="checkbox"
+                    value="Agreed to the Privacy Policy dated September 11, 2026"
+                    required
+                  />
+                  <label for="consent"
+                    >I agree to have my name, email address, and message sent through FormSubmit so
+                    Diego can reply, as described in the
+                    <a href="privacy.html" target="_blank" rel="noopener"
+                      >Privacy Policy<span class="visually-hidden"> (opens in a new tab)</span></a
+                    >.</label
+                  >
+                </div>
+                <div class="send-row">
+                  <button class="btn btn-primary" type="submit" id="send-btn">Send message</button>
+                  <p id="form-status" class="form-status" role="status"></p>
+                </div>
+              </form>
+              <div id="contact-success" class="contact-success" hidden>
+                <h4>Thanks, message received.</h4>
+                <p class="muted">I'll reply within a day or two.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
         <footer class="site-footer" role="contentinfo">
           <div class="container">
-            <p class="footer-closer reveal" aria-hidden="true">
-              <span>Diego.</span><span class="ital">Crisafulli.</span>
-            </p>
             <div class="footer-inner">
               <p>© <span id="year">2026</span> Diego Crisafulli · Montreal, Quebec, Canada</p>
               <div class="footer-links">
@@ -1059,7 +903,7 @@
                   rel="noopener noreferrer"
                   >LinkedIn</a
                 >
-                <a href="Diego_Resume.pdf" target="_blank" rel="noopener">Résumé</a>
+                <a href="Diego_Resume.pdf?v=20261007" target="_blank" rel="noopener">Résumé</a>
                 <a href="mailto:diego.crisafu@gmail.com">Email</a>
               </div>
             </div>
@@ -1070,8 +914,6 @@
             </nav>
           </div>
         </footer>
-      </section>
-    </main>
 
     <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
     <button class="scroll-top" id="scroll-top" hidden aria-label="Back to top" type="button">
@@ -1088,6 +930,6 @@
       </svg>
     </button>
 
-    <script src="behavior.js?v=20260911-legal" defer></script>
+    <script src="behavior.js?v=20261008-connected-experience-07" defer></script>
   </body>
 </html>

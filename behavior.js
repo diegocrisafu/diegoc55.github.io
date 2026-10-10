@@ -65,13 +65,6 @@
 
   const pages = [...document.querySelectorAll('.portfolio-page')];
   const navLinks = [...navigation.querySelectorAll('a')];
-  const pageIndex = document.getElementById('page-index');
-  const pageNumber = document.getElementById('page-number');
-  const pageLabel = document.getElementById('page-label');
-  const previousPage = document.getElementById('previous-page');
-  const nextPage = document.getElementById('next-page');
-  pageIndex.hidden = false;
-  pageIndex.addEventListener('click', focusPageTarget);
   let activePage = -1;
   let headerHeight = 108;
 
@@ -86,24 +79,11 @@
     if (current === activePage) return;
     activePage = current;
     const page = pages[current];
-    pageNumber.textContent = `${String(current + 1).padStart(2, '0')} / ${String(pages.length).padStart(2, '0')}`;
-    pageLabel.textContent = page.dataset.pageLabel;
     for (const link of navLinks) {
       const active = link.hash === `#${page.dataset.nav}`;
       link.classList.toggle('active', active);
       if (active) link.setAttribute('aria-current', 'location');
       else link.removeAttribute('aria-current');
-    }
-    for (const [link, index, direction] of [
-      [previousPage, current - 1, 'Previous'],
-      [nextPage, current + 1, 'Next'],
-    ]) {
-      const destination = pages[index];
-      link.hidden = !destination;
-      if (destination) {
-        link.href = `#${destination.id}`;
-        link.setAttribute('aria-label', `${direction} page: ${destination.dataset.pageLabel}`);
-      }
     }
   }
 
@@ -111,7 +91,7 @@
   const topButton = document.getElementById('scroll-top');
   function onScroll() {
     const total = root.scrollHeight - window.innerHeight;
-    progress.style.width = `${total > 0 ? (window.scrollY / total) * 100 : 0}%`;
+    progress.style.transform = `scaleX(${total > 0 ? Math.min(1, Math.max(0, window.scrollY / total)) : 0})`;
     const show = window.scrollY > 480;
     // Do not hide a keyboard focused control before its action is complete.
     if (show || document.activeElement !== topButton) topButton.hidden = !show;
@@ -140,7 +120,23 @@
     onScroll();
   }
   window.addEventListener('resize', measureHeader);
-  window.addEventListener('hashchange', onScroll);
+  function revealHashTarget() {
+    const target = document.getElementById(location.hash.slice(1));
+    if (!target) return;
+    let ancestor = target.parentElement;
+    let expanded = false;
+    while (ancestor) {
+      if (ancestor.tagName === 'DETAILS' && !ancestor.open) {
+        ancestor.open = true;
+        expanded = true;
+      }
+      ancestor = ancestor.parentElement;
+    }
+    if (expanded) target.scrollIntoView({ block: 'start' });
+    onScroll();
+  }
+  window.addEventListener('hashchange', revealHashTarget);
+  revealHashTarget();
   if ('ResizeObserver' in window) new ResizeObserver(measureHeader).observe(header);
   measureHeader();
   topButton.addEventListener('click', () => {
@@ -167,11 +163,15 @@
     }
     error.textContent = message;
     input.setAttribute('aria-invalid', 'true');
-    input.setAttribute('aria-describedby', id);
+    const descriptions = new Set((input.getAttribute('aria-describedby') || '').split(' ').filter(Boolean));
+    descriptions.add(id);
+    input.setAttribute('aria-describedby', [...descriptions].join(' '));
   }
   function clearError(input) {
     input.removeAttribute('aria-invalid');
-    input.removeAttribute('aria-describedby');
+    const descriptions = (input.getAttribute('aria-describedby') || '').split(' ').filter(id => id && id !== `${input.id}-err`);
+    if (descriptions.length) input.setAttribute('aria-describedby', descriptions.join(' '));
+    else input.removeAttribute('aria-describedby');
     document.getElementById(`${input.id}-err`)?.remove();
   }
   function validate() {
@@ -247,6 +247,9 @@
       sendButton.textContent = 'Send message';
     }
   });
+
+  // Retain native constraints if this enhancement fails before its handler is ready.
+  form.noValidate = true;
 
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () =>

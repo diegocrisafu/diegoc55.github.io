@@ -1,10 +1,14 @@
-const CACHE = 'portfolio-20260911-legal';
+const CACHE = 'portfolio-20261008-connected-experience-07';
 const CORE = [
   './',
   './index.html',
-  './style.css?v=20260911-legal',
-  './behavior.js?v=20260911-legal',
-  './Diego_Resume.pdf',
+  './style.css?v=20261008-connected-experience-07',
+  './behavior.js?v=20261008-connected-experience-07',
+  './images/scenebreaker.webp',
+  './assets/fonts/uncut/UncutSans-Variable.woff2',
+  './images/roomfit.jpg',
+  './images/crowdflow.jpg',
+  './Diego_Resume.pdf?v=20261007',
   './favicon.svg',
   './manifest.webmanifest',
 ];

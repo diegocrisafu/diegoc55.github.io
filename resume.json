@@ -11,8 +11,8 @@
   "education": [
     {
       "school": "Concordia University",
-      "detail": "Bachelor's, Computer Science",
-      "date": "Expected Dec 2026"
+      "detail": "Joint Major in Computer Science and Computational Arts",
+      "date": "Requirements completed Sep 2026; formal conferral pending"
     },
     {
       "school": "Marianopolis College",
@@ -99,13 +99,38 @@
     }
   ],
   "skills": {
-    "Languages": ["Python", "C++", "TypeScript", "JavaScript", "SQL", "PowerShell", "Swift"],
-    "Frameworks and runtimes": [".NET", "Node.js", "Express", "Next.js"],
-    "Databases": ["SQLite", "MongoDB"],
-    "Tools and platforms": ["Git", "Jira", "Unreal Engine", "Blender", "NVIDIA Omniverse"],
-    "Web": ["HTML", "CSS"]
+    "Languages": [
+      "Python",
+      "C++",
+      "TypeScript",
+      "JavaScript",
+      "SQL",
+      "PowerShell",
+      "Swift"
+    ],
+    "Frameworks and runtimes": [
+      ".NET",
+      "Node.js",
+      "Express",
+      "Next.js"
+    ],
+    "Databases": [
+      "SQLite",
+      "MongoDB"
+    ],
+    "Tools and platforms": [
+      "Git",
+      "Jira",
+      "Unreal Engine",
+      "Blender",
+      "NVIDIA Omniverse"
+    ],
+    "Web": [
+      "HTML",
+      "CSS"
+    ]
   },
-  "summary": "Backend and full stack developer with experience at McKesson, CAE, and Presagis building data pipelines, internal tools, and simulation systems. Concordia Computer Science, graduating December 2026. Fluent in English and French.",
+  "summary": "Backend and full stack developer with experience at McKesson, CAE, and Presagis building data pipelines, internal tools, and simulation systems. Completed Concordia requirements in Computer Science and Computational Arts; formal degree conferral pending. Fluent in English and French.",
   "development": [
     "Introduction to DevOps and Microsoft Development Platforms, LinkedIn Learning course completion, May 2025.",
     "Pratt & Whitney Micro WIL, Certificate of Completion, December 2025."
